@@ -140,6 +140,10 @@ text(dk2[,1], y= dk2[,2], col="red", labels=rownames(dk2), cex=1.5)
 
 
 
+
+
+
+
 ############################
 # Из Kumar p 133
 
@@ -233,7 +237,7 @@ TDMlsa <- textmatrix(myCorpus)
 
 library(tidytext)
 
-dfm <- cast_dfm(dtf, doc_id, term, freq)
+dfm <- tidytext::cast_dfm(dtf, doc_id, term, freq)
 
 tdm <- cast_tdm(dtf, doc_id, term, freq)
 
@@ -241,6 +245,7 @@ tdm <- cast_tdm(dtf, doc_id, term, freq)
 # Convert A Dfm To An Lsa "Textmatrix" quanteda
 tdmlsa <- convert(dfm, to = "lsa") 
 
+tdmlsa <- as.matrix(tdmlsa)
 
 library(LSAfun)
 library(lsa)
