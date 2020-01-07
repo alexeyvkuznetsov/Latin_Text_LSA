@@ -75,9 +75,9 @@ dtm <- dtm_remove_lowfreq(dtm, minfreq = 3)
 head(dtm_colsums(dtm))
 
 ## Remove nouns which you really do not like (mostly too common nouns)
-dtm_clean <- dtm_remove_terms(dtm_clean, terms = c("appartement", "appart", "eter"))
+dtm <- dtm_remove_terms(dtm, terms = c("ann", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
 ## Or keep of these nouns the top 50 based on mean term-frequency-inverse document frequency
-dtm_clean <- dtm_remove_tfidf(dtm_clean, top = 50)
+dtm <- dtm_remove_tfidf(dtm, top = 50)
 
 
 
@@ -86,16 +86,16 @@ dtm2list <- apply(dtm, 1, function(x) {
   paste(rep(names(x), x), collapse=" ")
 })
 
-## convert to a Corpus
+## convert list of text to a Corpus
 
 myCorpus <- VCorpus(VectorSource(dtm2list))
 inspect(myCorpus)
 
 # Created tdm_matrix
 
-tdmtm <- TermDocumentMatrix(myCorpus)
+tdm <- TermDocumentMatrix(myCorpus)
 
-tdm_matrix <- as.matrix(tdmtm)
+tdm_matrix <- as.matrix(tdm)
 
 # Created LSA space
 
