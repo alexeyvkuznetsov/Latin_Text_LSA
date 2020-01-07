@@ -137,6 +137,9 @@ text(tk2[,1], y= tk2[,2], labels=rownames(tk2) , cex=.70)
 plot(dk2[,1], y= dk2[,2], col="blue", pch=" ", main="Семантическая схожесть документов")
 text(dk2[,1], y= dk2[,2], col="red", labels=rownames(dk2), cex=1.5)
 
+
+
+
 ############################
 # Из Kumar p 133
 
