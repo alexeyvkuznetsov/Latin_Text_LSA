@@ -38,13 +38,15 @@ historia$texts <- removeNumbers(historia$texts)
 
 customStopWords <- c("ann", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom.")
 
-load("lat_stopwords.Rda")
+#load("lat_stopwords.Rda")
 
-MyStopwords <- c(lat_stopwords, customStopWords)
+load("lat_stop_perseus.Rda")
+
+MyStopwords <- c(lat_stop_perseus, customStopWords)
 
 historia$texts <- removeWords(historia$texts, c(lat_stopwords, customStopWords))
 
-historia$texts <- removeWords(historia$texts, customStopWords)
+historia$texts <- removeWords(historia$texts, MyStopwords)
 
 
 #udmodel_latin <- udpipe_download_model(language = "latin_ittb")
@@ -69,8 +71,8 @@ dtf <- document_term_frequencies(dtf, document = "doc_id", term = "lemma")
 ## Create a document/term/matrix for building a topic model
 dtm <- document_term_matrix(x = dtf)
 ## Remove words which do not occur that much
-dtm_clean <- dtm_remove_lowfreq(dtm, minfreq = 3)
-head(dtm_colsums(dtm_clean))
+dtm <- dtm_remove_lowfreq(dtm, minfreq = 3)
+head(dtm_colsums(dtm))
 
 ## Remove nouns which you really do not like (mostly too common nouns)
 dtm_clean <- dtm_remove_terms(dtm_clean, terms = c("appartement", "appart", "eter"))
