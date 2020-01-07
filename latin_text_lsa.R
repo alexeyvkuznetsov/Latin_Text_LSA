@@ -4,7 +4,7 @@ setwd("D:/GitHub/Latin_Text_LSA/")
 library(tm)
 library(udpipe)
 
-library(readr)
+#library(readr)
 library(quanteda)
 library(tidytext)
 
@@ -36,7 +36,7 @@ historia$texts <- removeNumbers(historia$texts)
 
 # Stopwords 
 
-customStopWords <- c("ann", "annus", "aer", "aes", "aera", "sunt")
+customStopWords <- c("ann", "annus", "aer", "aes", "aera", "suus", "filius")
 
 load("lat_stopwords.Rda")
 
