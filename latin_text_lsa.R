@@ -44,6 +44,8 @@ MyStopwords <- c(lat_stopwords, customStopWords)
 
 historia$texts <- removeWords(historia$texts, c(lat_stopwords, customStopWords))
 
+historia$texts <- removeWords(historia$texts, customStopWords)
+
 
 #udmodel_latin <- udpipe_download_model(language = "latin_ittb")
 #udmodel_latin <- udpipe_load_model(ud_model$file_model)
