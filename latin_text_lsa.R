@@ -1,5 +1,6 @@
 setwd("D:/GitHub/Latin_Text_LSA/")
 
+# load required libraries
 
 library(tm)
 library(udpipe)
