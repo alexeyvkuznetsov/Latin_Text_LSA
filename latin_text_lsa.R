@@ -103,20 +103,22 @@ td_matrix <- as.matrix(tdm)
 # Created LSA space
 
 td.mat.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
-td.mat.lsa <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
+#td.mat.lsa <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
 
 td.mat.tfidf
 
 
 lsaSpace <- lsa(td.mat.tfidf, dims=dimcalc_share()) # create LSA space
-lsaSpace <- lsa(td.mat.lsa) # create LSA space
+#lsaSpace <- lsa(td.mat.lsa) # create LSA space
 
 as.textmatrix(lsaSpace)
 
+
+######
 dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
 
 dist.mat.lsa # check distance mantrix
-
+######
 
 
 # This command will show the value-weighted matrix of Terms
@@ -150,6 +152,20 @@ text(dk2[,1], y= dk2[,2], col="red", labels=rownames(dk2), cex=1.5)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
 points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 ggplot(points,aes(x=x, y=y)) + 
@@ -157,6 +173,45 @@ ggplot(points,aes(x=x, y=y)) +
   geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(dtf$doc_id)))
 
 
+
+#https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
+
+# compute distance matrix
+td.mat <- as.matrix(TermDocumentMatrix(corpus))
+td.mat.lsa <- lw_bintf(td.mat) * gw_idf(td.mat) # weighting
+lsaSpace <- lsa(td.mat.lsa) # create LSA space
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
+
+# MDS
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+ggplot(points, aes(x=x, y=y)) + geom_point(data=points, aes(x=x, y=y))
+
+ggplot(points, aes(x=x, y=y)) + geom_point(data=points, aes(x=x, y=y)) + geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(dtf$doc_id)))
+
+
+
+#lsa_mds.R
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=df$view)) + 
+  geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(df)))
+
+
+
+#https://github.com/ds10/Personal-Corpus/blob/5f009ac29b53a27f69855cdc4b787bf48791b524/R/blog_text_similarity.R
+
+fit <- cmdscale(dist.mat.lsa, eig = TRUE, k = 2)
+points <- data.frame(x = fit$points[, 1], y = fit$points[, 2])
+ggplot(points, aes(x = x, y = y)) + geom_point(data = points, aes(x = x, y = y, 
+                                                                  color = merge.frame$poster)) + geom_text(data = points, aes(x = x, y = y - 0.2, label = row.names(merge.frame)))
+
+
+fit <- cmdscale(dist.mat.lsa, eig = TRUE, k = 2)
+points <- data.frame(x = fit$points[, 1], y = fit$points[, 2])
+ggplot(points, aes(x = x, y = y)) + geom_point(data = points, aes(x = x, y = y, 
+                                                                  color = merge.frame$poster) )
 
 
 ########################
