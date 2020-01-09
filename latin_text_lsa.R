@@ -84,30 +84,38 @@ dtm <- dtm_remove_tfidf(dtm, top = 50)
 
 
 ## Convert dtm to a list of text
-dtm2list <- apply(dtm, 1, function(x) {
+dtm.to.list <- apply(dtm, 1, function(x) {
   paste(rep(names(x), x), collapse=" ")
 })
 
 ## convert list of text to a Corpus
 
-myCorpus <- VCorpus(VectorSource(dtm2list))
+myCorpus <- VCorpus(VectorSource(dtm.to.list))
 inspect(myCorpus)
 
 # Created tdm_matrix
 
 tdm <- TermDocumentMatrix(myCorpus)
 
-tdm_matrix <- as.matrix(tdm)
+td_matrix <- as.matrix(tdm)
+
 
 # Created LSA space
 
-tdmtfidf <- lw_tf(tdm_matrix) * gw_idf(tdm_matrix)
+td.mat.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
+td.mat.lsa <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
 
 tdmtfidf
 
-lsaSpace <- lsa(tdmtfidf, dims=dimcalc_share())
+lsaSpace <- lsa(td.mat.tfidf, dims=dimcalc_share()) # create LSA space
+lsaSpace <- lsa(td.mat.lsa) # create LSA space
 
 as.textmatrix(lsaSpace)
+
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
+
+dist.mat.lsa # check distance mantrix
+
 
 
 # This command will show the value-weighted matrix of Terms
@@ -137,6 +145,46 @@ text(tk2[,1], y= tk2[,2], labels=rownames(tk2) , cex=.70)
 # This can be done with the documents too. The added parameter cex determines text size. 
 plot(dk2[,1], y= dk2[,2], col="blue", pch=" ", main="Семантическая схожесть документов")
 text(dk2[,1], y= dk2[,2], col="red", labels=rownames(dk2), cex=1.5)
+
+
+
+
+
+
+
+# 3. MDS with LSA
+td.mat.lsa <- lw_bintf(td.mat) * gw_idf(td.mat) # weighting
+lsaSpace <- lsa(td.mat.lsa) # create LSA space
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
+dist.mat.lsa # check distance mantrix
+
+# MDS
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=df$view)) + 
+  geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(df)))
+
+library(scatterplot3d)
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=3)
+colors <- rep(c("blue", "green", "red"), each=3)
+scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=16, 
+              main="Semantic Space Scaled to 3D", xlab="x", ylab="y", zlab="z", type="h")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
