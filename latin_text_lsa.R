@@ -9,6 +9,7 @@ library(lsa)
 #library(readr)
 library(quanteda)
 library(tidytext)
+library(ggplot2)
 
 prologus<-paste(scan(file ="files/01 prologus.txt",what='character'),collapse=" ")
 historia_g<-paste(scan(file ="files/02 historia_g.txt",what='character'),collapse=" ")
@@ -169,8 +170,8 @@ text(dk2[,1], y= dk2[,2], col="red", labels=rownames(dk2), cex=1.5)
 fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
 points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 ggplot(points,aes(x=x, y=y)) + 
-  geom_point(data=points,aes(x=x, y=y, color=dtf$doc_id)) + 
-  geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(dtf$doc_id)))
+  geom_point(data=points,aes(x=x, y=y, color=historia$texts)) + 
+  geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(historia$texts)))
 
 
 
