@@ -100,14 +100,15 @@ tdm <- TermDocumentMatrix(myCorpus)
 
 td_matrix <- as.matrix(tdm)
 
+# Calculate a weighted document-term matrix according to the chosen local and/or global weighting scheme
 
-# Created LSA space
 
-td.mat.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
-#td.mat.lsa <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
+#td.mat.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
+td.mat.lsa <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
 
 td.mat.tfidf
 
+# Created LSA space
 
 lsaSpace <- lsa(td.mat.tfidf, dims=dimcalc_share()) # create LSA space
 #lsaSpace <- lsa(td.mat.lsa) # create LSA space
@@ -159,7 +160,7 @@ dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
 
 dist.mat.lsa # check distance mantrix
 
-
+# Plot the distance matrix:
 ### Заработало
 fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2) # Classical (Metric) Multidimensional Scaling
 
