@@ -108,6 +108,7 @@ td.mat.lsa <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
 
 td.mat.tfidf
 
+# Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
 # Created LSA space
 
 lsaSpace <- lsa(td.mat.tfidf, dims=dimcalc_share()) # create LSA space
