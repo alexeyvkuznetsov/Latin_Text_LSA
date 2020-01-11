@@ -118,10 +118,6 @@ as.textmatrix(lsaSpace)
 
 
 
-
-
-
-
 # Вариант из статьи: A Guide to Text Analysis with Latent Semantic Analysis in R with Annotated Code: Studying Online Reviews and the Stack Exchange Community
 
 # This command will show the value-weighted matrix of Terms
@@ -156,29 +152,12 @@ text(dk2[,1], y= dk2[,2], col="red", labels=rownames(dk2), cex=1.5)
 
 
 # Вариант 2 из Mastering Text Mining with R и 
+# https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
 
-######
+
 dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
 
 dist.mat.lsa # check distance mantrix
-######
-
-
-
-
-
-
-#### Это работает но убого на вид
-
-fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
-points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
-
-ggplot(points, aes(x=x, y=y)) + 
-  geom_point(data=points, aes(x=x, y=y))
-
-####3
-
-
 
 
 ### Заработало
@@ -190,6 +169,30 @@ ggplot(points,aes(x=x, y=y)) +
   geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
   geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
 ###
+
+# Тоже работает
+
+fit<- cmdscale(dist.mat.lsa, eig = TRUE, k = 2)
+points <- data.frame(x = fit$points[, 1], y = fit$points[, 2])
+
+ggplot(points, aes(x = x, y = y)) +
+  geom_point(data = points, aes(x = x, y = y,size=5, color = historia$book)) +
+  geom_text(data = points, aes(x = x, y = y - 0.2, label = row.names(historia)))
+
+#### Это работает но убого на вид
+
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+ggplot(points, aes(x=x, y=y)) + 
+  geom_point(data=points, aes(x=x, y=y))
+
+####
+
+
+
+
+
 
 
 
