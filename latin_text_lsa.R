@@ -173,12 +173,37 @@ ggplot(points, aes(x=x, y=y)) +
 
 
 ### Заработало
-fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2) # Classical (Metric) Multidimensional Scaling
+
 points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
 ggplot(points,aes(x=x, y=y)) + 
   geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
-  geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(historia)))
+  geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
 ###
+
+
+
+lsa.space = lsa(td.mat.tfidf, dims=dimcalc_share())
+dist.mat = dist(t(as.textmatrix(lsa.space)))
+dist.mat
+doc.mds = cmdscale(dist.mat, k=2)
+data = data.frame(x = doc.mds[,1], y = doc.mds[,2], topic = historia$book, id = row.names(historia))
+ggplot(data, aes(x = x, y = y, color = topic)) + geom_point() + geom_text(aes(x = x, y = y - 0.2, label = row.names(historia)))
+
+
+
+las.space = lsa(td.mat.w, dims = 3);
+dist.mat = dist(t(as.textmatrix(lsa.space)));
+dist.mat;
+doc.mds = cmdscale(dist.mat, k=2);
+data = data.frame(x = doc.mds[,1], y = doc.mds[,2], topic = df$topic, id = row.names(df));
+ggplot(data, aes(x = x, y = y, color = topic)) + geom_point() + geom_text(aes(x = x, y = y - 0.2, label = id))
+
+
+
+
+
 
 
 #https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
