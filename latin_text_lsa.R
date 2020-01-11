@@ -115,12 +115,14 @@ lsaSpace <- lsa(td.mat.tfidf, dims=dimcalc_share()) # create LSA space
 as.textmatrix(lsaSpace)
 
 
-######
-dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
 
-dist.mat.lsa # check distance mantrix
-######
 
+
+
+
+
+
+# Вариант из статьи: A Guide to Text Analysis with Latent Semantic Analysis in R with Annotated Code: Studying Online Reviews and the Stack Exchange Community
 
 # This command will show the value-weighted matrix of Terms
 tk2 = t(lsaSpace$sk * t(lsaSpace$tk))
@@ -153,6 +155,13 @@ text(dk2[,1], y= dk2[,2], col="red", labels=rownames(dk2), cex=1.5)
 
 
 
+# Вариант 2 из Mastering Text Mining with R и 
+
+######
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
+
+dist.mat.lsa # check distance mantrix
+######
 
 
 
