@@ -23,11 +23,11 @@ recapitulatio<-data.frame(texts=recapitulatio)
 historia_w<-data.frame(texts=historia_w)
 historia_s<-data.frame(texts=historia_s)
 
-prologus$book<-"Prologus"
-historia_g$book<-"Historia_Gothorum"
-recapitulatio$book<-"Recapitulatio"
-historia_w$book<-"Historia_Wandalorum"
-historia_s$book<-"Historia_Suevorum"
+prologus$book<-"01 Prologus"
+historia_g$book<-"02 Historia Gothorum"
+recapitulatio$book<-"03 Recapitulatio"
+historia_w$book<-"04 Historia Wandalorum"
+historia_s$book<-"05 Historia Suevorum"
 
 
 historia<-rbind(prologus,historia_g,recapitulatio,historia_w,historia_s)
@@ -103,8 +103,8 @@ td_matrix <- as.matrix(tdm)
 # Calculate a weighted document-term matrix according to the chosen local and/or global weighting scheme
 
 
-#td.mat.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
-td.mat.lsa <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
+td.mat.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
+td.mat.tfidf <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
 
 td.mat.tfidf
 
@@ -174,12 +174,13 @@ ggplot(points,aes(x=x, y=y)) +
 
 # Тоже работает
 
-fit<- cmdscale(dist.mat.lsa, eig = TRUE, k = 2)
+fit<- cmdscale(dist.mat.lsa, eig = TRUE, k=2)
+
 points <- data.frame(x = fit$points[, 1], y = fit$points[, 2])
 
 ggplot(points, aes(x = x, y = y)) +
-  geom_point(data = points, aes(x = x, y = y,size=5, color = historia$book)) +
-  geom_text(data = points, aes(x = x, y = y - 0.2, label = row.names(historia)))
+  geom_point(data = points, aes(x = x, y = y, size=5, color = historia$book)) +
+  geom_text(data = points, aes(x = x, y = y, label = row.names(historia)))
 
 #### Это работает но убого на вид
 
