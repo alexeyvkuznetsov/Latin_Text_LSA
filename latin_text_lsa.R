@@ -159,20 +159,26 @@ text(dk2[,1], y= dk2[,2], col="red", labels=rownames(dk2), cex=1.5)
 
 
 
-
-
-
-
-
-
-
+#### Это работает но убого на вид
 
 fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
 points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
-ggplot(points,aes(x=x, y=y)) + 
-  geom_point(data=points,aes(x=x, y=y, color=historia$texts)) + 
-  geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(historia$texts)))
 
+ggplot(points, aes(x=x, y=y)) + 
+  geom_point(data=points, aes(x=x, y=y))
+
+####3
+
+
+
+
+### Заработало
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(historia)))
+###
 
 
 #https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
