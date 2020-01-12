@@ -67,7 +67,7 @@ tdm_wiki <- TermDocumentMatrix(wiki_docs, control = list(removePunctuation=TRUE,
 lsa_out = lsa::lsa(tdm_wiki, dims=lsa::dimcalc_share())
 lsa_out
 
-# docs_df
+# docs_df Create data frame
 docs_mat <- lsa_out$dk[, c(1:2)]
 plotmat_docs_df <- as.data.frame(docs_mat)
 colnames(plotmat_docs_df) <- c("Dim1", "Dim2")
