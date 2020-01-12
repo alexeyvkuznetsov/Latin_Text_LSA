@@ -121,10 +121,13 @@ colnames(plotmat_docs_df) <- c("Dim1", "Dim2")
 
 # k-means cluster the docs dataframe.
 set.seed(101)
+#clus <- kmeans(plotmat_docs_df)
 clus <- kmeans(plotmat_docs_df, 3)
 plotmat_docs_df$cluster <- factor(clus$cluster)
 
 # plot documents in ggplot2
 ggplot(plotmat_docs_df, aes(x=Dim1, y=Dim2)) +
   geom_point(size=2, aes(color=cluster)) +
-  ggrepel::geom_text_repel(aes(label = rownames(plotmat_docs_df)), data = plotmat_docs_df, size=3) + theme_bw()
+  ggrepel::geom_text_repel(aes(label = rownames(plotmat_docs_df)), 
+                           data = plotmat_docs_df, size=3) + 
+  theme_bw()

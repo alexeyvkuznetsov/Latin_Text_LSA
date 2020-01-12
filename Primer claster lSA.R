@@ -22,6 +22,7 @@ colnames(plotmat_docs_df) <- c("Dim1", "Dim2")
 
 # k-means cluster the docs dataframe.
 set.seed(101)
+#clus <- kmeans(plotmat_docs_df)
 clus <- kmeans(plotmat_docs_df, 3)
 plotmat_docs_df$cluster <- factor(clus$cluster)
 
