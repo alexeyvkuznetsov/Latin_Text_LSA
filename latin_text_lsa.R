@@ -5,11 +5,12 @@ setwd("D:/GitHub/Latin_Text_LSA/")
 library(tm)
 library(udpipe)
 library(lsa)
+library(ggplot2)
 
 #library(readr)
 library(quanteda)
 library(tidytext)
-library(ggplot2)
+
 
 prologus<-paste(scan(file ="files/01 prologus.txt",what='character'),collapse=" ")
 historia_g<-paste(scan(file ="files/02 historia_g.txt",what='character'),collapse=" ")
@@ -62,7 +63,7 @@ x <- as.data.frame(x)
 save(x,file="historia_annotated_dataset.Rda")
 
 
-## Get a data.frame with 1 row per doc_id/lemma
+## Get a data.frame with 1 row per doc_id/lemma or specific POS tag
 
 dtf <- document_term_frequencies(x[, c("doc_id", "lemma")])
 
@@ -172,6 +173,14 @@ ggplot(points,aes(x=x, y=y)) +
   geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
 ###
 
+
+
+
+
+
+
+
+
 # Тоже работает
 
 fit<- cmdscale(dist.mat.lsa, eig = TRUE, k=2)
@@ -193,6 +202,22 @@ ggplot(points, aes(x=x, y=y)) +
 ####
 
 
+
+# Calculate Cosine Distance (LSA)
+# compute distance matrix
+
+lsa.mat.tfidf <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+# (subtract from 1 to get dissimilarity matrix)
+
+fit <- lsa::cosine(lsa.mat.tfidf)
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
 
 
 
