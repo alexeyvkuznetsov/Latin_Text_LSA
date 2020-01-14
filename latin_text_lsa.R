@@ -173,15 +173,7 @@ ggplot(points,aes(x=x, y=y)) +
   geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
 ###
 
-
-
-
-
-
-
-
-
-# Тоже работает
+# Тоже работает Большие точки
 
 fit<- cmdscale(dist.mat.lsa, eig = TRUE, k=2)
 
@@ -190,6 +182,30 @@ points <- data.frame(x = fit$points[, 1], y = fit$points[, 2])
 ggplot(points, aes(x = x, y = y)) +
   geom_point(data = points, aes(x = x, y = y, size=5, color = historia$book)) +
   geom_text(data = points, aes(x = x, y = y, label = row.names(historia)))
+
+#####
+
+
+
+
+# compute cosine distance matrix
+dist.mat.lsa.cosine <- dist(cosine(as.textmatrix(lsaSpace)))
+
+# Plot the distance matrix:
+
+fit <- cmdscale(dist.mat.lsa.cosine, eig=TRUE, k=2) # Classical (Metric) Multidimensional Scaling
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.1, label=row.names(historia)))
+
+
+
+
+
+
 
 #### Это работает но убого на вид
 
