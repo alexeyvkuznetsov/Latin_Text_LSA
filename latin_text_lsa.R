@@ -353,20 +353,20 @@ ggplot(points, aes(x=x, y=y)) +
 # Calculate Cosine Distance (LSA)
 # compute distance matrix
 
-#lsa.mat.tfidf <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+lsa.mat.tfidf <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
 
-lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+#lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
 
 # Use the `cosine` function in `lsa` package to get cosine similarities matrix
 # (subtract from 1 to get dissimilarity matrix)
 
-#fit <- lsa::cosine(lsa.mat.tfidf)
+fit <- lsa::cosine(lsa.mat.tfidf)
 
-simMatrix <- as.matrix(cosine(lsaMatrix))
+#SM <- as.matrix(cosine(lsaMatrix))
 
-#points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 
-points <- data.frame(x=simMatrix$points[, 1], y=simMatrix$points[, 2])
+#points <- data.frame(x=SM$points[, 1], y=SM$points[, 2])
 
 
 ggplot(points,aes(x=x, y=y)) + 
@@ -374,6 +374,55 @@ ggplot(points,aes(x=x, y=y)) +
   geom_text(data=points,aes(x=x, y=y-0.05, label=row.names(historia)))
 
 ###################################################
+
+
+
+
+#lsaSpace <- lsa(tdm)
+# lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+distMatrix <- cosine(lsaMatrix)
+
+
+
+
+#https://github.com/katyalrajat/corpus_mining/blob/9b805cd229b2f5260bfa1007765b0aa6c992fc8d/code.R
+############################ LSA ##############################
+###############################################################
+tdm <- TermDocumentMatrix(docs)
+tdm.matrix <- as.matrix(tdm)
+#check class
+dim(tdm.matrix)
+
+#weight terms and docs
+tdm.matrix.lsa <- lw_tf(tdm.matrix) * gw_idf(tdm.matrix)
+dim(tdm.matrix.lsa)
+
+#compute the Latent semantic space
+lsaSpace <- lsa(tdm.matrix.lsa, dimcalc_share()) # create LSA space
+#examine output
+names(lsaSpace)
+
+LSAMat <- as.textmatrix(lsaSpace)
+
+#Calculate similarity of documents in LSA space
+cosineSim <- function(x){
+  as.dist(x%*%t(x)/(sqrt(rowSums(x^2) %*% t(rowSums(x^2)))))
+}
+
+#Similarity matrix
+cs.lsa <- as.matrix(cosineSim(t(LSAMat)))
+write.csv(cs.lsa,"cs_lsa.csv")
+
+library(corrplot)
+corrplot(cs.lsa)
+corrplot(cs.lsa, method = "square")
+
+
+##################
+##################
+
 
 
 
