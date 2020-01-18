@@ -66,7 +66,7 @@ save(x,file="historia_annotated_dataset.Rda")
 
 ## Get a data.frame with 1 row per doc_id/lemma or specific POS tag
 
-dtf <- document_term_frequencies(x[, c("doc_id", "lemma")])
+#dtf <- document_term_frequencies(x[, c("doc_id", "lemma")])
 
 dtf <- subset(x, upos %in% c("ADJ", "ADV", "PROPN", "VERB", "NOUN"))
 
@@ -113,7 +113,7 @@ td.mat.tfidf
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
 # Created LSA space
 
-lsaSpace <- lsa(td.mat.tfidf, dims=dimcalc_share()) # create LSA space
+lsaSpace <- lsa::lsa(td.mat.tfidf, dims=dimcalc_share()) # create LSA space
 #lsaSpace <- lsa(td.mat.lsa) # create LSA space
 
 as.textmatrix(lsaSpace)
@@ -187,7 +187,7 @@ ggplot(points, aes(x = x, y = y)) +
 #####
 
 
-
+###???
 
 # compute cosine distance matrix
 dist.mat.lsa.cosine <- dist(cosine(as.textmatrix(lsaSpace)))
@@ -202,7 +202,8 @@ ggplot(points,aes(x=x, y=y)) +
   geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
   geom_text(data=points,aes(x=x, y=y-0.1, label=row.names(historia)))
 
-
+###
+# 3 вариант
 
 
 
