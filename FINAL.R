@@ -163,6 +163,9 @@ legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Hist
 
 
 
+
+
+
 #COSINE similarity
 
 # compute cosine distance matrix
@@ -291,9 +294,37 @@ corrplot(cosine.lsa, method = "square")
 
 corrplot(distMatrix, method = "square")
 
+corrplot(lsa.cosine.dist.tfidf, method = "square")
 
 
 
+
+#https://github.com/tifaniwarnita/Document-Similarity/blob/97939d7733965ff322682e98850e426858588357/Document%20Similarity/doc-sim%20(cosine%20dist).R
+
+# Creating Term Document Matrix
+tdm.tf <- TermDocumentMatrix(myCorpus)
+tdm.bin <- weightBin(tdm.tf)
+tdm.tfidf <- weightTfIdf(tdm.tf, normalize = TRUE)
+
+
+# Calculate Cosine Distance (LSA)
+lsa.space.bin <- lsa(tdm.bin)
+lsa.space.tf <- lsa(tdm.tf)
+lsa.space.tfidf <- lsa(tdm.tfidf)
+lsa.mat.bin <- diag(lsa.space.bin$sk) %*% t(lsa.space.bin$dk)
+lsa.mat.tf <- diag(lsa.space.tf$sk) %*% t(lsa.space.tf$dk)
+lsa.mat.tfidf <- diag(lsa.space.tfidf$sk) %*% t(lsa.space.tfidf$dk)
+lsa.cosine.dist.bin <- lsa::cosine(lsa.mat.bin)
+lsa.cosine.dist.tf <- lsa::cosine(lsa.mat.tf)
+lsa.cosine.dist.tfidf <- lsa::cosine(lsa.mat.tfidf)
+
+# Print Result
+
+lsa.cosine.dist.bin
+
+lsa.cosine.dist.tf
+
+lsa.cosine.dist.tfidf
 
 
 
