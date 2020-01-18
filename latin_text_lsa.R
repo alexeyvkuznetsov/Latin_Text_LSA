@@ -192,6 +192,16 @@ points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 ggplot(points,aes(x=x, y=y)) + 
   geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
   geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
+
+
+
+library(scatterplot3d)
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=3)
+colors <- rep(c("blue", "green", "red", "purple", "yellow" ))
+scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=20, 
+              main="Semantic Space Scaled to 3D", xlab="x", ylab="y", zlab="z", type="h")
+
+
 ###
 
 # Тоже работает Большие точки

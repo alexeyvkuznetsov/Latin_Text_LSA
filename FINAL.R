@@ -139,29 +139,31 @@ as.textmatrix(lsaSpace)
 
 #LSA и кластерный анализ
 # https://joparga3.github.io/Udemy_text_analysis/#latent-semantic-analysis
+# https://github.com/Sathiyarajan/data-science-repo-r-py/blob/9a76df4b28f328e7fb43ecd66876e0d834a6d8ac/R/Mastering-R-Programming/Codes/Section%207/7.3.R
+
 
 # RUN LSA
-lsa_out = lsa::lsa(tdm.tfidf, dims = lsa::dimcalc_share())
+#lsaSpace = lsa::lsa(tdm.tfidf, dims = lsa::dimcalc_share())
 
 
 # reduced information for the terms
-#lsa_out$tk[1:5,]
+#lsaSpace$tk[1:5,]
 
 
 # reduced information for the documents
-#rownames(lsa_out$dk) = n
-#lsa_out$dk
+#rownames(lsaSpace$dk) = n
+#lsaSpace$dk
 
 
 # information contributed by the dimensions
-#lsa_out$sk
+#lsaSpace$sk
 
 
 
 # Using TK and DK to cluster the documents
 
 # DOCS data.frame
-docs_mat = lsa_out$dk[,c(1:2)]
+docs_mat = lsaSpace$dk[,c(1:2)]
 plotmat_docs_df = as.data.frame(docs_mat)
 colnames(plotmat_docs_df) = c("x","y")
 
