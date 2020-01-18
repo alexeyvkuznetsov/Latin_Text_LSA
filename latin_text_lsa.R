@@ -313,6 +313,27 @@ g
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #### Это работает но убого на вид
 
 fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
@@ -324,25 +345,35 @@ ggplot(points, aes(x=x, y=y)) +
 ####
 
 
+####################################
+##COSINE DISTANCE
+#https://stackoverflow.com/questions/15229584/compute-cosine-similarities-between-documents-in-semantic-space-using-r-lsa-pac
 
 
 # Calculate Cosine Distance (LSA)
 # compute distance matrix
 
-lsa.mat.tfidf <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+#lsa.mat.tfidf <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
 
 # Use the `cosine` function in `lsa` package to get cosine similarities matrix
 # (subtract from 1 to get dissimilarity matrix)
 
-fit <- lsa::cosine(lsa.mat.tfidf)
+#fit <- lsa::cosine(lsa.mat.tfidf)
 
-points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+simMatrix <- as.matrix(cosine(lsaMatrix))
+
+#points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+points <- data.frame(x=simMatrix$points[, 1], y=simMatrix$points[, 2])
+
 
 ggplot(points,aes(x=x, y=y)) + 
   geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
   geom_text(data=points,aes(x=x, y=y-0.05, label=row.names(historia)))
 
-
+###################################################
 
 
 
@@ -390,8 +421,8 @@ ggplot(points, aes(x=x, y=y)) + geom_point(data=points, aes(x=x, y=y)) + geom_te
 fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
 points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 ggplot(points,aes(x=x, y=y)) + 
-  geom_point(data=points,aes(x=x, y=y, color=df$view)) + 
-  geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(df)))
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(historia)))
 
 
 
