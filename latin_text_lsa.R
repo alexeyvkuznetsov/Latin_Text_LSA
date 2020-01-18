@@ -262,7 +262,7 @@ lsa_out$sk
 # DOCS df
 docs_mat = lsa_out$dk[,c(1:2)]
 plotmat_docs_df = as.data.frame(docs_mat)
-colnames(plotmat_docs_df) = c("Dim1","Dim2")
+colnames(plotmat_docs_df) = c("x","y")
 
 
 # KMEANS to cluster
@@ -276,7 +276,7 @@ plotmat_docs_df
 library(ggplot2)
 library(ggrepel)
 
-g = ggplot(plotmat_docs_df, aes(x = Dim1, y = Dim2))
+g = ggplot(plotmat_docs_df, aes(x = x, y = y))
 g = g + geom_point(size = 2, aes(color = cluster))
 g = g + ggrepel::geom_text_repel(aes(label = rownames(plotmat_docs_df))
                                  , data = plotmat_docs_df, size = 3)
