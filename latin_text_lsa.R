@@ -194,12 +194,53 @@ ggplot(points,aes(x=x, y=y)) +
   geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
 
 
+# http://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization
 
 library(scatterplot3d)
 fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=3)
-colors <- rep(c("blue", "green", "red", "purple", "yellow" ))
-scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=20, 
+colors <- rep(c("blue", "green", "red", "purple", "orange" ))
+scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=20, angle = 65, box = FALSE,
               main="Semantic Space Scaled to 3D", xlab="x", ylab="y", zlab="z", type="h")
+
+
+s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=20, angle = 65, box = FALSE,
+              main=" ", xlab="x", ylab="y", zlab="z", type="h")
+legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Historia Wandalorum", "Historia Suevorum"),
+       col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
+       inset = -0.25, xpd = TRUE)
+
+text(s3d$xyz.convert(historia[, 2]), labels = rownames(historia),
+     cex= 0.7, col = "steelblue")
+
+
+# http://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization
+
+scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=16, grid=TRUE, box=FALSE, 
+              main="Semantic Space Scaled to 3D", xlab="x", ylab="y", zlab="z", type="h")
+              legend("right", legend = levels(history$book),
+                     col =  c("blue", "green", "red", "purple", "yellow"), pch = 16)
+
+
+
+
+# https://www.r-bloggers.com/getting-fancy-with-3-d-scatterplots/
+
+with(mtcars, {
+  s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3],        # x y and z axis
+                       color=colors, pch=19,        # filled blue circles
+                       type="h",                    # vertical lines to the x-y plane
+                       main="Semantic Space Scaled to 3D",
+                       xlab="x",
+                       ylab="y",
+                       zlab="z")
+  s3d.coords <- s3d$xyz.convert(disp, wt, mpg) # convert 3D coords to 2D projection
+  text(s3d.coords$x, s3d.coords$y,             # x and y coordinates
+       labels=row.names(historia$book),               # text to plot
+       cex=.5, pos=4)           # shrink text 50% and place to right of points)
+})
+
+
+
 
 
 ###
@@ -386,7 +427,7 @@ ggplot(points,aes(x=x, y=y)) +
 ###################################################
 
 
-
+# https://stackoverflow.com/questions/40040492/document-similarity-using-lsa-in-r
 
 #lsaSpace <- lsa(tdm)
 # lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
