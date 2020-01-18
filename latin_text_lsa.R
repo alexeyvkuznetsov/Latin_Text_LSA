@@ -383,7 +383,7 @@ ggplot(points,aes(x=x, y=y)) +
 lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
 # Use the `cosine` function in `lsa` package to get cosine similarities matrix
 distMatrix <- cosine(lsaMatrix)
-
+distMatrix2 <- 1 - cosine(lsaMatrix)
 
 
 
@@ -412,6 +412,8 @@ cosineSim <- function(x){
 }
 
 #Similarity matrix
+#cs.lsa <- as.matrix(lsa::cosine(t(LSAMat)))
+
 cs.lsa <- as.matrix(cosineSim(t(LSAMat)))
 write.csv(cs.lsa,"cs_lsa.csv")
 
