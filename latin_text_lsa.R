@@ -240,6 +240,49 @@ ggplot2::ggplot(plotmat_docs_df, aes(x=Dim1, y=Dim2)) +
 
 # https://joparga3.github.io/Udemy_text_analysis/#latent-semantic-analysis
 
+# RUN LSA
+lsa_out = lsa::lsa(td_matrix, dims = lsa::dimcalc_share())
+
+# reduced information for the terms
+lsa_out$tk[1:5,]
+
+
+# reduced information for the documents
+rownames(lsa_out$dk) = n
+lsa_out$dk
+
+
+# information contributed by the dimensions
+lsa_out$sk
+
+
+
+# Using TK and DK to cluster the documents
+
+# DOCS df
+docs_mat = lsa_out$dk[,c(1:2)]
+plotmat_docs_df = as.data.frame(docs_mat)
+colnames(plotmat_docs_df) = c("Dim1","Dim2")
+
+
+# KMEANS to cluster
+set.seed(100)
+clus = kmeans(plotmat_docs_df, 3)
+plotmat_docs_df$cluster = factor(clus$cluster)
+plotmat_docs_df
+
+
+# Plot
+library(ggplot2)
+library(ggrepel)
+
+g = ggplot(plotmat_docs_df, aes(x = Dim1, y = Dim2))
+g = g + geom_point(size = 2, aes(color = cluster))
+g = g + ggrepel::geom_text_repel(aes(label = rownames(plotmat_docs_df))
+                                 , data = plotmat_docs_df, size = 3)
+g = g + theme_bw()
+g
+
 
 
 
