@@ -102,18 +102,29 @@ tdm <- TermDocumentMatrix(myCorpus)
 
 td_matrix <- as.matrix(tdm)
 
+
+
+
 # Calculate a weighted document-term matrix according to the chosen local and/or global weighting scheme
 
+tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 
-td.mat.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
-td.mat.tfidf <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
+tdm.tfidf <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
 
-td.mat.tfidf
+
+# Вариант взвешивания
+# https://github.com/tifaniwarnita/Document-Similarity/blob/97939d7733965ff322682e98850e426858588357/Document%20Similarity/doc-sim%20(cosine%20dist).R
+tdm.tfidf <- weightTfIdf(tdm, normalize = TRUE)
+
+tdm.tfidf <- as.matrix(weightTfIdf(tdm, normalize = TRUE))
+
+tdm.tfidf
+
 
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
 # Created LSA space
 
-lsaSpace <- lsa::lsa(td.mat.tfidf, dims=dimcalc_share()) # create LSA space
+lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
 #lsaSpace <- lsa(td.mat.lsa) # create LSA space
 
 as.textmatrix(lsaSpace)
@@ -212,7 +223,7 @@ ggplot(points,aes(x=x, y=y)) +
 # https://github.com/Sathiyarajan/data-science-repo-r-py/blob/9a76df4b28f328e7fb43ecd66876e0d834a6d8ac/R/Mastering-R-Programming/Codes/Section%207/7.3.R
 
 # Run LSA
-lsa_out = lsa::lsa(td.mat.tfidf, dims=lsa::dimcalc_share())
+lsa_out = lsa::lsa(tdm.tfidf, dims=lsa::dimcalc_share())
 lsa_out
 
 # docs_df
@@ -241,25 +252,26 @@ ggplot2::ggplot(plotmat_docs_df, aes(x=Dim1, y=Dim2)) +
 # https://joparga3.github.io/Udemy_text_analysis/#latent-semantic-analysis
 
 # RUN LSA
-lsa_out = lsa::lsa(td_matrix, dims = lsa::dimcalc_share())
+lsa_out = lsa::lsa(tdm.tfidf, dims = lsa::dimcalc_share())
+
 
 # reduced information for the terms
-lsa_out$tk[1:5,]
+#lsa_out$tk[1:5,]
 
 
 # reduced information for the documents
-rownames(lsa_out$dk) = n
-lsa_out$dk
+#rownames(lsa_out$dk) = n
+#lsa_out$dk
 
 
 # information contributed by the dimensions
-lsa_out$sk
+#lsa_out$sk
 
 
 
 # Using TK and DK to cluster the documents
 
-# DOCS df
+# DOCS data.frame
 docs_mat = lsa_out$dk[,c(1:2)]
 plotmat_docs_df = as.data.frame(docs_mat)
 colnames(plotmat_docs_df) = c("x","y")
@@ -277,9 +289,9 @@ library(ggplot2)
 library(ggrepel)
 
 g = ggplot(plotmat_docs_df, aes(x = x, y = y))
-g = g + geom_point(size = 2, aes(color = cluster))
+g = g + geom_point(size = 4, aes(color = cluster))
 g = g + ggrepel::geom_text_repel(aes(label = rownames(plotmat_docs_df))
-                                 , data = plotmat_docs_df, size = 3)
+                                 , data = plotmat_docs_df, size = 5)
 g = g + theme_bw()
 g
 
