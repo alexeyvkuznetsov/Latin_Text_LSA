@@ -113,19 +113,6 @@ tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 
 
 
-
-
-# Вариант взвешивания
-# https://github.com/tifaniwarnita/Document-Similarity/blob/97939d7733965ff322682e98850e426858588357/Document%20Similarity/doc-sim%20(cosine%20dist).R
-tdm.tfidf <- weightTfIdf(tdm, normalize = TRUE)
-
-tdm.tfidf <- as.matrix(weightTfIdf(tdm, normalize = TRUE))
-
-tdm.tfidf
-
-
-
-
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
 # Created LSA space
 
@@ -133,6 +120,82 @@ lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
 #lsaSpace <- lsa(td.mat.lsa) # create LSA space
 
 as.textmatrix(lsaSpace)
+
+
+
+
+# Вариант из Mastering Text Mining with R и 
+# https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
+
+
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
+
+dist.mat.lsa # check distance mantrix
+
+# Plot the distance matrix:
+### Заработало
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2) # Classical (Metric) Multidimensional Scaling
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
+
+
+
+#3D plot
+
+library(scatterplot3d)
+
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=3)
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+colors <- rep(c("blue", "green", "red", "purple", "orange" ))
+
+s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=20, angle = 65, box = FALSE,
+                     main=" ", xlab="x", ylab="y", zlab="z", type="h")
+legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Historia Wandalorum", "Historia Suevorum"),
+       col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
+       inset = -0.25, xpd = TRUE)
+
+
+
+
+#COSINE similarity
+
+# compute cosine distance matrix
+dist.mat.lsa.cosine <- dist(cosine(as.textmatrix(lsaSpace))) # compute cosine distance matrix
+
+# Plot the distance matrix:
+
+fit <- cmdscale(dist.mat.lsa.cosine, eig=TRUE, k=2) # Classical (Metric) Multidimensional Scaling
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.1, label=row.names(historia)))
+
+#3D plot
+
+library(scatterplot3d)
+
+fit <- cmdscale(dist.mat.lsa.cosine, eig=TRUE, k=3)
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+colors <- rep(c("blue", "green", "red", "purple", "orange" ))
+
+s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=20, angle = 65, box = FALSE,
+                     main=" ", xlab="x", ylab="y", zlab="z", type="h")
+legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Historia Wandalorum", "Historia Suevorum"),
+       col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
+       inset = -0.25, xpd = TRUE)
+
+
+
 
 
 
@@ -188,6 +251,10 @@ g
 
 
 
+
+
+
+
 #Косинусное сходство
 #https://github.com/katyalrajat/corpus_mining/blob/9b805cd229b2f5260bfa1007765b0aa6c992fc8d/code.R
 ############################ LSA ##############################
@@ -221,5 +288,14 @@ cosine.lsa <- as.matrix(cosineSim(t(lsaMatrix)))
 library(corrplot)
 corrplot(cosine.lsa)
 corrplot(cosine.lsa, method = "square")
+
+corrplot(distMatrix, method = "square")
+
+
+
+
+
+
+
 
 

@@ -1,0 +1,41 @@
+﻿# compute cosine distance matrix
+dist.mat.lsa.cosine <- dist(cosine(as.textmatrix(lsaSpace)))
+
+# Plot the distance matrix:
+
+fit <- cmdscale(dist.mat.lsa.cosine, eig=TRUE, k=2) # Classical (Metric) Multidimensional Scaling
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.1, label=row.names(historia)))
+
+###
+
+
+
+
+
+# Calculate Cosine Distance (LSA)
+# compute distance matrix
+
+lsa.mat.tfidf <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+
+#lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+# (subtract from 1 to get dissimilarity matrix)
+
+fit <- lsa::cosine(lsa.mat.tfidf)
+
+#SM <- as.matrix(cosine(lsaMatrix))
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+#points <- data.frame(x=SM$points[, 1], y=SM$points[, 2])
+
+
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.05, label=row.names(historia)))

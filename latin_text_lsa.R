@@ -175,6 +175,8 @@ text(dk2[,1], y= dk2[,2], col="red", labels=rownames(dk2), cex=1.5)
 
 
 
+
+
 # Вариант 2 из Mastering Text Mining with R и 
 # https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
 
@@ -194,6 +196,21 @@ ggplot(points,aes(x=x, y=y)) +
   geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
 
 
+
+# 3. MDS with LSA
+td.mat.lsa <- lw_bintf(td.mat) * gw_idf(td.mat) # weighting
+lsaSpace <- lsa(td.mat.lsa) # create LSA space
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
+dist.mat.lsa # check distance mantrix
+
+# MDS
+fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2)
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.2, label=row.names(historia)))
+
+
 # http://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization
 
 library(scatterplot3d)
@@ -209,8 +226,42 @@ legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Hist
        col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
        inset = -0.25, xpd = TRUE)
 
-text(s3d$xyz.convert(historia[, 2]), labels = rownames(historia),
-     cex= 0.7, col = "steelblue")
+
+#COSINE similarity
+
+# compute cosine distance matrix
+dist.mat.lsa.cosine <- dist(cosine(as.textmatrix(lsaSpace)))
+
+# Plot the distance matrix:
+
+fit <- cmdscale(dist.mat.lsa.cosine, eig=TRUE, k=2) # Classical (Metric) Multidimensional Scaling
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.1, label=row.names(historia)))
+
+#3D plot
+
+library(scatterplot3d)
+
+fit <- cmdscale(dist.mat.lsa.cosine, eig=TRUE, k=3)
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+colors <- rep(c("blue", "green", "red", "purple", "orange" ))
+
+s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=20, angle = 65, box = FALSE,
+                     main=" ", xlab="x", ylab="y", zlab="z", type="h")
+legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Historia Wandalorum", "Historia Suevorum"),
+       col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
+       inset = -0.25, xpd = TRUE)
+
+
+
+
+
 
 
 # http://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization
@@ -262,6 +313,7 @@ ggplot(points, aes(x = x, y = y)) +
 
 # compute cosine distance matrix
 dist.mat.lsa.cosine <- dist(cosine(as.textmatrix(lsaSpace)))
+
 
 # Plot the distance matrix:
 
@@ -417,7 +469,7 @@ fit <- lsa::cosine(lsa.mat.tfidf)
 
 points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 
-#points <- data.frame(x=SM$points[, 1], y=SM$points[, 2])
+#points <- data.frame(x=distMatrix$points[, 1], y=distMatrix$points[, 2])
 
 
 ggplot(points,aes(x=x, y=y)) + 
@@ -435,6 +487,21 @@ lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
 # Use the `cosine` function in `lsa` package to get cosine similarities matrix
 distMatrix <- cosine(lsaMatrix)
 distMatrix2 <- 1 - cosine(lsaMatrix)
+
+
+# https://github.com/DivyaMaharshi/rsudio_setup_trial/blob/2dc2216155ba6e4ae154cdd5c27df4949a241579/content_similarity.R
+
+
+# MDS with LSA
+lsaSpace <- lsa(td.mat)  # create LSA space
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) 
+# compute distance matrix
+df.dist=as.matrix(dist.mat.lsa, labels=TRUE)
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+# (subtract from 1 to get dissimilarity matrix)
+distMatrix <- cosine(lsaMatrix)
+
 
 
 
