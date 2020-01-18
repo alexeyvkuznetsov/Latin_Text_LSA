@@ -82,7 +82,7 @@ head(dtm_colsums(dtm))
 ## Remove nouns which you really do not like (mostly too common nouns)
 dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
 ## Or keep of these nouns the top 50 based on mean term-frequency-inverse document frequency
-dtm <- dtm_remove_tfidf(dtm, top = 50)
+#dtm <- dtm_remove_tfidf(dtm, top = 50)
 
 
 
@@ -96,7 +96,7 @@ dtm.to.list <- apply(dtm, 1, function(x) {
 myCorpus <- VCorpus(VectorSource(dtm.to.list))
 inspect(myCorpus)
 
-# Created tdm_matrix
+# Created tdm
 
 tdm <- TermDocumentMatrix(myCorpus)
 
@@ -109,7 +109,10 @@ td_matrix <- as.matrix(tdm)
 
 tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 
-tdm.tfidf <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
+#tdm.tfidf <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
+
+
+
 
 
 # Вариант взвешивания
@@ -121,6 +124,8 @@ tdm.tfidf <- as.matrix(weightTfIdf(tdm, normalize = TRUE))
 tdm.tfidf
 
 
+
+
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
 # Created LSA space
 
@@ -130,6 +135,10 @@ lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
 as.textmatrix(lsaSpace)
 
 
+
+
+####################
+####################
 
 
 
@@ -316,6 +325,7 @@ ggplot(points, aes(x=x, y=y)) +
 
 
 
+
 # Calculate Cosine Distance (LSA)
 # compute distance matrix
 
@@ -330,7 +340,7 @@ points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 
 ggplot(points,aes(x=x, y=y)) + 
   geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
-  geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
+  geom_text(data=points,aes(x=x, y=y-0.05, label=row.names(historia)))
 
 
 
