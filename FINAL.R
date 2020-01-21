@@ -120,7 +120,7 @@ lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
 #lsaSpace <- lsa(td.mat.lsa) # create LSA space
 
 as.textmatrix(lsaSpace)
-
+#lsaMatrix <- as.textmatrix(lsaSpace)
 
 
 
@@ -129,6 +129,8 @@ as.textmatrix(lsaSpace)
 
 
 dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
+
+dist.mat.lsa <- dist(t(lsaMatrix))
 
 dist.mat.lsa # check distance mantrix
 
