@@ -29,7 +29,7 @@ corpus <- tm_map(corpus, removeWords, stopwords("english"))
 corpus <- tm_map(corpus, stemDocument)
 
 # Creating Term Document Matrix
-tdm.tf <- TermDocumentMatrix(corpus)
+tdm.tf <- TermDocumentMatrix(myCorpus)
 tdm.bin <- weightBin(tdm.tf)
 tdm.tfidf <- weightTfIdf(tdm.tf, normalize = TRUE)
 
@@ -43,9 +43,11 @@ cosine.dist.tfidf <- crossprod_simple_triplet_matrix(tdm.tfidf)/(sqrt(col_sums(t
 lsa.space.bin <- lsa(tdm.bin)
 lsa.space.tf <- lsa(tdm.tf)
 lsa.space.tfidf <- lsa(tdm.tfidf)
+
 lsa.mat.bin <- diag(lsa.space.bin$sk) %*% t(lsa.space.bin$dk)
 lsa.mat.tf <- diag(lsa.space.tf$sk) %*% t(lsa.space.tf$dk)
 lsa.mat.tfidf <- diag(lsa.space.tfidf$sk) %*% t(lsa.space.tfidf$dk)
+
 lsa.cosine.dist.bin <- lsa::cosine(lsa.mat.bin)
 lsa.cosine.dist.tf <- lsa::cosine(lsa.mat.tf)
 lsa.cosine.dist.tfidf <- lsa::cosine(lsa.mat.tfidf)
@@ -57,6 +59,8 @@ cosine.dist.tf
 lsa.cosine.dist.tf
 cosine.dist.tfidf
 lsa.cosine.dist.tfidf
+
+corrplot(lsa.cosine.dist.tfidf)
 
 # Print Result To Excel
 m.vector.space <- as.matrix(tdm.tf)

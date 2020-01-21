@@ -36,6 +36,11 @@ TDM
 summary.textmatrix(TDM)
 
 #########################
+
+tdm <- as.matrix(tdm)
+
+TDM2 <- lw_tf(tdm) * gw_idf(tdm) 
+
 TDM2 <- lw_tf(TDM) * gw_idf(TDM) 
 TDM2
 
@@ -99,6 +104,9 @@ write.csv(myCosineSpace2, file="C:/Users/.../CosineResults.csv")
 # This provides us with a similarity matrix between documents
 myCosineSpace3 <- multicos(myDocs, tvectors=dk2, breakdown=F)
 myCosineSpace3
+
+
+corrplot(myCosineSpace3)
 
 #########################
 neighbors("credit", n=5, tvectors=tk3, breakdown=TRUE)
@@ -233,7 +241,10 @@ raw_corpus <- VCorpus(doc_source, readerControl=list(language='en'))
 remove_nonletter <- function(text) { return(gsub('[^a-z\\s\\-]+', ' ', text))}
 
 #########################
-p_corpus <- tm_map(raw_corpus, content_transformer(tolower))p_corpus <- tm_map(p_corpus, content_transformer(removeWords), tm::stopwords('en'))p_corpus <- tm_map(p_corpus, content_transformer(remove_nonletter))p_corpus <- tm_map(p_corpus, stemDocument)
+p_corpus <- tm_map(raw_corpus, content_transformer(tolower))
+p_corpus <- tm_map(p_corpus, content_transformer(removeWords), tm::stopwords('en'))
+p_corpus <- tm_map(p_corpus, content_transformer(remove_nonletter))
+p_corpus <- tm_map(p_corpus, stemDocument)
 
 #########################
 tdm <- TermDocumentMatrix(p_corpus, control = list(bounds = list(global = c(10, Inf))))
@@ -245,42 +256,81 @@ sparse_tdm <- Matrix::sparseMatrix(i = tdm$i, j = tdm$j, x = tdm$v, dims = c(tdm
 dimnames(sparse_tdm) <- dimnames(tdm)
 
 #########################
-doc_count <- dim(sparse_tdm)[[2]]log_doc_count <- log2(doc_count)
+doc_count <- dim(sparse_tdm)[[2]]
+log_doc_count <- log2(doc_count)
 
 #########################
-weighted_tdm <- sparse_tdmweighted_tdm@x <- vapply(sparse_tdm@x, function(x) log2(x+.00001), numeric(1))
+weighted_tdm <- sparse_tdm
+weighted_tdm@x <- vapply(sparse_tdm@x, function(x) log2(x+.00001), numeric(1))
 
 #########################
-gf <- Matrix::rowSums(sparse_tdm)names(gf) <- dimnames(sparse_tdm)$Terms
+gf <- Matrix::rowSums(sparse_tdm)
+names(gf) <- dimnames(sparse_tdm)$Terms
 
 #########################
-partial_entropy <- function(tf, gf) {	p <- tf/gf	return((p*log2(p))/log_doc_count)}
+partial_entropy <- function(tf, gf) {
+	p <- tf/gf
+	return((p*log2(p))/log_doc_count)
+}
 
 #########################
-word_entropy <- numeric(dim(sparse_tdm)[[1]])names(word_entropy) <- dimnames(sparse_tdm)$Termsfor(i in 1:dim(sparse_tdm)[[1]]){    word_row <- sparse_tdm[i,]    non_zero_frequencies <- word_row[which(word_row>0)]    word_entropy[i] <- 1.0 + sum(mapply(partial_entropy, non_zero_frequencies, gf=gf[i]))}
+word_entropy <- numeric(dim(sparse_tdm)[[1]])
+names(word_entropy) <- dimnames(sparse_tdm)$Terms
+
+for(i in 1:dim(sparse_tdm)[[1]]){
+    word_row <- sparse_tdm[i,]
+    non_zero_frequencies <- word_row[which(word_row>0)]
+    word_entropy[i] <- 1.0 + sum(mapply(partial_entropy, non_zero_frequencies, gf=gf[i]))
+}
 
 #########################
 weighted_tdm <- sweep(weighted_tdm, 1, word_entropy, '*')
 
 #########################
-space <- svds(weighted_tdm, 300)                                                            su_mat <- space$d * space$usvt_mat <- space$d * Matrix::t(space$v)#Assign namesdimnames(su_mat) <- list(dimnames(weighted_tdm)[[1]], 1:300)   dimnames(svt_mat) <- list(1:300, dimnames(weighted_tdm)[[2]])  
+space <- svds(weighted_tdm, 300)                                                            
+su_mat <- space$d * space$u
+svt_mat <- space$d * Matrix::t(space$v)
+#Assign names
+dimnames(su_mat) <- list(dimnames(weighted_tdm)[[1]], 1:300)   
+dimnames(svt_mat) <- list(1:300, dimnames(weighted_tdm)[[2]])  
 
 #########################
-plot_neighbors("python",n=20,tvectors= su_mat)plot_neighbors("java",n=20,tvectors= su_mat)plot_neighbors("javascript",n=20,tvectors= su_mat)
+plot_neighbors("python",n=20,tvectors= su_mat)
+plot_neighbors("java",n=20,tvectors= su_mat)
+plot_neighbors("javascript",n=20,tvectors= su_mat)
 
 #########################
-if (!require("wordcloud")) {   install.packages("wordcloud", dependencies = TRUE)   library(wordcloud)   }Term_count <-apply(su_mat,1,sum)TCT <- t(Term_count)myTerms <- rownames(su_mat)wordcloud(myTerms, TCT, min.freq=1, random.order=FALSE, color=brewer.pal(8, "Dark2"))
+if (!require("wordcloud")) {
+   install.packages("wordcloud", dependencies = TRUE)
+   library(wordcloud)
+   }
+Term_count <-apply(su_mat,1,sum)
+TCT <- t(Term_count)
+myTerms <- rownames(su_mat)
+wordcloud(myTerms, TCT, min.freq=1, random.order=FALSE, color=brewer.pal(8, "Dark2"))
 
 #########################
-costring("package answer", "JAVA", tvectors= su_mat, breakdown=TRUE)costring("package answer", "Python", tvectors= su_mat, breakdown=TRUE)
+costring("package answer", "JAVA", tvectors= su_mat, breakdown=TRUE)
+costring("package answer", "Python", tvectors= su_mat, breakdown=TRUE)
 
 #########################
-pseudo <- 'Tell me about overflow problems'pseudo <- tolower(pseudo)pseudo <- removeWords(pseudo, tm::stopwords('en'))pseudo <- remove_nonletter(pseudo)pseudo <- stemDocument(PlainTextDocument(pseudo))pseudo <- termFreq(pseudo)pseudo <- vapply(pseudo, function(x) log2(x+.00001), numeric(1))pseudo <- mapply(function(x, y) x*y, pseudo, word_entropy[names(pseudo)])pseudo <- colSums(pseudo * su_mat[names(pseudo),])
+pseudo <- 'Tell me about overflow problems'
+pseudo <- tolower(pseudo)
+pseudo <- removeWords(pseudo, tm::stopwords('en'))
+pseudo <- remove_nonletter(pseudo)
+pseudo <- stemDocument(PlainTextDocument(pseudo))
+pseudo <- termFreq(pseudo)
+pseudo <- vapply(pseudo, function(x) log2(x+.00001), numeric(1))
+
+pseudo <- mapply(function(x, y) x*y, pseudo, word_entropy[names(pseudo)])
+pseudo <- colSums(pseudo * su_mat[names(pseudo),])
 
 #########################
-neighbors(pseudo, 20, tvectors=su_mat)neighbors(pseudo, 20, tvectors=Matrix::t(svt_mat))
+neighbors(pseudo, 20, tvectors=su_mat)
+neighbors(pseudo, 20, tvectors=Matrix::t(svt_mat))
 
 #########################
-ls()rm(doc_source)	
+ls()
+rm(doc_source)	
 
 #########################
