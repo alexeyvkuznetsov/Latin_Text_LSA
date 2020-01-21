@@ -6,6 +6,7 @@ library(tm)
 library(udpipe)
 library(lsa)
 library(ggplot2)
+library(scatterplot3d)
 
 #library(readr)
 library(quanteda)
@@ -149,7 +150,7 @@ points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 
 ggplot(points,aes(x=x, y=y)) + 
   geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
-  geom_text(data=points,aes(x=x, y=y-0.9, label=row.names(historia)))
+  geom_text(data=points,aes(x=x, y=y-2, label=row.names(historia)))
 
 
 
@@ -179,7 +180,7 @@ legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Hist
 # ЭТО ВРОДЕ РАБОТАЕТ
 # compute cosine distance matrix
 # ЭТО МОЁ ТВОРЧЕСТВО
-#mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace))
+#mat.lsa.cosine <- cosine(as.textmatrix(t(lsaSpace)))
 #mat.lsa.cosine
 #corrplot(mat.lsa.cosine)
 
