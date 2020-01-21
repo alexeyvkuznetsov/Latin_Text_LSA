@@ -105,8 +105,17 @@ write.csv(myCosineSpace2, file="C:/Users/.../CosineResults.csv")
 myCosineSpace3 <- multicos(myDocs, tvectors=dk2, breakdown=F)
 myCosineSpace3
 
-
+#MY
 corrplot(myCosineSpace3)
+
+
+
+lsaMatrix <- diag(miniLSAspace$sk) %*% t(miniLSAspace$dk)
+
+distMatrix <- 1 - cosine(lsaMatrix)
+
+corrplot(distMatrix)
+
 
 #########################
 neighbors("credit", n=5, tvectors=tk3, breakdown=TRUE)

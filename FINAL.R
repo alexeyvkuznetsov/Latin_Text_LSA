@@ -260,7 +260,7 @@ g
 
 
 
-#Косинусное сходство
+#COSINE similarity
 #https://github.com/katyalrajat/corpus_mining/blob/9b805cd229b2f5260bfa1007765b0aa6c992fc8d/code.R
 ############################ LSA ##############################
 ###############################################################
@@ -300,7 +300,7 @@ corrplot(lsa.cosine.dist.tfidf, method = "square")
 
 
 
-
+#COSINE similarity
 #https://github.com/tifaniwarnita/Document-Similarity/blob/97939d7733965ff322682e98850e426858588357/Document%20Similarity/doc-sim%20(cosine%20dist).R
 
 # Creating Term Document Matrix
@@ -313,9 +313,11 @@ tdm.tfidf <- weightTfIdf(tdm.tf, normalize = TRUE)
 lsa.space.bin <- lsa(tdm.bin)
 lsa.space.tf <- lsa(tdm.tf)
 lsa.space.tfidf <- lsa(tdm.tfidf)
+
 lsa.mat.bin <- diag(lsa.space.bin$sk) %*% t(lsa.space.bin$dk)
 lsa.mat.tf <- diag(lsa.space.tf$sk) %*% t(lsa.space.tf$dk)
 lsa.mat.tfidf <- diag(lsa.space.tfidf$sk) %*% t(lsa.space.tfidf$dk)
+
 lsa.cosine.dist.bin <- lsa::cosine(lsa.mat.bin)
 lsa.cosine.dist.tf <- lsa::cosine(lsa.mat.tf)
 lsa.cosine.dist.tfidf <- lsa::cosine(lsa.mat.tfidf)
@@ -331,4 +333,38 @@ lsa.cosine.dist.tfidf
 
 
 
+
+
+
+#COSINE similarity
+
+# compute cosine distance matrix
+
+dist.mat.lsa.cosine <- dist(cosine(as.textmatrix(lsaSpace)))
+
+# Plot the distance matrix:
+
+fit <- cmdscale(dist.mat.lsa.cosine, eig=TRUE, k=2) # Classical (Metric) Multidimensional Scaling
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
+  geom_text(data=points,aes(x=x, y=y-0.1, label=row.names(historia)))
+
+#3D plot
+
+library(scatterplot3d)
+
+fit <- cmdscale(dist.mat.lsa.cosine, eig=TRUE, k=3)
+
+points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
+
+colors <- rep(c("blue", "green", "red", "purple", "orange" ))
+
+s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=20, angle = 65, box = FALSE,
+                     main=" ", xlab="x", ylab="y", zlab="z", type="h")
+legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Historia Wandalorum", "Historia Suevorum"),
+       col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
+       inset = -0.25, xpd = TRUE)
 
