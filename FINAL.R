@@ -104,6 +104,10 @@ td_matrix <- as.matrix(tdm)
 
 
 
+############
+# ДО ЭТОГО МЕСТА ПОКА БЕЗ ВОПРОСОВ
+############
+
 
 # Calculate a weighted document-term matrix according to the chosen local and/or global weighting scheme
 
@@ -122,6 +126,9 @@ lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
 as.textmatrix(lsaSpace)
 #lsaMatrix <- as.textmatrix(lsaSpace)
 
+############
+# ВРОДЕ ТОЖЕ ПОНЯТНО
+############
 
 
 # Вариант из Mastering Text Mining with R и 
@@ -130,7 +137,7 @@ as.textmatrix(lsaSpace)
 
 dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
 
-dist.mat.lsa <- dist(t(lsaMatrix))
+#dist.mat.lsa <- dist(t(lsaMatrix))
 
 dist.mat.lsa # check distance mantrix
 
@@ -142,7 +149,7 @@ points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 
 ggplot(points,aes(x=x, y=y)) + 
   geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
-  geom_text(data=points,aes(x=x, y=y-0.6, label=row.names(historia)))
+  geom_text(data=points,aes(x=x, y=y-0.9, label=row.names(historia)))
 
 
 
@@ -169,8 +176,13 @@ legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Hist
 
 
 #COSINE similarity
-
+# ЭТО ВРОДЕ РАБОТАЕТ
 # compute cosine distance matrix
+# ЭТО МОЁ ТВОРЧЕСТВО
+#mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace))
+#mat.lsa.cosine
+#corrplot(mat.lsa.cosine)
+
 dist.mat.lsa.cosine <- dist(cosine(as.textmatrix(lsaSpace))) # compute cosine distance matrix
 
 # Plot the distance matrix:
@@ -181,9 +193,11 @@ points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 
 ggplot(points,aes(x=x, y=y)) + 
   geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
-  geom_text(data=points,aes(x=x, y=y-0.1, label=row.names(historia)))
+  geom_text(data=points,aes(x=x, y=y-0.03, label=row.names(historia)))
 
 #3D plot
+# Info:
+# http://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization
 
 library(scatterplot3d)
 
@@ -261,6 +275,7 @@ g
 
 
 #COSINE similarity
+# ЭТО ВРОДЕ РАБОТАЕТ
 #https://github.com/katyalrajat/corpus_mining/blob/9b805cd229b2f5260bfa1007765b0aa6c992fc8d/code.R
 ############################ LSA ##############################
 ###############################################################
@@ -292,11 +307,26 @@ cosine.lsa <- as.matrix(cosineSim(t(lsaMatrix)))
 
 library(corrplot)
 corrplot(cosine.lsa)
+corrplot(cosine.lsa, method = "number")
+corrplot(cosine.lsa, method = "color")
 corrplot(cosine.lsa, method = "square")
 
 corrplot(distMatrix, method = "square")
 
 corrplot(lsa.cosine.dist.tfidf, method = "square")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
