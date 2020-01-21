@@ -76,7 +76,7 @@ dtf <- document_term_frequencies(dtf, document = "doc_id", term = "lemma")
 ## Create a document/term/matrix for building a topic model
 dtm <- document_term_matrix(x = dtf)
 ## Remove words which do not occur that much
-dtm <- dtm_remove_lowfreq(dtm, minfreq = 3)
+dtm <- dtm_remove_lowfreq(dtm, minfreq = 2)
 head(dtm_colsums(dtm))
 
 ## Remove nouns which you really do not like (mostly too common nouns)
