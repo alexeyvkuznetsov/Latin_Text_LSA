@@ -303,6 +303,7 @@ cosineSim <- function(x){
 #Similarity matrix
 
 cosine.lsa <- as.matrix(cosineSim(t(lsaMatrix)))
+cosine.lsa <- as.matrix(cosine(t(lsaMatrix)))
 #write.csv(cs.lsa,"cs_lsa.csv")
 
 library(corrplot)
