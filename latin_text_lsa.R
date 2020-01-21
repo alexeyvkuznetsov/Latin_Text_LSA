@@ -231,8 +231,6 @@ legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Hist
 
 # compute cosine distance matrix
 
-m.lsa.cosine <- cosine(as.textmatrix(lsaSpace))
-
 dist.mat.lsa.cosine <- dist(cosine(as.textmatrix(lsaSpace)))
 
 # Plot the distance matrix:
