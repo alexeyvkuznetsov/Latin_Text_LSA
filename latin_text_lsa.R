@@ -209,6 +209,33 @@ corrplot(mat.lsa.cosine, method = "number")
 
 
 
+
+
+
+## КОНЕЦ МОЕГО ТВОРЧЕСТВА
+############################
+
+lsaMatrix <- as.textmatrix(lsaSpace)
+
+#Calculate similarity of documents in LSA space
+cosineSim <- function(x){
+  as.dist(x%*%t(x)/(sqrt(rowSums(x^2) %*% t(rowSums(x^2)))))
+}
+
+#Similarity matrix
+cs.lsa <- as.matrix(cosineSim(t(lsaMatrix)))
+write.csv(cs.lsa,"cs_lsa.csv")
+
+library(corrplot)
+corrplot(cs.lsa)
+corrplot(cs.lsa, method = "square")
+
+
+
+
+
+
+
 library(svs)
 lsaMatrix2 <- t(lsaMatrix)
 dcos<-dist_cosine(lsaMatrix2, diag = FALSE, upper = FALSE)
@@ -231,22 +258,16 @@ text(x, y, labels = row.names(mydata), cex=.7)
 heatmap(dcos, Rowv=as.dendrogram(rc), Colv=NA)
 
 
-## КОНЕЦ МОЕГО ТВОРЧЕСТВА
-############################
 
-lsaMatrix <- as.textmatrix(lsaSpace)
-
-#Calculate similarity of documents in LSA space
-cosineSim <- function(x){
-  as.dist(x%*%t(x)/(sqrt(rowSums(x^2) %*% t(rowSums(x^2)))))
-}
-
-#Similarity matrix
-cs.lsa <- as.matrix(cosineSim(t(lsaMatrix)))
-write.csv(cs.lsa,"cs_lsa.csv")
-
-library(corrplot)
-corrplot(cs.lsa)
-corrplot(cs.lsa, method = "square")
-
+# https://stats.stackexchange.com/questions/6890/plotting-a-heatmap-given-a-dendrogram-and-a-distance-matrix-in-r
+set.seed(1)
+dat<-matrix(ncol=4, nrow=10, data=rnorm(40))
+rd<-dist(dat)
+rc<-hclust(rd)
+cd<-dist(t(dat))
+cc<-hclust(cd)
+# Dendrogram for rows only
+heatmap(dat, Rowv=as.dendrogram(rc), Colv=NA)
+# Dendrogram for columns only
+heatmap(dat, Rowv=NA, Colv=as.dendrogram(cc))
 
