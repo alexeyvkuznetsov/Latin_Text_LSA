@@ -201,25 +201,11 @@ library(corrplot)
 corrplot(mat.lsa.cosine)
 corrplot(mat.lsa.cosine, method = "number")
 
+corrplot(distMatrix, method = "number")
 
 corrplot(mat.lsa.cosine, method = "number", order = "hclust", hclust.method = "complete")
 
-corr <- mat.lsa.cosine
-M <- mat.lsa.cosine
 
-library(ggcorrplot)
-
-ggcorrplot(mat.lsa.cosine)
-
-ggcorrplot(corr, hc.order = TRUE, outline.color = "white")
-
-ggcorrplot(corr, method = "circle")
-
-
-ggcorrplot(corr,
-           hc.order = TRUE,
-           type = "lower",
-           lab = TRUE)
 
 
 ## КОНЕЦ МОЕГО ТВОРЧЕСТВА
