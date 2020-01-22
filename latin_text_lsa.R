@@ -14,6 +14,7 @@ library(quanteda)
 library(tidytext)
 
 
+
 prologus<-paste(scan(file ="files/01 prologus.txt",what='character'),collapse=" ")
 historia_g<-paste(scan(file ="files/02 historia_g.txt",what='character'),collapse=" ")
 recapitulatio<-paste(scan(file ="files/03 recapitulatio.txt",what='character'),collapse=" ")
@@ -85,7 +86,7 @@ head(dtm_colsums(dtm))
 
 # +xstincum
 ## Remove nouns which you really do not like (mostly too common nouns)
-dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
+dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xstincum", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
 ## Or keep of these nouns the top 50 based on mean term-frequency-inverse document frequency
 #dtm <- dtm_remove_tfidf(dtm, top = 50)
 
@@ -199,11 +200,10 @@ mat.lsa.cosine
 
 library(corrplot)
 corrplot(mat.lsa.cosine)
+
 corrplot(mat.lsa.cosine, method = "number")
 
-corrplot(distMatrix, method = "number")
-
-corrplot(mat.lsa.cosine, method = "number", order = "hclust", hclust.method = "complete")
+#corrplot(mat.lsa.cosine, method = "number", order = "hclust", hclust.method = "complete")
 
 
 
