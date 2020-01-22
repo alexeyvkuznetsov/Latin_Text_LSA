@@ -208,6 +208,29 @@ corrplot(mat.lsa.cosine, method = "number")
 
 
 
+
+library(svs)
+lsaMatrix2 <- t(lsaMatrix)
+dcos<-dist_cosine(lsaMatrix2, diag = FALSE, upper = FALSE)
+dcos <- as.matrix(dcos)
+corrplot(dcos)
+
+pc_plot(dcos)
+
+d <- dist(mydata) # euclidean distances between the rows
+fit <- cmdscale(dcos,eig=TRUE, k=2) # k is the number of dim
+fit # view results
+
+# plot solution 
+x <- fit$points[,1]
+y <- fit$points[,2]
+plot(x, y, xlab="Coordinate 1", ylab="Coordinate 2", 
+     main="Metric  MDS",    type="n")
+text(x, y, labels = row.names(mydata), cex=.7)
+
+heatmap(dcos, Rowv=as.dendrogram(rc), Colv=NA)
+
+
 ## КОНЕЦ МОЕГО ТВОРЧЕСТВА
 ############################
 
