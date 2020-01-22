@@ -82,6 +82,8 @@ dtm <- document_term_matrix(x = dtf)
 dtm <- dtm_remove_lowfreq(dtm, minfreq = 2)
 head(dtm_colsums(dtm))
 
+
+# +xstincum
 ## Remove nouns which you really do not like (mostly too common nouns)
 dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
 ## Or keep of these nouns the top 50 based on mean term-frequency-inverse document frequency
@@ -127,6 +129,7 @@ lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
 #lsaSpace <- lsa(td.mat.lsa) # create LSA space
 
 as.textmatrix(lsaSpace)
+
 #lsaMatrix <- as.textmatrix(lsaSpace)
 
 ############
@@ -140,7 +143,7 @@ as.textmatrix(lsaSpace)
 
 dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
 
-#dist.mat.lsa <- dist(t(lsaMatrix))
+dist.mat.lsa <- dist(t(lsaMatrix))
 
 dist.mat.lsa # check distance mantrix
 
@@ -186,7 +189,12 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 # compute cosine distance matrix
 # ЭТО МОЁ ТВОРЧЕСТВО
 
-mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace))
+lsaMatrix <- as.textmatrix(lsaSpace)
+
+#mat.lsa.cosine <- cosine(lsaMatrix) #Similarity matrix
+
+mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace)) #Cosin similarity matrix
+
 mat.lsa.cosine
 
 library(corrplot)
