@@ -172,6 +172,9 @@ legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Hist
        col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
        inset = -0.25, xpd = TRUE)
 
+s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
+
+
 
 
 
@@ -182,11 +185,39 @@ legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Hist
 # ЭТО ВРОДЕ РАБОТАЕТ
 # compute cosine distance matrix
 # ЭТО МОЁ ТВОРЧЕСТВО
-#mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace))
-#mat.lsa.cosine
-#corrplot(mat.lsa.cosine)
+
+mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace))
+mat.lsa.cosine
+
+library(corrplot)
+corrplot(mat.lsa.cosine)
+corrplot(mat.lsa.cosine, method = "number")
+
+## КОНЕЦ МОЕГО ТВОРЧЕСТВА
+############################
+
+lsaMatrix <- as.textmatrix(lsaSpace)
+
+#Calculate similarity of documents in LSA space
+cosineSim <- function(x){
+  as.dist(x%*%t(x)/(sqrt(rowSums(x^2) %*% t(rowSums(x^2)))))
+}
+
+#Similarity matrix
+cs.lsa <- as.matrix(cosineSim(t(lsaMatrix)))
+write.csv(cs.lsa,"cs_lsa.csv")
+
+library(corrplot)
+corrplot(cs.lsa)
+corrplot(cs.lsa, method = "square")
+
+
+
+
 
 dist.mat.lsa.cosine <- dist(cosine(as.textmatrix(lsaSpace))) # compute cosine distance matrix
+dist.mat.lsa.cosine <- dist(mat.lsa.cosine) # compute cosine distance matrix
+dist.mat.lsa.cosine
 
 # Plot the distance matrix:
 
