@@ -173,7 +173,7 @@ s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=co
                      main=" ", xlab="x", ylab="y", zlab="z", type="h")
 legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Historia Wandalorum", "Historia Suevorum"),
        col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
-       inset = -0.25, xpd = TRUE)
+       inset = -0.1, xpd = TRUE)
 
 s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 
@@ -191,7 +191,7 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
-#mat.lsa.cosine <- cosine(lsaMatrix) #Similarity matrix
+#mat.lsa.cosine <- cosine(lsaMatrix) #Similarity matrix similarity_matrix
 
 mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace)) #Cosin similarity matrix
 
