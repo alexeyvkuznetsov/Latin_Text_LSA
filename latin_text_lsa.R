@@ -197,6 +197,10 @@ mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace)) #Cosin similarity matrix
 
 mat.lsa.cosine
 
+round((mat.lsa.cosine), 2) # round the results to a couple of decimals
+
+mat.lsa.cosine
+
 library(corrplot)
 corrplot(mat.lsa.cosine)
 corrplot(mat.lsa.cosine, method = "number")
