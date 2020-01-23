@@ -274,9 +274,13 @@ dk2
 miniLSAspace$sk
 
 #########################
-miniLSAspace3 <- lsa(TDM2, dims=3) 
+miniLSAspace3 <- lsa(TDM2, dims=5) 
 tk3 = t(miniLSAspace3$sk * t(miniLSAspace3$tk)) 
 tk3 
+
+dk3 = t(miniLSAspace3$sk * t(miniLSAspace3$dk))
+dk3
+
 
 #########################
 # The two lines of code must be run together. The first line of code creates a plot of the first two 
