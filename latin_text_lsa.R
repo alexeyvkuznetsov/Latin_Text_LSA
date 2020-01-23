@@ -43,7 +43,7 @@ historia$texts <- removeNumbers(historia$texts)
 
 # Stopwords 
 
-customStopWords <- c("ann", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom.")
+customStopWords <- c("ann", "annus", "aer", "aes", "aera", "num._rom.", "xnum._rom.", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom.")
 
 #load("lat_stopwords.Rda")
 
