@@ -102,20 +102,17 @@ dtm.to.list <- apply(dtm, 1, function(x) {
 myCorpus <- VCorpus(VectorSource(dtm.to.list))
 inspect(myCorpus)
 
-# Created tdm
+# Created term-document matrix
 
 tdm <- TermDocumentMatrix(myCorpus)
 
 td_matrix <- as.matrix(tdm)
 
 
-
-############
-# ДО ЭТОГО МЕСТА ПОКА БЕЗ ВОПРОСОВ
 ############
 
 
-# Calculate a weighted document-term matrix according to the chosen local and/or global weighting scheme
+# Calculate a weighted term-document matrix according to the chosen local and/or global weighting scheme
 
 tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 
@@ -127,20 +124,17 @@ tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 # Created LSA space
 
 lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
-#lsaSpace <- lsa(td.mat.lsa) # create LSA space
 
-as.textmatrix(lsaSpace)
-
-#lsaMatrix <- as.textmatrix(lsaSpace)
+lsaMatrix <- as.textmatrix(lsaSpace)
 
 ############
-# ВРОДЕ ТОЖЕ ПОНЯТНО
+# Р’Р РћР”Р• РўРћР–Р• РџРћРќРЇРўРќРћ
 ############
 
 
-# Вариант из Mastering Text Mining with R и 
+# Example from: Mastering Text Mining with R Рё 
 # https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
-
+#Compute distance between documents and scale the multidimentional semantic space (MDS) onto two dimensions
 
 dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
 
@@ -149,7 +143,7 @@ dist.mat.lsa <- dist(t(lsaMatrix))
 dist.mat.lsa # check distance mantrix
 
 # Plot the distance matrix:
-### Заработало
+### Р—Р°СЂР°Р±РѕС‚Р°Р»Рѕ
 fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2) # Classical (Metric) Multidimensional Scaling
 
 points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
@@ -182,9 +176,9 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 
 
 #COSINE similarity
-# ЭТО ВРОДЕ РАБОТАЕТ
+# Р­РўРћ Р’Р РћР”Р• Р РђР‘РћРўРђР•Рў
 # compute cosine distance matrix
-# ЭТО МОЁ ТВОРЧЕСТВО
+# Р­РўРћ РњРћРЃ РўР’РћР Р§Р•РЎРўР’Рћ
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
@@ -212,7 +206,7 @@ corrplot(mat.lsa.cosine, method = "number")
 
 
 
-## КОНЕЦ МОЕГО ТВОРЧЕСТВА
+## РљРћРќР•Р¦ РњРћР•Р“Рћ РўР’РћР Р§Р•РЎРўР’Рђ
 ############################
 
 lsaMatrix <- as.textmatrix(lsaSpace)
