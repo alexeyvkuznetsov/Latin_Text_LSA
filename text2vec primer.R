@@ -21,20 +21,26 @@ v = create_vocabulary(it)
 v = prune_vocabulary(v, doc_proportion_max = 0.1, term_count_min = 5)
 vectorizer = vocab_vectorizer(v)
 
+
+
 dtm = create_dtm(it, vectorizer)
 # Tf-Idf
 tfidf = TfIdf$new()
 dtm_tfidf = fit_transform(dtm, tfidf)
 #LSA
-lsa = LSA$new(n_topics = 10)
+
+lsa = LSA$new(n_topics = 50)
 lsa = LSA$new(n_topics = 100)
+
 dtm_tfidf_lsa = fit_transform(dtm_tfidf, lsa)
 
+dtm_tfidf_lsa
 
 #cosine similarity
 d1_d2_tfidf_cos_sim = sim2(x = dtm_tfidf_lsa, method = "cosine", norm = "l2")
 d1_d2_tfidf_cos_sim[1:2, 1:5]
 
+d1_d2_tfidf_cos_sim
 
 x = dtm_tfidf_lsa[1:250, ]
 y = dtm_tfidf_lsa[251:500, ]

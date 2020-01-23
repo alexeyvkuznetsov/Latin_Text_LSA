@@ -90,7 +90,7 @@ head(dtm_colsums(dtm))
 ## Remove nouns which you really do not like (mostly too common nouns)
 #dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xstincum", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
 
-dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "num._rom.", "xnum._rom.", "xstincum", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
+dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "num._rom.", "xnum._rom.", "xstincum", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom.", "cdlxvus", "cdxcnum._rom.", "cdxcus", "cdxix", "cdxlnum._rom.", "cdxlvium", "cdxlvus", "cdxx", "cdxxcvus", "cdxxxnum._rom.", "clxxnum._rom.", "cxiium", "cxx", "dclix", "dcxliix", "dcxlis", "dcxxnum._rom.", "dcxxxix", "dlxnum._rom.", "dlxxxnum._rom.", "dlxxxvus", "dxnum._rom.", "dxxvus"))
 
 ## Or keep of these nouns the top 50 based on mean term-frequency-inverse document frequency
 #dtm <- dtm_remove_tfidf(dtm, top = 50)
@@ -173,7 +173,7 @@ s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=co
                      main=" ", xlab="x", ylab="y", zlab="z", type="h")
 legend("top", legend = c("1 Prologus", "2 Historia Gothorum", "3 Recapitulatio", "4 Historia Wandalorum", "5 Historia Suevorum"),
        col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
-       inset = -0.1, xpd = TRUE)
+       inset = 0.2, xpd = TRUE)
 
 s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 
@@ -227,6 +227,7 @@ write.csv(cs.lsa,"cs_lsa.csv")
 library(corrplot)
 corrplot(cs.lsa)
 corrplot(cs.lsa, method = "square")
+corrplot(cs.lsa, method = "number")
 
 
 
