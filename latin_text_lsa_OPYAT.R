@@ -281,6 +281,7 @@ tk3
 dk3 = t(miniLSAspace3$sk * t(miniLSAspace3$dk))
 dk3
 
+#dk = t(as.textmatrix(miniLSAspace$dk))
 
 #########################
 # The two lines of code must be run together. The first line of code creates a plot of the first two 
@@ -302,6 +303,8 @@ myDocs
 # This provides us with a similarity matrix between documents
 myCosineSpace3 <- multicos(myDocs, tvectors=dk2, breakdown=F)
 myCosineSpace3
+
+round((myCosineSpace3), 2)
 
 corrplot(myCosineSpace3, method = "number")
 
