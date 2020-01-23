@@ -128,7 +128,7 @@ lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
 lsaMatrix <- as.textmatrix(lsaSpace)
 
 ############
-# Р’Р РћР”Р• РўРћР–Р• РџРћРќРЇРўРќРћ
+# Begining
 ############
 
 
@@ -143,7 +143,7 @@ dist.mat.lsa <- dist(t(lsaMatrix))
 dist.mat.lsa # check distance mantrix
 
 # Plot the distance matrix:
-### Р—Р°СЂР°Р±РѕС‚Р°Р»Рѕ
+
 fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2) # Classical (Metric) Multidimensional Scaling
 
 points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
@@ -176,9 +176,9 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 
 
 #COSINE similarity
-# Р­РўРћ Р’Р РћР”Р• Р РђР‘РћРўРђР•Рў
+# 
 # compute cosine distance matrix
-# Р­РўРћ РњРћРЃ РўР’РћР Р§Р•РЎРўР’Рћ
+# 
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
@@ -203,11 +203,10 @@ corrplot(mat.lsa.cosine, method = "number")
 
 
 
-
-
-
-## РљРћРќР•Р¦ РњРћР•Р“Рћ РўР’РћР Р§Р•РЎРўР’Рђ
 ############################
+## END
+############################
+
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
