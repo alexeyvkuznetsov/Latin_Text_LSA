@@ -189,11 +189,17 @@ mat.lsa.cosine <- cosine(lsaMatrix) #Cosine similarity matrix
 
 mat.lsa.cosine
 
+colnames(mat.lsa.cosine) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+rownames(mat.lsa.cosine) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
 round((mat.lsa.cosine), 2) # round the results to a couple of decimals
 
 mat.lsa.cosine
 
 # Plot cosine similarity matrix
+# https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html
+
 library(corrplot)
 corrplot(mat.lsa.cosine)
 
@@ -201,11 +207,14 @@ col <- colorRampPalette(c("red", "white", "lightblue"))
 
 corrplot(mat.lsa.cosine, method = "number")
 
-corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10))
+corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10), tl.col = "black")
 
 corrplot(mat.lsa.cosine, method = "circle", addCoef.col = "black")
 
 #corrplot(mat.lsa.cosine, method = "number", order = "hclust", hclust.method = "complete")
+
+
+
 
 
 # http://www.sthda.com/english/wiki/ggcorrplot-visualization-of-a-correlation-matrix-using-ggplot2
