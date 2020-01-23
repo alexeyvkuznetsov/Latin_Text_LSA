@@ -27,11 +27,11 @@ recapitulatio<-data.frame(texts=recapitulatio)
 historia_w<-data.frame(texts=historia_w)
 historia_s<-data.frame(texts=historia_s)
 
-prologus$book<-"01 Prologus"
-historia_g$book<-"02 Historia Gothorum"
-recapitulatio$book<-"03 Recapitulatio"
-historia_w$book<-"04 Historia Wandalorum"
-historia_s$book<-"05 Historia Suevorum"
+prologus$book<-"1 Prologus"
+historia_g$book<-"2 Historia Gothorum"
+recapitulatio$book<-"3 Recapitulatio"
+historia_w$book<-"4 Historia Wandalorum"
+historia_s$book<-"5 Historia Suevorum"
 
 
 historia<-rbind(prologus,historia_g,recapitulatio,historia_w,historia_s)
@@ -44,14 +44,16 @@ historia$texts <- removeNumbers(historia$texts)
 # Stopwords 
 
 customStopWords <- c("ann", "annus", "aer", "aes", "aera", "num._rom.", "xnum._rom.", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom.")
+lat_stopwords_romnum <- c("i", "ii", "iii", "iiii", "iv", "v", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx", "xxi", "xxii", "xxiii", "xxiv", "xxv", "xxvi", "xxvii", "xxviii", "xxix", "xxx", "xxxi", "xxxii", "xxxiii", "xxxiv", "xxxv", "xxxvi", "xxxvii", "xxxviii", "xxxix", "xl", "xli", "xlii", "xliii", "xliv", "xlv", "xlvi", "xlvii", "xlviii", "xlix", "l", "li", "lii", "liii", "liv", "lv", "lvi", "lvii", "lviii", "lix", "lx", "lxi", "lxii", "lxiii", "lxiv", "lxv", "lxvi", "lxvii", "lxviii", "lxix", "lxx", "lxxi", "lxxii", "lxxiii", "lxxiv", "lxxv", "lxxvi", "lxxvii", "lxxviii", "lxxix", "lxxx", "lxxxi", "lxxxii", "lxxxiii", "lxxxiv", "lxxxv", "lxxxvi", "lxxxvii", "lxxxviii", "lxxxix", "xc", "xci", "xcii", "xciii", "xciv", "xcv", "xcvi", "xcvii", "xcviii", "xcix", "c")
+lat_stop_perseus <- c("ab", "ac", "ad", "adhic", "aliqui", "aliquis", "an", "ante", "apud", "at", "atque", "aut", "autem", "cum", "cur", "de", "deinde", "dum", "ego", "enim", "ergo", "es", "est", "et", "etiam", "etsi", "ex", "fio", "haud", "hic", "iam", "idem", "igitur", "ille", "in", "infra", "inter", "interim", "ipse", "is", "ita", "magis", "modo", "mox", "nam", "ne", "nec", "necque", "neque", "nisi", "non", "nos", "o", "ob", "per", "possum", "post", "pro", "quae", "quam", "quare", "qui", "quia", "quicumque", "quidem", "quilibet", "quis", "quisnam", "quisquam", "quisque", "quisquis", "quo", "quoniam", "sed", "si", "sic", "sive", "sub", "sui", "sum", "super", "suus", "tam", "tamen", "trans", "tu", "tum", "ubi", "uel", "uero", "unus", "ut")
 
-#load("lat_stopwords.Rda")
+#save(lat_stop_perseus,file="lat_stop_perseus.Rda")
 
 load("lat_stop_perseus.Rda")
 
-MyStopwords <- c(lat_stop_perseus, customStopWords)
+MyStopwords <- c(lat_stop_perseus, customStopWords, lat_stopwords_romnum)
 
-historia$texts <- removeWords(historia$texts, c(lat_stopwords, customStopWords))
+#historia$texts <- removeWords(historia$texts, c(lat_stopwords, customStopWords))
 
 historia$texts <- removeWords(historia$texts, MyStopwords)
 
@@ -86,7 +88,10 @@ head(dtm_colsums(dtm))
 
 # +xstincum
 ## Remove nouns which you really do not like (mostly too common nouns)
-dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xstincum", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
+#dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xstincum", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
+
+dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "num._rom.", "xnum._rom.", "xstincum", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
+
 ## Or keep of these nouns the top 50 based on mean term-frequency-inverse document frequency
 #dtm <- dtm_remove_tfidf(dtm, top = 50)
 
@@ -136,7 +141,7 @@ lsaMatrix <- as.textmatrix(lsaSpace)
 # https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
 #Compute distance between documents and scale the multidimentional semantic space (MDS) onto two dimensions
 
-dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
+#dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
 
 dist.mat.lsa <- dist(t(lsaMatrix))
 
@@ -166,7 +171,7 @@ colors <- rep(c("blue", "green", "red", "purple", "orange" ))
 
 s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=20, angle = 65, box = FALSE,
                      main=" ", xlab="x", ylab="y", zlab="z", type="h")
-legend("top", legend = c("Prologus", "Historia Gothorum", "Recapitulatio", "Historia Wandalorum", "Historia Suevorum"),
+legend("top", legend = c("1 Prologus", "2 Historia Gothorum", "3 Recapitulatio", "4 Historia Wandalorum", "5 Historia Suevorum"),
        col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
        inset = -0.1, xpd = TRUE)
 
@@ -180,11 +185,11 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 # compute cosine distance matrix
 # 
 
-lsaMatrix <- as.textmatrix(lsaSpace)
+#lsaMatrix <- as.textmatrix(lsaSpace)
 
-#mat.lsa.cosine <- cosine(lsaMatrix) #Similarity matrix similarity_matrix
+mat.lsa.cosine <- cosine(lsaMatrix) #Similarity matrix similarity_matrix
 
-mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace)) #Cosin similarity matrix
+#mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace)) #Cosin similarity matrix
 
 mat.lsa.cosine
 
