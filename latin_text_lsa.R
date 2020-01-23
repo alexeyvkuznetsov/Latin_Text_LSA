@@ -183,9 +183,9 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
-mat.lsa.cosine <- cosine(lsaMatrix) #Cosin similarity matrix
+mat.lsa.cosine <- cosine(lsaMatrix) #Cosine similarity matrix
 
-#mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace)) #Cosin similarity matrix
+#mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace)) #Cosine similarity matrix
 
 mat.lsa.cosine
 
@@ -193,10 +193,17 @@ round((mat.lsa.cosine), 2) # round the results to a couple of decimals
 
 mat.lsa.cosine
 
+# Plot cosine similarity matrix
 library(corrplot)
 corrplot(mat.lsa.cosine)
 
+col <- colorRampPalette(c("red", "white", "lightblue")) 
+
 corrplot(mat.lsa.cosine, method = "number")
+
+corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10))
+
+corrplot(mat.lsa.cosine, method = "circle", addCoef.col = "black")
 
 #corrplot(mat.lsa.cosine, method = "number", order = "hclust", hclust.method = "complete")
 
