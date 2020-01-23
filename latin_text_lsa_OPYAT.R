@@ -228,9 +228,90 @@ corrplot(cs.lsa, method = "number")
 ############################
 
 
+#############################################################
+##  A Guide to Text Analysis with Latent Semantic          ##
+##  Analysis in R with Annotated Code: Studying Online     ##
+##  Reviews and the Stack Exchange Community               ##
+#############################################################
+
+
+library(LSAfun)
+library(lsa)
+
+###
+###
+###
+
+tdm <- TermDocumentMatrix(myCorpus)
+TDM <- as.matrix(tdm)
+
+TDM <- as.matrix(tdm)
+
+#########################
+summary.textmatrix(TDM)
+
+#########################
+
+TDM2 <- lw_tf(TDM) * gw_idf(TDM) 
+TDM2
+
+#########################
+miniLSAspace <- lsa(TDM2, dims=dimcalc_share()) 
+as.textmatrix(miniLSAspace) 
+
+#########################
+# This command will show the value-weighted matrix of Terms
+tk2 = t(miniLSAspace$sk * t(miniLSAspace$tk))
+tk2
+
+#########################
+# This command will show the value-weighted matrix of Documents
+dk2 = t(miniLSAspace$sk * t(miniLSAspace$dk))
+dk2
+
+#########################
+# Because the $sk matrix only has values on the diagonal, R stores it as a numeric vector. 
+miniLSAspace$sk
+
+#########################
+miniLSAspace3 <- lsa(TDM2, dims=3) 
+tk3 = t(miniLSAspace3$sk * t(miniLSAspace3$tk)) 
+tk3 
+
+#########################
+# The two lines of code must be run together. The first line of code creates a plot of the first two 
+# dimensions of $tk, marking the dots as red dots. The second line superimposes term names. 
+plot(tk2[,1], y= tk2[,2], col="red", cex=.50, main="TK Plot")
+text(tk2[,1], y= tk2[,2], labels=rownames(tk2) , cex=.70)
+# This can be done with the documents too. The added parameter cex determines text size. 
+plot(dk2[,1], y= dk2[,2], col="blue", pch="+", main="DK Plot")
+text(dk2[,1], y= dk2[,2], labels=rownames(dk2), cex=.70)
+
+
+
+
+#########################
+myDocs <- rownames(dk2)
+myDocs
+
+#########################
+# This provides us with a similarity matrix between documents
+myCosineSpace3 <- multicos(myDocs, tvectors=dk2, breakdown=F)
+myCosineSpace3
+
+corrplot(myCosineSpace3, method = "number")
+
+
+
+
+
+## КАК ВАРИАНТ ПРЕДЛОЖИТЬ БЕЗ TF IDF
+
 
 ###########
-#lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Похоже это аналог
+# lsaMatrix <- as.textmatrix(lsaSpace)
 ###########
 #Странный результат
 # https://github.com/tifaniwarnita/Document-Similarity/blob/master/Document%20Similarity/doc-sim%20(lsa).R
@@ -243,17 +324,20 @@ tdm <- as.matrix(tdm)
 
 lsaSpace <- lsa::lsa(tdm, dims=dimcalc_share()) # create LSA space
 
+#lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
+
 #lsaMatrix <- as.textmatrix(lsaSpace)
-#lsaSpace <- lsa(tdm)
+
 # lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
 lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# ЭТО АНАЛОГИ
+lsaMatrix <- as.textmatrix(lsaSpace)
 # Use the `cosine` function in `lsa` package to get cosine similarities matrix
 distMatrix <- cosine(lsaMatrix)
 
 distMatrix
 
 corrplot(distMatrix, method = "number")
-
 
 
 
@@ -295,10 +379,6 @@ corrplot(distMatrix, method = "number")
 ###
 ###########
 ###########
-
-
-
-
 
 
 

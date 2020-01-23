@@ -103,6 +103,11 @@ myCosineSpace3
 
 corrplot(myCosineSpace3, method = "number")
 
+
+
+
+
+
 #########################
 neighbors("credit", n=5, tvectors=tk3, breakdown=TRUE)
 
