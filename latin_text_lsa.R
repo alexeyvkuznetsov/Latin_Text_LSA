@@ -201,6 +201,12 @@ corrplot(mat.lsa.cosine, method = "number")
 #corrplot(mat.lsa.cosine, method = "number", order = "hclust", hclust.method = "complete")
 
 
+# http://www.sthda.com/english/wiki/ggcorrplot-visualization-of-a-correlation-matrix-using-ggplot2
+# https://github.com/kassambara/ggcorrplot
+library(ggcorrplot)
+ggcorrplot(mat.lsa.cosine, lab = TRUE)
+
+
 
 ############################
 ## END
@@ -222,6 +228,7 @@ library(corrplot)
 corrplot(cs.lsa)
 corrplot(cs.lsa, method = "square")
 corrplot(cs.lsa, method = "number")
+
 
 ############################
 ## END 2
