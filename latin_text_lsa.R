@@ -233,6 +233,82 @@ corrplot(cs.lsa, method = "number")
 
 
 
+###########
+#lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+###########
+#Странный результат
+# https://github.com/tifaniwarnita/Document-Similarity/blob/master/Document%20Similarity/doc-sim%20(lsa).R
+
+# Creating Term Document Matrix
+tdm <- TermDocumentMatrix(myCorpus)
+tdm <- as.matrix(tdm)
+
+# ЭТО БЕЗ TF IDF. Поэтому другой результат
+
+lsaSpace <- lsa::lsa(tdm, dims=dimcalc_share()) # create LSA space
+
+#lsaMatrix <- as.textmatrix(lsaSpace)
+#lsaSpace <- lsa(tdm)
+# lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+distMatrix <- cosine(lsaMatrix)
+
+distMatrix
+
+corrplot(distMatrix, method = "number")
+
+
+
+
+
+# Creating Term Document Matrix
+tdm <- TermDocumentMatrix(myCorpus)
+lsaSpace <- lsa(tdm)
+# lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+distMatrix <- cosine(lsaMatrix)
+
+distMatrix
+
+corrplot(distMatrix, method = "number")
+
+
+
+
+#https://github.com/DivyaMaharshi/rsudio_setup_trial/blob/2dc2216155ba6e4ae154cdd5c27df4949a241579/content_similarity.R
+
+td.mat <- TermDocumentMatrix(myCorpus)
+# inspect(td.mat[1:10,1:10])
+
+#td.mat<-create_tdm(df)
+
+#------------------------------------------------------------------------------
+# MDS with raw term-document matrix compute distance matrix
+dist.mat <- dist(t(as.matrix(td.mat)))
+
+#------------------------------------------------------------------------------
+# MDS with LSA
+lsaSpace <- lsa(td.mat)  # create LSA space
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) 
+# compute distance matrix
+df.dist=as.matrix(dist.mat.lsa, labels=TRUE)
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+# (subtract from 1 to get dissimilarity matrix)
+distMatrix <- cosine(lsaMatrix)
+corrplot(distMatrix, method = "number")
+
+
+
+
+
+
+
+
+
+
 
 
 library(svs)
