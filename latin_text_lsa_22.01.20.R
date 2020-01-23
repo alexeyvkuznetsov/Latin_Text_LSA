@@ -1,15 +1,19 @@
 setwd("D:/GitHub/Latin_Text_LSA/")
 
 # load required libraries
+
 library(tm)
 library(udpipe)
 library(lsa)
 library(ggplot2)
 library(scatterplot3d)
 library(corrplot)
+
 #library(readr)
-#library(quanteda)
-#library(tidytext)
+library(quanteda)
+library(tidytext)
+
+
 
 prologus<-paste(scan(file ="files/01 prologus.txt",what='character'),collapse=" ")
 historia_g<-paste(scan(file ="files/02 historia_g.txt",what='character'),collapse=" ")
@@ -28,6 +32,7 @@ historia_g$book<-"2 Historia Gothorum"
 recapitulatio$book<-"3 Recapitulatio"
 historia_w$book<-"4 Historia Wandalorum"
 historia_s$book<-"5 Historia Suevorum"
+
 
 historia<-rbind(prologus,historia_g,recapitulatio,historia_w,historia_s)
 
@@ -64,6 +69,7 @@ x <- as.data.frame(x)
 save(x,file="historia_annotated_dataset.Rda")
 load("historia_annotated_dataset.Rda")
 
+
 ## Get a data.frame with 1 row per doc_id/lemma or specific POS tag
 
 #dtf <- document_term_frequencies(x[, c("doc_id", "lemma")])
@@ -89,6 +95,8 @@ dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "
 ## Or keep of these nouns the top 50 based on mean term-frequency-inverse document frequency
 #dtm <- dtm_remove_tfidf(dtm, top = 50)
 
+
+
 ## Convert dtm to a list of text
 dtm.to.list <- apply(dtm, 1, function(x) {
   paste(rep(names(x), x), collapse=" ")
@@ -106,7 +114,7 @@ tdm <- TermDocumentMatrix(myCorpus)
 td_matrix <- as.matrix(tdm)
 
 
-###################################################
+############
 
 
 # Calculate a weighted term-document matrix according to the chosen local and/or global weighting scheme
@@ -114,6 +122,7 @@ td_matrix <- as.matrix(tdm)
 tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 
 #tdm.tfidf <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
+
 
 
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
@@ -126,11 +135,9 @@ lsaMatrix <- as.textmatrix(lsaSpace)
 ############
 # Begining
 ############
-############
-####
-####
 
-# Example from: Mastering Text Mining with R 
+
+# Example from: Mastering Text Mining with R Рё 
 # https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
 #Compute distance between documents and scale the multidimentional semantic space (MDS) onto two dimensions
 
@@ -170,10 +177,7 @@ legend("top", legend = c("1 Prologus", "2 Historia Gothorum", "3 Recapitulatio",
 
 s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 
-####
-####
-############
-############
+
 
 
 #COSINE similarity
@@ -183,7 +187,7 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 
 #lsaMatrix <- as.textmatrix(lsaSpace)
 
-mat.lsa.cosine <- cosine(lsaMatrix) #Cosin similarity matrix
+mat.lsa.cosine <- cosine(lsaMatrix) #Similarity matrix similarity_matrix
 
 #mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace)) #Cosin similarity matrix
 
@@ -202,10 +206,12 @@ corrplot(mat.lsa.cosine, method = "number")
 
 
 
+
+
 ############################
 ## END
 ############################
-# https://github.com/katyalrajat/corpus_mining/blob/9b805cd229b2f5260bfa1007765b0aa6c992fc8d/code.R
+
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
@@ -223,89 +229,120 @@ corrplot(cs.lsa)
 corrplot(cs.lsa, method = "square")
 corrplot(cs.lsa, method = "number")
 
-############################
-## END 2
-############################
 
 
-#############################################################
-##  A Guide to Text Analysis with Latent Semantic          ##
-##  Analysis in R with Annotated Code: Studying Online     ##
-##  Reviews and the Stack Exchange Community               ##
-#############################################################
 
 
-library(LSAfun)
-library(lsa)
+###########
+#lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+###########
+#Странный результат
+# https://github.com/tifaniwarnita/Document-Similarity/blob/master/Document%20Similarity/doc-sim%20(lsa).R
 
-###
-###
-###
-
+# Creating Term Document Matrix
 tdm <- TermDocumentMatrix(myCorpus)
-TDM <- as.matrix(tdm)
+tdm <- as.matrix(tdm)
 
-TDM <- as.matrix(tdm)
+# ЭТО БЕЗ TF IDF. Поэтому другой результат
 
-#########################
-summary.textmatrix(TDM)
+lsaSpace <- lsa::lsa(tdm, dims=dimcalc_share()) # create LSA space
 
-#########################
+#lsaMatrix <- as.textmatrix(lsaSpace)
+#lsaSpace <- lsa(tdm)
+# lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+distMatrix <- cosine(lsaMatrix)
 
-TDM2 <- lw_tf(TDM) * gw_idf(TDM) 
-TDM2
+distMatrix
 
-#########################
-miniLSAspace <- lsa(TDM2, dims=dimcalc_share()) 
-as.textmatrix(miniLSAspace) 
-
-#########################
-# This command will show the value-weighted matrix of Terms
-tk2 = t(miniLSAspace$sk * t(miniLSAspace$tk))
-tk2
-
-#########################
-# This command will show the value-weighted matrix of Documents
-dk2 = t(miniLSAspace$sk * t(miniLSAspace$dk))
-dk2
-
-#########################
-# Because the $sk matrix only has values on the diagonal, R stores it as a numeric vector. 
-miniLSAspace$sk
-
-#########################
-miniLSAspace3 <- lsa(TDM2, dims=3) 
-tk3 = t(miniLSAspace3$sk * t(miniLSAspace3$tk)) 
-tk3 
-
-dk3 = t(miniLSAspace3$sk * t(miniLSAspace3$dk))
-dk3
-
-#dk = t(as.textmatrix(miniLSAspace$dk))
-
-#########################
-# The two lines of code must be run together. The first line of code creates a plot of the first two 
-# dimensions of $tk, marking the dots as red dots. The second line superimposes term names. 
-plot(tk2[,1], y= tk2[,2], col="red", cex=.50, main="TK Plot")
-text(tk2[,1], y= tk2[,2], labels=rownames(tk2) , cex=.70)
-# This can be done with the documents too. The added parameter cex determines text size. 
-plot(dk2[,1], y= dk2[,2], col="blue", pch="+", main="DK Plot")
-text(dk2[,1], y= dk2[,2], labels=rownames(dk2), cex=.70)
+corrplot(distMatrix, method = "number")
 
 
 
 
-#########################
-myDocs <- rownames(dk2)
-myDocs
 
-#########################
-# This provides us with a similarity matrix between documents
-myCosineSpace3 <- multicos(myDocs, tvectors=dk2, breakdown=F)
-myCosineSpace3
+# Creating Term Document Matrix
+tdm <- TermDocumentMatrix(myCorpus)
+lsaSpace <- lsa(tdm)
+# lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+distMatrix <- cosine(lsaMatrix)
 
-round((myCosineSpace3), 2)
+distMatrix
 
-corrplot(myCosineSpace3, method = "number")
+corrplot(distMatrix, method = "number")
 
+
+
+
+#https://github.com/DivyaMaharshi/rsudio_setup_trial/blob/2dc2216155ba6e4ae154cdd5c27df4949a241579/content_similarity.R
+
+td.mat <- TermDocumentMatrix(myCorpus)
+# inspect(td.mat[1:10,1:10])
+
+#td.mat<-create_tdm(df)
+
+#------------------------------------------------------------------------------
+# MDS with raw term-document matrix compute distance matrix
+dist.mat <- dist(t(as.matrix(td.mat)))
+
+#------------------------------------------------------------------------------
+# MDS with LSA
+lsaSpace <- lsa(td.mat)  # create LSA space
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) 
+# compute distance matrix
+df.dist=as.matrix(dist.mat.lsa, labels=TRUE)
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+# (subtract from 1 to get dissimilarity matrix)
+distMatrix <- cosine(lsaMatrix)
+corrplot(distMatrix, method = "number")
+
+
+
+
+
+
+
+
+
+
+
+
+library(svs)
+lsaMatrix2 <- t(lsaMatrix)
+dcos<-dist_cosine(lsaMatrix2, diag = FALSE, upper = FALSE)
+dcos <- as.matrix(dcos)
+corrplot(dcos)
+
+pc_plot(dcos)
+
+d <- dist(mydata) # euclidean distances between the rows
+fit <- cmdscale(dcos,eig=TRUE, k=2) # k is the number of dim
+fit # view results
+
+# plot solution 
+x <- fit$points[,1]
+y <- fit$points[,2]
+plot(x, y, xlab="Coordinate 1", ylab="Coordinate 2", 
+     main="Metric  MDS",    type="n")
+text(x, y, labels = row.names(mydata), cex=.7)
+
+heatmap(dcos, Rowv=as.dendrogram(rc), Colv=NA)
+
+
+
+# https://stats.stackexchange.com/questions/6890/plotting-a-heatmap-given-a-dendrogram-and-a-distance-matrix-in-r
+set.seed(1)
+dat<-matrix(ncol=4, nrow=10, data=rnorm(40))
+rd<-dist(dat)
+rc<-hclust(rd)
+cd<-dist(t(dat))
+cc<-hclust(cd)
+# Dendrogram for rows only
+heatmap(dat, Rowv=as.dendrogram(rc), Colv=NA)
+# Dendrogram for columns only
+heatmap(dat, Rowv=NA, Colv=as.dendrogram(cc))
 

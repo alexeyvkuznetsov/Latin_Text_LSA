@@ -274,7 +274,7 @@ dk2
 miniLSAspace$sk
 
 #########################
-miniLSAspace3 <- lsa(TDM2, dims=3) 
+miniLSAspace3 <- lsa(TDM2, dims=5) 
 tk3 = t(miniLSAspace3$sk * t(miniLSAspace3$tk)) 
 tk3 
 
@@ -308,4 +308,126 @@ round((myCosineSpace3), 2)
 
 corrplot(myCosineSpace3, method = "number")
 
+
+
+
+
+## КАК ВАРИАНТ ПРЕДЛОЖИТЬ БЕЗ TF IDF
+
+
+###########
+# lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Похоже это аналог
+# lsaMatrix <- as.textmatrix(lsaSpace)
+###########
+#Странный результат
+# https://github.com/tifaniwarnita/Document-Similarity/blob/master/Document%20Similarity/doc-sim%20(lsa).R
+
+# Creating Term Document Matrix
+tdm <- TermDocumentMatrix(myCorpus)
+tdm <- as.matrix(tdm)
+
+# ЭТО БЕЗ TF IDF. Поэтому другой результат
+
+lsaSpace <- lsa::lsa(tdm, dims=dimcalc_share()) # create LSA space
+
+#lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
+
+#lsaMatrix <- as.textmatrix(lsaSpace)
+
+# lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# ЭТО АНАЛОГИ
+lsaMatrix <- as.textmatrix(lsaSpace)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+distMatrix <- cosine(lsaMatrix)
+
+distMatrix
+
+corrplot(distMatrix, method = "number")
+
+
+
+
+# Creating Term Document Matrix
+tdm <- TermDocumentMatrix(myCorpus)
+lsaSpace <- lsa(tdm)
+# lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+distMatrix <- cosine(lsaMatrix)
+
+distMatrix
+
+corrplot(distMatrix, method = "number")
+
+
+##########
+##########
+###
+###
+
+#https://github.com/DivyaMaharshi/rsudio_setup_trial/blob/2dc2216155ba6e4ae154cdd5c27df4949a241579/content_similarity.R
+
+td.mat <- TermDocumentMatrix(myCorpus)
+
+# БЕЗ TF IDF другой результат
+#------------------------------------------------------------------------------
+# MDS with LSA
+lsaSpace <- lsa(td.mat)  # create LSA space
+
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+# (subtract from 1 to get dissimilarity matrix)
+distMatrix <- cosine(lsaMatrix)
+corrplot(distMatrix, method = "number")
+
+###
+###
+###########
+###########
+
+
+
+
+
+
+
+
+
+
+library(svs)
+lsaMatrix2 <- t(lsaMatrix)
+dcos<-dist_cosine(lsaMatrix2, diag = FALSE, upper = FALSE)
+dcos <- as.matrix(dcos)
+corrplot(dcos)
+
+pc_plot(dcos)
+
+d <- dist(mydata) # euclidean distances between the rows
+fit <- cmdscale(dcos,eig=TRUE, k=2) # k is the number of dim
+fit # view results
+
+# plot solution 
+x <- fit$points[,1]
+y <- fit$points[,2]
+plot(x, y, xlab="Coordinate 1", ylab="Coordinate 2", 
+     main="Metric  MDS",    type="n")
+text(x, y, labels = row.names(mydata), cex=.7)
+
+heatmap(dcos, Rowv=as.dendrogram(rc), Colv=NA)
+
+
+
+# https://stats.stackexchange.com/questions/6890/plotting-a-heatmap-given-a-dendrogram-and-a-distance-matrix-in-r
+set.seed(1)
+dat<-matrix(ncol=4, nrow=10, data=rnorm(40))
+rd<-dist(dat)
+rc<-hclust(rd)
+cd<-dist(t(dat))
+cc<-hclust(cd)
+# Dendrogram for rows only
+heatmap(dat, Rowv=as.dendrogram(rc), Colv=NA)
+# Dendrogram for columns only
+heatmap(dat, Rowv=NA, Colv=as.dendrogram(cc))
 
