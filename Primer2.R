@@ -62,23 +62,19 @@ corrplot(distMatrix, method = "number")
 #https://github.com/DivyaMaharshi/rsudio_setup_trial/blob/2dc2216155ba6e4ae154cdd5c27df4949a241579/content_similarity.R
 
 td.mat <- TermDocumentMatrix(myCorpus)
-# inspect(td.mat[1:10,1:10])
-
-#td.mat<-create_tdm(df)
-
-#------------------------------------------------------------------------------
-# MDS with raw term-document matrix compute distance matrix
-dist.mat <- dist(t(as.matrix(td.mat)))
+# БЕЗ TF IDF другой результат
 #------------------------------------------------------------------------------
 # MDS with LSA
 lsaSpace <- lsa(td.mat)  # create LSA space
 dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) 
 # compute distance matrix
 df.dist=as.matrix(dist.mat.lsa, labels=TRUE)
-lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+
+#Cosine sim
+lsaMatrix2 <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
 # Use the `cosine` function in `lsa` package to get cosine similarities matrix
 # (subtract from 1 to get dissimilarity matrix)
-distMatrix <- cosine(lsaMatrix)
+distMatrix <- cosine(lsaMatrix2)
 corrplot(distMatrix, method = "number")
 
 
