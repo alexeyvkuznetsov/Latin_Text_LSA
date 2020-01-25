@@ -39,14 +39,17 @@ historia$texts <- removeNumbers(historia$texts)
 # Stopwords 
 
 customStopWords <- c("ann", "annus", "aer", "aes", "aera", "num._rom.", "xnum._rom.", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom.")
+
 lat_stopwords_romnum <- c("i", "ii", "iii", "iiii", "iv", "v", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx", "xxi", "xxii", "xxiii", "xxiv", "xxv", "xxvi", "xxvii", "xxviii", "xxix", "xxx", "xxxi", "xxxii", "xxxiii", "xxxiv", "xxxv", "xxxvi", "xxxvii", "xxxviii", "xxxix", "xl", "xli", "xlii", "xliii", "xliv", "xlv", "xlvi", "xlvii", "xlviii", "xlix", "l", "li", "lii", "liii", "liv", "lv", "lvi", "lvii", "lviii", "lix", "lx", "lxi", "lxii", "lxiii", "lxiv", "lxv", "lxvi", "lxvii", "lxviii", "lxix", "lxx", "lxxi", "lxxii", "lxxiii", "lxxiv", "lxxv", "lxxvi", "lxxvii", "lxxviii", "lxxix", "lxxx", "lxxxi", "lxxxii", "lxxxiii", "lxxxiv", "lxxxv", "lxxxvi", "lxxxvii", "lxxxviii", "lxxxix", "xc", "xci", "xcii", "xciii", "xciv", "xcv", "xcvi", "xcvii", "xcviii", "xcix", "c")
 lat_stop_perseus <- c("ab", "ac", "ad", "adhic", "aliqui", "aliquis", "an", "ante", "apud", "at", "atque", "aut", "autem", "cum", "cur", "de", "deinde", "dum", "ego", "enim", "ergo", "es", "est", "et", "etiam", "etsi", "ex", "fio", "haud", "hic", "iam", "idem", "igitur", "ille", "in", "infra", "inter", "interim", "ipse", "is", "ita", "magis", "modo", "mox", "nam", "ne", "nec", "necque", "neque", "nisi", "non", "nos", "o", "ob", "per", "possum", "post", "pro", "quae", "quam", "quare", "qui", "quia", "quicumque", "quidem", "quilibet", "quis", "quisnam", "quisquam", "quisque", "quisquis", "quo", "quoniam", "sed", "si", "sic", "sive", "sub", "sui", "sum", "super", "suus", "tam", "tamen", "trans", "tu", "tum", "ubi", "uel", "uero", "unus", "ut")
 
 #save(lat_stop_perseus,file="lat_stop_perseus.Rda")
 
-load("lat_stop_perseus.Rda")
+#load("lat_stop_perseus.Rda")
 
-MyStopwords <- c(lat_stop_perseus, customStopWords, lat_stopwords_romnum)
+#MyStopwords <- c(lat_stop_perseus, customStopWords, lat_stopwords_romnum)
+
+MyStopwords <- c(lat_stop_perseus, lat_stopwords_romnum)
 
 #historia$texts <- removeWords(historia$texts, c(lat_stopwords, customStopWords))
 
@@ -223,8 +226,8 @@ library(ggcorrplot)
 ggcorrplot(mat.lsa.cosine, lab = TRUE)
 
 
-## ÝÊÑÏÅÐÈÌÅÍÒ
 
+## ÝÊÑÏÅÐÈÌÅÍÒ
 
 
 mat.lsa.pearson <- cor(lsaMatrix, method="pearson")
