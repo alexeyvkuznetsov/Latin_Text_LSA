@@ -1,3 +1,5 @@
+
+#set working directory
 setwd("D:/GitHub/Latin_Text_LSA/")
 
 # load required libraries
