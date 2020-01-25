@@ -249,11 +249,29 @@ ggcorrplot(mat.lsa.cosine, lab = TRUE)
 # https://www.datacamp.com/community/tutorials/hierarchical-clustering-R
 # https://www.rdocumentation.org/packages/pvclust/versions/2.2-0/topics/pvclust
 # https://github.com/shimo-lab/pvclust
+
+# Hierarchical clustering. It creates a hierarchy of clusters, and presents the hierarchy 
+# in a dendrogram. This method does not require the number of clusters to be specified at 
+# the beginning. Distance connectivity between observations is the measure.
+# Кластеризация-это многомерный анализ, используемый для группировки похожих объектов 
+# (близких по расстоянию) вместе в одной группе (кластере).
+# Иерархическая кластеризация . Он создает иерархию кластеров и представляет её в 
+# виде дендрограммы. Этот метод не требует, чтобы число кластеров было указано в начале. 
+# Мерой является связь расстояний между наблюдениями.
+# https://en.proft.me/2017/01/29/exploring-hierarchical-clustering-r/
+
+
+# Dissimilarity matrix
 d <- dist(mat.lsa.cosine)
 result <- hclust(d, method = 'average')
+# Hierarchical clustering using Complete Linkage
+result <- hclust(d, method = "complete")
 plot(result)
 
 
+
+clusters <- hclust(dist(mat.lsa.cosine))
+plot(clusters)
 
 
 ## ЭКСПЕРИМЕНТ
