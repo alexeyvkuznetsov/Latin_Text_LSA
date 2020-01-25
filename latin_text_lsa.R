@@ -244,7 +244,6 @@ ggcorrplot(mat.lsa.pearson, lab = TRUE)
 
 
 
-
 #spearman
 
 mat.lsa.spearman <- cor(lsaMatrix, method="spearman")
@@ -260,6 +259,25 @@ round((mat.lsa.spearman), 2) # round the results to a couple of decimals
 corrplot(mat.lsa.spearman, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
 
 ggcorrplot(mat.lsa.spearman, lab = TRUE)
+
+
+
+
+#kendall
+
+mat.lsa.kendall <- cor(lsaMatrix, method="spearman")
+
+mat.lsa.kendall
+
+#colnames(mat.lsa.kendall) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+rownames(mat.lsa.kendall) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+round((mat.lsa.kendall), 2) # round the results to a couple of decimals
+
+corrplot(mat.lsa.kendall, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
+
+ggcorrplot(mat.lsa.kendall, lab = TRUE)
 
 
 
