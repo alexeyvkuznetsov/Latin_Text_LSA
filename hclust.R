@@ -66,6 +66,10 @@ result <- pvclust(Boston, method.dist=cosine, nboot=100)
 plot(result)
 
 
+
+
+
+
 result <- pvclust(lsaMatrix, method.dist=cosine, nboot=100)
 plot(result)
 
