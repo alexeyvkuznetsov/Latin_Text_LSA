@@ -218,6 +218,8 @@ corrplot(mat.lsa.cosine)
 
 col <- colorRampPalette(c("red", "white", "lightblue")) 
 
+diag(mat.lsa.cosine) = " "
+
 corrplot(mat.lsa.cosine, method = "number")
 
 corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10), tl.srt = 30, tl.col = "black")
