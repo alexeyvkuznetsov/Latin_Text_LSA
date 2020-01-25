@@ -90,7 +90,7 @@ plot(result.par)
 
 
 
-result <- hclust(dist.mat.lsa, method = 'average')
+result <- hclust(mat.lsa.cosine, method = 'average')
 plot(result)
 
 
