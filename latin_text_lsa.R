@@ -220,6 +220,8 @@ col <- colorRampPalette(c("red", "white", "lightblue"))
 
 corrplot(mat.lsa.cosine, method = "number")
 
+corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10), tl.srt = 30, tl.col = "black")
+
 corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
 
 corrplot(mat.lsa.cosine, method = "circle", addCoef.col = "black")
