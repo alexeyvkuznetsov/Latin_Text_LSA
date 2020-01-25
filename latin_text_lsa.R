@@ -309,3 +309,15 @@ corrplot(cs.lsa, method = "number")
 ############################
 ## END 2
 ############################
+
+
+
+
+library(LSAfun)
+
+neighbors("gens", n=6, tvectors = lsaMatrix)
+
+plot_neighbors("gens", n=5, tvectors = lsaMatrix, method = "MDS", dims = 3, col = c("black","blue","red"))
+
+
+
