@@ -198,9 +198,9 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
-mat.lsa.cosine <- cosine(lsaMatrix) #Cosine similarity matrix
+mat.lsa.cosine <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
 
-#mat.lsa.cosine <- cosine(as.textmatrix(lsaSpace)) #Cosine similarity matrix
+#mat.lsa.cosine <- lsa::cosine(as.textmatrix(lsaSpace)) #Cosine similarity matrix
 
 mat.lsa.cosine
 
