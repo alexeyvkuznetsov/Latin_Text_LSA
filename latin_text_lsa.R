@@ -189,7 +189,7 @@ mat.lsa.cosine <- cosine(lsaMatrix) #Cosine similarity matrix
 
 mat.lsa.cosine
 
-colnames(mat.lsa.cosine) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+#colnames(mat.lsa.cosine) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
 rownames(mat.lsa.cosine) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
@@ -221,6 +221,29 @@ corrplot(mat.lsa.cosine, method = "circle", addCoef.col = "black")
 # https://github.com/kassambara/ggcorrplot
 library(ggcorrplot)
 ggcorrplot(mat.lsa.cosine, lab = TRUE)
+
+
+## ÝÊÑÏÅÐÈÌÅÍÒ
+
+
+
+mat.lsa.pearson <- cor(lsaMatrix, method="pearson")
+
+mat.lsa.pearson
+
+#colnames(mat.lsa.pearson) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+rownames(mat.lsa.pearson) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+round((mat.lsa.pearson), 2) # round the results to a couple of decimals
+
+corrplot(mat.lsa.pearson, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
+
+ggcorrplot(mat.lsa.pearson, lab = TRUE)
+
+
+
+
 
 
 
