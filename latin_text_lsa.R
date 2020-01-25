@@ -252,12 +252,13 @@ ggcorrplot(mat.lsa.cosine, lab = TRUE)
 
 # Hierarchical clustering. It creates a hierarchy of clusters, and presents the hierarchy 
 # in a dendrogram. This method does not require the number of clusters to be specified at 
-# the beginning. Distance connectivity between observations is the measure.
+# the beginning. Distance connectivity between observations is the measure. 
 # Кластеризация-это многомерный анализ, используемый для группировки похожих объектов 
 # (близких по расстоянию) вместе в одной группе (кластере).
 # Иерархическая кластеризация . Он создает иерархию кластеров и представляет её в 
 # виде дендрограммы. Этот метод не требует, чтобы число кластеров было указано в начале. 
 # Мерой является связь расстояний между наблюдениями.
+# В данном случае в качестве меры выступает косинусная схожесть документов
 # https://en.proft.me/2017/01/29/exploring-hierarchical-clustering-r/
 
 
