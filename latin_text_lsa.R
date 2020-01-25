@@ -261,8 +261,12 @@ ggcorrplot(mat.lsa.cosine, lab = TRUE)
 # Иерархическая кластеризация . Он создает иерархию кластеров и представляет её в 
 # виде дендрограммы. Этот метод не требует, чтобы число кластеров было указано в начале. 
 # Мерой является связь расстояний между наблюдениями.
-# В данном случае в качестве меры выступает косинусная схожесть документов
+# В данном случае в качестве меры сходства выступает косинусное сходство документов в 
+# многомерном семантическрм пространстве
 # https://en.proft.me/2017/01/29/exploring-hierarchical-clustering-r/
+
+
+# https://rpubs.com/gaston/dendrograms
 
 
 # Dissimilarity matrix
@@ -272,7 +276,7 @@ result <- hclust(d, method = 'average')
 result <- hclust(d, method = "complete")
 plot(result)
 
-
+plot(result, type = "triangle", ylab = "Height")
 
 clusters <- hclust(dist(mat.lsa.cosine))
 plot(clusters)
