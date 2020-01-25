@@ -67,14 +67,12 @@ plot(result)
 
 
 
-
-
-
+# МОЕ НАОДНОЕ ТВОРЧЕСТВ
 result <- pvclust(lsaMatrix, method.dist=cosine, nboot=100)
 plot(result)
 
 
-
+# МОЕ НАОДНОЕ ТВОРЧЕСТВ
 result <- pvclust(mat.lsa.cosine, method.dist=cosine, nboot=100)
 plot(result)
 
@@ -89,8 +87,9 @@ plot(result.par)
 # }
 
 
-
-result <- hclust(mat.lsa.cosine, method = 'average')
+# МОЕ НАОДНОЕ ТВОРЧЕСТВО
+d <- dist(mat.lsa.cosine, method = "euclidean")
+result <- hclust(d, method = 'average')
 plot(result)
 
 

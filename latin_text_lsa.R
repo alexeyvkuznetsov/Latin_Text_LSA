@@ -204,6 +204,7 @@ mat.lsa.cosine <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
 
 mat.lsa.cosine
 
+
 #colnames(mat.lsa.cosine) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
 rownames(mat.lsa.cosine) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
@@ -220,18 +221,17 @@ corrplot(mat.lsa.cosine)
 
 col <- colorRampPalette(c("red", "white", "lightblue")) 
 
-diag(mat.lsa.cosine) = " "
+#diag(mat.lsa.cosine) = " "
 
-corrplot(mat.lsa.cosine, method = "number")
+#corrplot(mat.lsa.cosine, method = "number")
 
 corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10), tl.srt = 30, tl.col = "black")
 
-corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
+#corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
 
-corrplot(mat.lsa.cosine, method = "circle", addCoef.col = "black")
+#corrplot(mat.lsa.cosine, method = "circle", addCoef.col = "black")
 
 #corrplot(mat.lsa.cosine, method = "number", order = "hclust", hclust.method = "complete")
-
 
 
 
@@ -240,6 +240,19 @@ corrplot(mat.lsa.cosine, method = "circle", addCoef.col = "black")
 # https://github.com/kassambara/ggcorrplot
 library(ggcorrplot)
 ggcorrplot(mat.lsa.cosine, lab = TRUE)
+
+
+
+
+# Hierarchical Clustering in R
+# https://datascienceplus.com/hierarchical-clustering-in-r/
+# https://www.datacamp.com/community/tutorials/hierarchical-clustering-R
+# https://www.rdocumentation.org/packages/pvclust/versions/2.2-0/topics/pvclust
+# https://github.com/shimo-lab/pvclust
+d <- dist(mat.lsa.cosine)
+result <- hclust(d, method = 'average')
+plot(result)
+
 
 
 
