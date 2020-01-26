@@ -67,14 +67,33 @@ plot(result)
 
 
 
-# МОЕ НАОДНОЕ ТВОРЧЕСТВ
-result <- pvclust(lsaMatrix, method.dist=cosine, nboot=100)
+
+
+# МОЕ НАРОДНОЕ ТВОРЧЕСТВ
+
+cosinus <- function(x) {
+  x <- as.matrix(x)
+  y <- t(x) %*% x
+  res <- 1 - y / (sqrt(diag(y)) %*% t(sqrt(diag(y))))
+  res <- as.dist(res)
+  attr(res, "method") <- "cosine"
+  return(res)
+}
+
+# МОЕ НАРОДНОЕ ТВОРЧЕСТВ
+result <- pvclust(lsaMatrix, method.dist=cosinus, nboot=100)
 plot(result)
 
 
-# МОЕ НАОДНОЕ ТВОРЧЕСТВ
+# МОЕ НАРОДНОЕ ТВОРЧЕСТВ
 result <- pvclust(mat.lsa.cosine, method.dist=cosine, nboot=100)
 plot(result)
+
+
+result <- pvclust(lsaMatrix, method.dist="cor", method.hclust="average", nboot=1000, parallel=TRUE)
+
+
+pvrect(result, alpha= 0.95)
 
 
 # }
