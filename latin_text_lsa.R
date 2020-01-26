@@ -287,6 +287,8 @@ clusters <- hclust(dist(mat.lsa.cosine))
 
 clusters <- agnes(mat.lsa.cosine, method = "complete")
 
+clusters <- diana(mat.lsa.cosine)
+
 plot(clusters)
 
 
