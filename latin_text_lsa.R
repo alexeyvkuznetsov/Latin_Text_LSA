@@ -253,6 +253,11 @@ ggcorrplot(mat.lsa.cosine, lab = TRUE)
 # Hierarchical clustering. It creates a hierarchy of clusters, and presents the hierarchy 
 # in a dendrogram. This method does not require the number of clusters to be specified at 
 # the beginning. Distance connectivity between observations is the measure. 
+
+# The dendrogram is a multilevel hierarchy where clusters at one level are joined together
+# to form the clusters at the next levels. This makes it possible to decide the level at
+# which to cut the tree for generating suitable groups of a data objects.
+
 # Кластеризация-это многомерный анализ, используемый для группировки похожих объектов 
 # (близких по расстоянию) вместе в одной группе (кластере).
 # Кластеризация не относится к конкретным алгоритмам, но это процесс для создания групп 
@@ -279,6 +284,9 @@ plot(result)
 plot(result, type = "triangle", ylab = "Height")
 
 clusters <- hclust(dist(mat.lsa.cosine))
+
+clusters <- agnes(mat.lsa.cosine, method = "complete")
+
 plot(clusters)
 
 

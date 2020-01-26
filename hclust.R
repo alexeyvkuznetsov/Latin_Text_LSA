@@ -96,6 +96,12 @@ result <- pvclust(lsaMatrix, method.dist="cor", method.hclust="average", nboot=1
 pvrect(result, alpha= 0.95)
 
 
+
+
+
+
+
+
 # }
 # NOT RUN {
 ### parallel computation
@@ -110,5 +116,6 @@ plot(result.par)
 d <- dist(mat.lsa.cosine, method = "euclidean")
 result <- hclust(d, method = 'average')
 plot(result)
+
 
 
