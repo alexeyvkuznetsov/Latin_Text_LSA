@@ -258,6 +258,12 @@ ggcorrplot(mat.lsa.cosine, lab = TRUE)
 # to form the clusters at the next levels. This makes it possible to decide the level at
 # which to cut the tree for generating suitable groups of a data objects.
 
+# Agglomerative clustering works in a “bottom-up” manner. That is, each object is
+# initially considered as a single-element cluster (leaf). At each step of the algorithm,
+# the two clusters that are the most similar are combined into a new bigger cluster
+# (nodes). This procedure is iterated until all points are member of just one single big
+# cluster (root) (see figure below)
+
 # Кластеризация-это многомерный анализ, используемый для группировки похожих объектов 
 # (близких по расстоянию) вместе в одной группе (кластере).
 # Кластеризация не относится к конкретным алгоритмам, но это процесс для создания групп 
@@ -276,6 +282,7 @@ ggcorrplot(mat.lsa.cosine, lab = TRUE)
 
 # Dissimilarity matrix
 d <- dist(mat.lsa.cosine)
+d
 result <- hclust(d, method = 'average')
 # Hierarchical clustering using Complete Linkage
 result <- hclust(d, method = "complete")
@@ -290,6 +297,86 @@ clusters <- agnes(mat.lsa.cosine, method = "complete")
 clusters <- diana(mat.lsa.cosine)
 
 plot(clusters)
+
+
+
+
+
+
+# МОЕ НАОДНОЕ ТВОРЧЕСТВО
+# Dissimilarity matrix
+d <- dist(mat.lsa.cosine, method = "euclidean")
+# Hierarchical clustering using Complete Linkage
+result <- hclust(d, method = "complete")
+#result <- hclust(d, method = 'average')
+plot(result)
+
+library(factoextra)
+
+fviz_dend(result, k = 4, # Cut in 3 groups
+          cex = 1, # label size
+          k_colors = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
+          color_labels_by_k = TRUE, # color labels by groups
+          #rect_border = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
+          # rect_fill = TRUE,
+          rect = TRUE # Add rectangle around groups
+)
+
+
+
+require("igraph")
+fviz_dend(result, k = 4, k_colors = "jco",
+          type = "phylogenic", repel = TRUE)
+
+
+
+require("igraph")
+fviz_dend(result, k = 4, # Cut in four groups
+          cex = 1, # label size
+          #k_colors = "jco",
+          k_colors = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
+          type = "phylogenic", repel = TRUE,
+          phylo_layout = "layout.gem")
+
+
+
+
+
+
+library(dendextend)
+avg_dend_obj <- as.dendrogram(result)
+avg_col_dend <- color_branches(avg_dend_obj, h = 3)
+plot(avg_col_dend)
+
+
+hc_single <- agnes(lsaMatrix, method = "single")
+hc_complete <- agnes(lsaMatrix, method = "complete")
+# converting to dendogram objects as dendextend works with dendogram objects 
+hc_single <- as.dendrogram(hc_single)
+hc_complete <- as.dendrogram(hc_complete)
+
+tanglegram(hc_single,hc_complete)
+
+
+library(ggplot2)
+library(dendextend)
+# Rectangle dendrogram using ggplot2
+ggd1 <- as.ggdend(result)
+ggplot(ggd1) 
+
+
+
+library(cluster)
+res.agnes <- agnes(x = lsaMatrix, # data matrix
+                   stand = TRUE, # Standardize the data
+                   metric = "euclidean", # metric for distance matrix
+                   method = "ward" # Linkage method
+)
+
+plot(res.agnes)
+
+
+
 
 
 ## ЭКСПЕРИМЕНТ

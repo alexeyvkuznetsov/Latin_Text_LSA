@@ -117,8 +117,20 @@ d <- dist(mat.lsa.cosine, method = "euclidean")
 result <- hclust(d, method = 'average')
 plot(result)
 
+library(factoextra)
+
+fviz_dend(result, k = 4, # Cut in 3 groups
+          cex = 0.5, # label size
+          k_colors = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
+          color_labels_by_k = TRUE, # color labels by groups
+          rect = TRUE # Add rectangle around groups
+)
 
 
+library(ggplot2)
+# Rectangle dendrogram using ggplot2
+ggd1 <- as.ggdend(result)
+ggplot(ggd1) 
 
 
 
