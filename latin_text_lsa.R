@@ -349,13 +349,50 @@ avg_col_dend <- color_branches(avg_dend_obj, h = 3)
 plot(avg_col_dend)
 
 
-hc_single <- agnes(lsaMatrix, method = "single")
-hc_complete <- agnes(lsaMatrix, method = "complete")
-# converting to dendogram objects as dendextend works with dendogram objects 
-hc_single <- as.dendrogram(hc_single)
-hc_complete <- as.dendrogram(hc_complete)
+#hc_single <- agnes(lsaMatrix, method = "single")
+#hc_complete <- agnes(lsaMatrix, method = "complete")
 
-tanglegram(hc_single,hc_complete)
+
+
+# Сравнение методов кластеризации
+
+library(dendextend)
+
+
+lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
+
+lsaMatrix <- as.textmatrix(lsaSpace)
+
+mat.lsa.cosine <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
+
+mat.lsa.cosine
+
+round((mat.lsa.cosine), 2) # round the results to a couple of decimals
+
+mat.lsa.cosine
+
+# Dissimilarity matrix
+# Compute distance matrix
+d <- dist(mat.lsa.cosine, method = "euclidean")
+
+# Compute 2 hierarchical clusterings
+
+hc1 <- hclust(d, method = "average")
+hc2 <- hclust(d, method = "ward.D2")
+
+# # converting to dendogram objects as dendextend works with dendogram objects
+dend1 <- as.dendrogram (hc1)
+dend2 <- as.dendrogram (hc2)
+
+# Create a list to hold dendrograms
+dend_list <- dendlist(dend1, dend2)
+
+# Визуализация
+tanglegram(dend1, dend2)
+
+
+
+
 
 
 library(ggplot2)
