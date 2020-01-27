@@ -275,7 +275,7 @@ d
 result <- hclust(d, method = 'average')
 # Hierarchical clustering using Complete Linkage
 result <- hclust(d, method = "complete")
-plot(result)
+plot(result, main = "Agglomerative, complete linkages")
 
 plot(result, type = "triangle", ylab = "Height")
 
@@ -298,7 +298,7 @@ d <- dist(mat.lsa.cosine, method = "euclidean")
 # Hierarchical clustering using Complete Linkage
 result <- hclust(d, method = "complete")
 #result <- hclust(d, method = 'average')
-plot(result)
+plot(result, main = "Agglomerative, complete linkages")
 
 library(factoextra)
 
