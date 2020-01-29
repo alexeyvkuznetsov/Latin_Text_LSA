@@ -286,17 +286,8 @@ lsa.cosine.dist.mat
 
 result <- hclust(lsa.cosine.dist.mat, method = "complete")
 
-plot(result, main = "Agglomerative, complete linkages")
+plot(result, main = " ")
 
-plot(result, type = "triangle", ylab = "Height")
-
-clusters <- hclust(dist(lsa.cosine.mat))
-
-clusters <- agnes(lsa.cosine.mat, method = "complete")
-
-clusters <- diana(lsa.cosine.mat)
-
-plot(clusters)
 
 
 
@@ -310,6 +301,7 @@ lsa.cosine.dist.mat <- dist(lsa.cosine.mat, method = "euclidean")
 result <- hclust(lsa.cosine.dist.mat, method = "complete")
 #result <- hclust(lsa.cosine.dist.mat, method = 'average')
 plot(result, main = "Agglomerative, complete linkages")
+
 
 library(factoextra)
 
