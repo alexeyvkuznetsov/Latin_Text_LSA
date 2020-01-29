@@ -270,11 +270,12 @@ ggcorrplot(lsa.cosine.mat, lab = TRUE)
 
 
 # Dissimilarity matrix
-d <- dist(lsa.cosine.mat)
-d
-result <- hclust(d, method = 'average')
+lsa.cosine.dist.mat <- dist(lsa.cosine.mat)
+lsa.cosine.dist.mat
+result <- hclust(lsa.cosine.dist.mat, method = 'average')
+
 # Hierarchical clustering using Complete Linkage
-result <- hclust(d, method = "complete")
+result <- hclust(lsa.cosine.dist.mat, method = "complete")
 plot(result, main = "Agglomerative, complete linkages")
 
 plot(result, type = "triangle", ylab = "Height")
@@ -294,10 +295,10 @@ plot(clusters)
 
 # МОЕ НАРОДНОЕ ТВОРЧЕСТВО
 # Dissimilarity matrix
-d <- dist(lsa.cosine.mat, method = "euclidean")
+lsa.cosine.dist.mat <- dist(lsa.cosine.mat, method = "euclidean")
 # Hierarchical clustering using Complete Linkage
-result <- hclust(d, method = "complete")
-#result <- hclust(d, method = 'average')
+result <- hclust(lsa.cosine.dist.mat, method = "complete")
+#result <- hclust(lsa.cosine.dist.mat, method = 'average')
 plot(result, main = "Agglomerative, complete linkages")
 
 library(factoextra)
