@@ -198,40 +198,40 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
-mat.lsa.cosine <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
+lsa.cosine.mat <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
 
 #mat.lsa.cosine <- lsa::cosine(as.textmatrix(lsaSpace)) #Cosine similarity matrix
 
-mat.lsa.cosine
+lsa.cosine.mat
 
 
 #colnames(mat.lsa.cosine) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
-rownames(mat.lsa.cosine) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+rownames(lsa.cosine.mat) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
-round((mat.lsa.cosine), 2) # round the results to a couple of decimals
+round((lsa.cosine.mat), 2) # round the results to a couple of decimals
 
-mat.lsa.cosine
+lsa.cosine.mat
 
 # Plot cosine similarity matrix
 # https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html
 
 library(corrplot)
-corrplot(mat.lsa.cosine)
+corrplot(lsa.cosine.mat)
 
 col <- colorRampPalette(c("red", "white", "lightblue")) 
 
-#diag(mat.lsa.cosine) = " "
+#diag(lsa.cosine.mat) = " "
 
-#corrplot(mat.lsa.cosine, method = "number")
+#corrplot(lsa.cosine.mat, method = "number")
 
-corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10), tl.srt = 30, tl.col = "black")
+corrplot(lsa.cosine.mat, method="color", addCoef.col = "black", col = col(10), tl.srt = 30, tl.col = "black")
 
-#corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
+#corrplot(lsa.cosine.mat, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
 
-#corrplot(mat.lsa.cosine, method = "circle", addCoef.col = "black")
+#corrplot(lsa.cosine.mat, method = "circle", addCoef.col = "black")
 
-#corrplot(mat.lsa.cosine, method = "number", order = "hclust", hclust.method = "complete")
+#corrplot(lsa.cosine.mat, method = "number", order = "hclust", hclust.method = "complete")
 
 
 
@@ -239,7 +239,7 @@ corrplot(mat.lsa.cosine, method="color", addCoef.col = "black", col = col(10), t
 # http://www.sthda.com/english/wiki/ggcorrplot-visualization-of-a-correlation-matrix-using-ggplot2
 # https://github.com/kassambara/ggcorrplot
 library(ggcorrplot)
-ggcorrplot(mat.lsa.cosine, lab = TRUE)
+ggcorrplot(lsa.cosine.mat, lab = TRUE)
 
 
 
@@ -281,7 +281,7 @@ ggcorrplot(mat.lsa.cosine, lab = TRUE)
 
 
 # Dissimilarity matrix
-d <- dist(mat.lsa.cosine)
+d <- dist(lsa.cosine.mat)
 d
 result <- hclust(d, method = 'average')
 # Hierarchical clustering using Complete Linkage
@@ -290,11 +290,11 @@ plot(result)
 
 plot(result, type = "triangle", ylab = "Height")
 
-clusters <- hclust(dist(mat.lsa.cosine))
+clusters <- hclust(dist(lsa.cosine.mat))
 
-clusters <- agnes(mat.lsa.cosine, method = "complete")
+clusters <- agnes(lsa.cosine.mat, method = "complete")
 
-clusters <- diana(mat.lsa.cosine)
+clusters <- diana(lsa.cosine.mat)
 
 plot(clusters)
 
@@ -305,7 +305,7 @@ plot(clusters)
 
 # МОЕ НАОДНОЕ ТВОРЧЕСТВО
 # Dissimilarity matrix
-d <- dist(mat.lsa.cosine, method = "euclidean")
+d <- dist(lsa.cosine.mat, method = "euclidean")
 # Hierarchical clustering using Complete Linkage
 result <- hclust(d, method = "complete")
 #result <- hclust(d, method = 'average')
@@ -363,17 +363,17 @@ lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
-mat.lsa.cosine <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
+lsa.cosine.mat <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
 
-mat.lsa.cosine
+lsa.cosine.mat
 
-round((mat.lsa.cosine), 2) # round the results to a couple of decimals
+round((lsa.cosine.mat), 2) # round the results to a couple of decimals
 
-mat.lsa.cosine
+lsa.cosine.mat
 
 # Dissimilarity matrix
 # Compute distance matrix
-d <- dist(mat.lsa.cosine, method = "euclidean")
+d <- dist(lsa.cosine.mat, method = "euclidean")
 
 # Compute 2 hierarchical clusterings
 
