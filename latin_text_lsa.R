@@ -263,17 +263,6 @@ ggcorrplot(lsa.cosine.mat, lab = TRUE)
 # the two clusters that are the most similar are combined into a new bigger cluster
 # (nodes). This procedure is iterated until all points are member of just one single big
 # cluster (root) (see figure below)
-
-# Кластеризация-это многомерный анализ, используемый для группировки похожих объектов 
-# (близких по расстоянию) вместе в одной группе (кластере).
-# Кластеризация не относится к конкретным алгоритмам, но это процесс для создания групп 
-# на основе меры сходства. Кластерный анализ использует алгоритм неконтролируемого 
-# обучения для создания кластеров.
-# Иерархическая кластеризация . Он создает иерархию кластеров и представляет её в 
-# виде дендрограммы. Этот метод не требует, чтобы число кластеров было указано в начале. 
-# Мерой является связь расстояний между наблюдениями.
-# В данном случае в качестве меры сходства выступает косинусное сходство документов в 
-# многомерном семантическрм пространстве
 # https://en.proft.me/2017/01/29/exploring-hierarchical-clustering-r/
 
 
@@ -286,7 +275,7 @@ d
 result <- hclust(d, method = 'average')
 # Hierarchical clustering using Complete Linkage
 result <- hclust(d, method = "complete")
-plot(result)
+plot(result, main = "Agglomerative, complete linkages")
 
 plot(result, type = "triangle", ylab = "Height")
 
@@ -309,7 +298,7 @@ d <- dist(lsa.cosine.mat, method = "euclidean")
 # Hierarchical clustering using Complete Linkage
 result <- hclust(d, method = "complete")
 #result <- hclust(d, method = 'average')
-plot(result)
+plot(result, main = "Agglomerative, complete linkages")
 
 library(factoextra)
 
