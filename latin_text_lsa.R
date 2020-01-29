@@ -284,6 +284,7 @@ result <- hclust(lsa.cosine.dist.mat, method = "complete")
 
 plot(result, main = " ")
 
+# https://rpkgs.datanovia.com/factoextra/index.html
 
 library(factoextra)
 
@@ -318,18 +319,10 @@ fviz_dend(result, k = 4, # Cut in four groups
 
 
 
-
 library(dendextend)
 avg_dend_obj <- as.dendrogram(result)
 avg_col_dend <- color_branches(avg_dend_obj, h = 3)
 plot(avg_col_dend)
-
-
-#hc_single <- agnes(lsaMatrix, method = "single")
-#hc_complete <- agnes(lsaMatrix, method = "complete")
-
-
-
 
 
 
@@ -371,33 +364,11 @@ tanglegram(dend1, dend2)
 
 
 
-
-
-
-library(ggplot2)
-library(dendextend)
-# Rectangle dendrogram using ggplot2
-ggd1 <- as.ggdend(result)
-ggplot(ggd1) 
-
-
-
-library(cluster)
-res.agnes <- agnes(x = lsaMatrix, # data matrix
-                   stand = TRUE, # Standardize the data
-                   metric = "euclidean", # metric for distance matrix
-                   method = "ward" # Linkage method
-)
-
-plot(res.agnes)
-
-
-
-
-
 ############################
 ## END
 ############################
+
+
 # https://github.com/katyalrajat/corpus_mining/blob/9b805cd229b2f5260bfa1007765b0aa6c992fc8d/code.R
 
 lsaMatrix <- as.textmatrix(lsaSpace)
@@ -422,4 +393,7 @@ corrplot(cs.lsa, method = "number")
 ############################
 
 
+library(remotes)
+
+dfm <- dtm.to.dfm(dtm)
 
