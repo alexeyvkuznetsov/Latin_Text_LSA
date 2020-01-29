@@ -52,6 +52,8 @@ load("rome_number_1000.Rda")
 
 customStopWords <- c("ann", "annus", "aer", "aes", "aera", "num._rom.", "xnum._rom.", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom.")
 
+#lat_stopwords_romnum <- c("i", "ii", "iii", "iiii", "iv", "v", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx", "xxi", "xxii", "xxiii", "xxiv", "xxv", "xxvi", "xxvii", "xxviii", "xxix", "xxx", "xxxi", "xxxii", "xxxiii", "xxxiv", "xxxv", "xxxvi", "xxxvii", "xxxviii", "xxxix", "xl", "xli", "xlii", "xliii", "xliv", "xlv", "xlvi", "xlvii", "xlviii", "xlix", "l", "li", "lii", "liii", "liv", "lv", "lvi", "lvii", "lviii", "lix", "lx", "lxi", "lxii", "lxiii", "lxiv", "lxv", "lxvi", "lxvii", "lxviii", "lxix", "lxx", "lxxi", "lxxii", "lxxiii", "lxxiv", "lxxv", "lxxvi", "lxxvii", "lxxviii", "lxxix", "lxxx", "lxxxi", "lxxxii", "lxxxiii", "lxxxiv", "lxxxv", "lxxxvi", "lxxxvii", "lxxxviii", "lxxxix", "xc", "xci", "xcii", "xciii", "xciv", "xcv", "xcvi", "xcvii", "xcviii", "xcix", "c")
+
 lat_stop_perseus <- c("ab", "ac", "ad", "adhic", "aliqui", "aliquis", "an", "ante", "apud", "at", "atque", "aut", "autem", "cum", "cur", "de", "deinde", "dum", "ego", "enim", "ergo", "es", "est", "et", "etiam", "etsi", "ex", "fio", "haud", "hic", "iam", "idem", "igitur", "ille", "in", "infra", "inter", "interim", "ipse", "is", "ita", "magis", "modo", "mox", "nam", "ne", "nec", "necque", "neque", "nisi", "non", "nos", "o", "ob", "per", "possum", "post", "pro", "quae", "quam", "quare", "qui", "quia", "quicumque", "quidem", "quilibet", "quis", "quisnam", "quisquam", "quisque", "quisquis", "quo", "quoniam", "sed", "si", "sic", "sive", "sub", "sui", "sum", "super", "suus", "tam", "tamen", "trans", "tu", "tum", "ubi", "uel", "uero", "unus", "ut", "quoque", "xiix")
 
 #save(lat_stop_perseus,file="lat_stop_perseus.Rda")
@@ -62,7 +64,7 @@ lat_stop_perseus <- c("ab", "ac", "ad", "adhic", "aliqui", "aliquis", "an", "ant
 
 MyStopwords <- c(lat_stop_perseus, rome_number_1000)
 
-#historia$texts <- removeWords(historia$texts, c(lat_stop_perseus, rome_number_1000))
+#historia$texts <- removeWords(historia$texts, c(lat_stopwords, customStopWords))
 
 historia$texts <- removeWords(historia$texts, MyStopwords)
 
@@ -395,6 +397,63 @@ plot(res.agnes)
 
 
 
+## ЭКСПЕРИМЕНТ
+
+
+mat.lsa.pearson <- cor(lsaMatrix, method="pearson")
+
+mat.lsa.pearson
+
+#colnames(mat.lsa.pearson) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+rownames(mat.lsa.pearson) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+round((mat.lsa.pearson), 2) # round the results to a couple of decimals
+
+corrplot(mat.lsa.pearson, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
+
+ggcorrplot(mat.lsa.pearson, lab = TRUE)
+
+
+
+
+#spearman
+
+mat.lsa.spearman <- cor(lsaMatrix, method="spearman")
+
+mat.lsa.spearman
+
+#colnames(mat.lsa.spearman) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+rownames(mat.lsa.spearman) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+round((mat.lsa.spearman), 2) # round the results to a couple of decimals
+
+corrplot(mat.lsa.spearman, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
+
+ggcorrplot(mat.lsa.spearman, lab = TRUE)
+
+
+
+
+#kendall
+
+mat.lsa.kendall <- cor(lsaMatrix, method="spearman")
+
+mat.lsa.kendall
+
+#colnames(mat.lsa.kendall) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+rownames(mat.lsa.kendall) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
+round((mat.lsa.kendall), 2) # round the results to a couple of decimals
+
+corrplot(mat.lsa.kendall, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
+
+ggcorrplot(mat.lsa.kendall, lab = TRUE)
+
+
+
 ############################
 ## END
 ############################
@@ -420,6 +479,15 @@ corrplot(cs.lsa, method = "number")
 ############################
 ## END 2
 ############################
+
+
+
+
+library(LSAfun)
+
+neighbors("gens", n=36, tvectors = lsaMatrix)
+
+plot_neighbors("gens", n=6, tvectors = lsaMatrix, method = "MDS", dims = 3, col = c("black","blue","red"))
 
 
 
