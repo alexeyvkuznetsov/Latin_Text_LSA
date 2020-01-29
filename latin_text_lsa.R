@@ -88,7 +88,7 @@ dtf <- subset(x, upos %in% c("ADJ", "ADV", "PROPN", "VERB", "NOUN"))
 dtf <- document_term_frequencies(dtf, document = "doc_id", term = "lemma")
 
 
-## Create a document/term/matrix for building a topic model
+## Create a document-term matrix
 dtm <- document_term_matrix(x = dtf)
 ## Remove words which do not occur that much
 dtm <- dtm_remove_lowfreq(dtm, minfreq = 2)
@@ -132,11 +132,15 @@ tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 
 
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
-# Created LSA space
+# create the latent semantic space
 
-lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
+lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create latent semantic space
+
+# display it as a textmatrix again
 
 lsaMatrix <- as.textmatrix(lsaSpace)
+
+lsaMatrix
 
 ############
 # Begining
@@ -192,7 +196,7 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 ###
 ###
 
-#COSINE similarity
+#COSINE similarity of documets in latent semantic space
 # 
 # compute cosine distance matrix
 
