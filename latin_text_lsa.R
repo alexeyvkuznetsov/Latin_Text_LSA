@@ -9,6 +9,7 @@ library(lsa)
 library(ggplot2)
 library(scatterplot3d)
 library(corrplot)
+
 #library(readr)
 #library(quanteda)
 #library(tidytext)
@@ -68,7 +69,7 @@ MyStopwords <- c(lat_stop_perseus, rome_number_1000)
 historia$texts <- removeWords(historia$texts, MyStopwords)
 
 
-# UDPipe annotation
+## UDPipe annotation
 #udmodel_latin <- udpipe_download_model(language = "latin_ittb")
 #udmodel_latin <- udpipe_load_model(ud_model$file_model)
 udmodel_latin <- udpipe_load_model(file = "latin-ittb-ud-2.4-190531.udpipe")
@@ -77,6 +78,7 @@ x <- udpipe_annotate(udmodel_latin, x = historia$texts, doc_id = historia$book, 
 x <- as.data.frame(x)
 
 save(x,file="historia_annotated_dataset.Rda")
+
 load("historia_annotated_dataset.Rda")
 
 ## Get a data.frame with 1 row per doc_id/lemma or specific POS tag
@@ -128,11 +130,11 @@ td_matrix <- as.matrix(tdm)
 
 tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 
-#tdm.tfidf <- lw_bintf(td_matrix) * gw_idf(td_matrix) # weighting
-
 
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
 # create the latent semantic space
+
+lsaSpace <- lsa::lsa(td_matrix, dims=dimcalc_share()) # create latent semantic space
 
 lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create latent semantic space
 
@@ -269,17 +271,21 @@ ggcorrplot(lsa.cosine.mat, lab = TRUE)
 # cluster (root) (see figure below)
 # https://en.proft.me/2017/01/29/exploring-hierarchical-clustering-r/
 
-
 # https://rpubs.com/gaston/dendrograms
 
 
 # Dissimilarity matrix
+
 lsa.cosine.dist.mat <- dist(lsa.cosine.mat)
+
 lsa.cosine.dist.mat
-result <- hclust(lsa.cosine.dist.mat, method = 'average')
+
+#result <- hclust(lsa.cosine.dist.mat, method = 'average')
 
 # Hierarchical clustering using Complete Linkage
+
 result <- hclust(lsa.cosine.dist.mat, method = "complete")
+
 plot(result, main = "Agglomerative, complete linkages")
 
 plot(result, type = "triangle", ylab = "Height")
@@ -307,8 +313,9 @@ plot(result, main = "Agglomerative, complete linkages")
 
 library(factoextra)
 
-fviz_dend(result, k = 4, # Cut in 3 groups
-          cex = 1, # label size
+fviz_dend(result, k = 4, # Cut in 4 groups
+          cex = 0.6, # label size
+          main = "  ", xlab = "  ",
           k_colors = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
           color_labels_by_k = TRUE, # color labels by groups
           #rect_border = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
@@ -345,6 +352,9 @@ plot(avg_col_dend)
 
 #hc_single <- agnes(lsaMatrix, method = "single")
 #hc_complete <- agnes(lsaMatrix, method = "complete")
+
+
+
 
 
 
