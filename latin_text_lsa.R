@@ -245,9 +245,13 @@ ggcorrplot(lsa.cosine.mat, lab = TRUE)
 
 
 # Hierarchical Clustering in R
+# https://habr.com/ru/company/otus/blog/461741/
 # https://datascienceplus.com/hierarchical-clustering-in-r/
 # https://www.datacamp.com/community/tutorials/hierarchical-clustering-R
 # https://www.rdocumentation.org/packages/pvclust/versions/2.2-0/topics/pvclust
+# https://www.datanovia.com/en/blog/types-of-clustering-methods-overview-and-quick-start-r-code/
+# https://www.datanovia.com/en/courses/hierarchical-clustering-in-r-the-essentials/
+# https://www.datanovia.com/en/blog/cluster-analysis-in-r-practical-guide/
 # https://github.com/shimo-lab/pvclust
 
 # Hierarchical clustering. It creates a hierarchy of clusters, and presents the hierarchy 
@@ -284,6 +288,7 @@ result <- hclust(lsa.cosine.dist.mat, method = "complete")
 
 plot(result, main = " ")
 
+
 # https://rpkgs.datanovia.com/factoextra/index.html
 
 library(factoextra)
@@ -300,6 +305,7 @@ fviz_dend(result, k = 4, # Cut in 4 groups
 
 
 
+fviz_dend(result, rect = TRUE) # dendrogam
 
 require("igraph")
 fviz_dend(result, k = 4, k_colors = "jco",
