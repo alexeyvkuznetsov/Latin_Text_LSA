@@ -307,6 +307,8 @@ fviz_dend(result, k = 4, # Cut in 4 groups
 
 fviz_dend(result, rect = TRUE) # dendrogam
 
+fviz_silhouette(result) # silhouette plot
+
 require("igraph")
 fviz_dend(result, k = 4, k_colors = "jco",
           type = "phylogenic", repel = TRUE)
@@ -367,6 +369,21 @@ dend_list <- dendlist(dend1, dend2)
 
 # Визуализация
 tanglegram(dend1, dend2)
+
+
+
+
+
+
+library("cluster")
+set.seed(123)
+# Compute the gap statistic
+gap_stat <- clusGap(lsaMatrix, FUN = kmeans, nstart = 25, k.max = 10, B = 100) 
+# Plot the result
+library(factoextra)
+fviz_gap_stat(gap_stat)
+
+
 
 
 
