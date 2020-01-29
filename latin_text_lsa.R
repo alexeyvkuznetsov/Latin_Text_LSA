@@ -258,7 +258,7 @@ ggcorrplot(lsa.cosine.mat, lab = TRUE)
 # to form the clusters at the next levels. This makes it possible to decide the level at
 # which to cut the tree for generating suitable groups of a data objects.
 
-# Agglomerative clustering works in a “bottom-up” manner. That is, each object is
+# Agglomerative clustering works in a вЂњbottom-upвЂќ manner. That is, each object is
 # initially considered as a single-element cluster (leaf). At each step of the algorithm,
 # the two clusters that are the most similar are combined into a new bigger cluster
 # (nodes). This procedure is iterated until all points are member of just one single big
@@ -292,7 +292,7 @@ plot(clusters)
 
 
 
-# МОЕ НАОДНОЕ ТВОРЧЕСТВО
+# МОЕ НАРОДНОЕ ТВОРЧЕСТВО
 # Dissimilarity matrix
 d <- dist(lsa.cosine.mat, method = "euclidean")
 # Hierarchical clustering using Complete Linkage
@@ -343,7 +343,7 @@ plot(avg_col_dend)
 
 
 
-# Сравнение методов кластеризации
+# РЎСЂР°РІРЅРµРЅРёРµ РјРµС‚РѕРґРѕРІ РєР»Р°СЃС‚РµСЂРёР·Р°С†РёРё
 
 library(dendextend)
 
@@ -376,7 +376,7 @@ dend2 <- as.dendrogram (hc2)
 # Create a list to hold dendrograms
 dend_list <- dendlist(dend1, dend2)
 
-# Визуализация
+# Р’РёР·СѓР°Р»РёР·Р°С†РёСЏ
 tanglegram(dend1, dend2)
 
 
@@ -405,7 +405,7 @@ plot(res.agnes)
 
 
 
-## ЭКСПЕРИМЕНТ
+## Р­РљРЎРџР•Р РРњР•РќРў
 
 
 mat.lsa.pearson <- cor(lsaMatrix, method="pearson")
