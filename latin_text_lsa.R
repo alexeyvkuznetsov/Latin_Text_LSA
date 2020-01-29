@@ -343,7 +343,7 @@ plot(avg_col_dend)
 
 
 
-# РЎСЂР°РІРЅРµРЅРёРµ РјРµС‚РѕРґРѕРІ РєР»Р°СЃС‚РµСЂРёР·Р°С†РёРё
+# Сравнение методов кластеризации
 
 library(dendextend)
 
@@ -376,7 +376,7 @@ dend2 <- as.dendrogram (hc2)
 # Create a list to hold dendrograms
 dend_list <- dendlist(dend1, dend2)
 
-# Р’РёР·СѓР°Р»РёР·Р°С†РёСЏ
+# Визуализация
 tanglegram(dend1, dend2)
 
 
@@ -405,7 +405,7 @@ plot(res.agnes)
 
 
 
-## Р­РљРЎРџР•Р РРњР•РќРў
+## ЭКСПЕРИМЕНТ
 
 
 mat.lsa.pearson <- cor(lsaMatrix, method="pearson")
