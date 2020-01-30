@@ -416,7 +416,5 @@ corrplot(cs.lsa, method = "number")
 ############################
 
 
-library(remotes)
 
-dfm <- dtm.to.dfm(dtm)
 
