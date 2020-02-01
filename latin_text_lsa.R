@@ -298,6 +298,7 @@ fviz_dend(result, k = 4, # Cut in 4 groups
           main = "  ", xlab = "  ",
           k_colors = c("#2E9FDF", "green", "#E7B800", "#FC4E07"),
           color_labels_by_k = TRUE, # color labels by groups
+          rect_border = c("#2E9FDF", "green", "#E7B800", "#FC4E07"),
           #rect_border = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
           # rect_fill = TRUE,
           rect = TRUE # Add rectangle around groups
