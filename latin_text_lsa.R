@@ -9,7 +9,6 @@ library(lsa)
 library(ggplot2)
 library(scatterplot3d)
 library(corrplot)
-
 #library(readr)
 #library(quanteda)
 #library(tidytext)
