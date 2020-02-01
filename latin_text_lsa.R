@@ -334,6 +334,9 @@ plot(avg_col_dend)
 
 
 
+
+
+
 # Сравнение методов кластеризации
 
 library(dendextend)
