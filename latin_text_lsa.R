@@ -91,6 +91,8 @@ dtf <- document_term_frequencies(dtf, document = "doc_id", term = "lemma")
 #####
 dtf <- document_term_frequencies_statistics(dtf)
 
+tdm2 <- cast_dtm(dtf, doc_id, term, freq, weighting = tm::weightTfIdf)
+
 library(tidytext)
 dfm <- cast_dfm(dtf, doc_id, term, freq) # Convert A document_term_frequencies To A DFM
 library(quanteda)
