@@ -60,7 +60,7 @@ lat_stop_perseus <- c("ab", "ac", "ad", "adhic", "aliqui", "aliquis", "an", "ant
 
 #MyStopwords <- c(lat_stop_perseus, customStopWords, lat_stopwords_romnum)
 
-MyStopwords <- c(lat_stop_perseus, rome_number_1000)
+MyStopwords <- c(lat_stop_perseus, rome_number_1000, customStopWords)
 
 #historia$texts <- removeWords(historia$texts, c(lat_stop_perseus, rome_number_1000))
 
@@ -92,6 +92,7 @@ dtf <- document_term_frequencies(dtf, document = "doc_id", term = "lemma")
 ######
 library(tidytext)
 dfm <- cast_dfm(dtf, doc_id, term, freq) # Convert A document_term_frequencies To A DFM
+library(quanteda)
 mylsa <- textmodel_lsa(dfm) # Construct the LSA model
 ######
 
@@ -149,6 +150,7 @@ lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create latent semantic s
 # display it as a textmatrix again
 
 lsaMatrix <- as.textmatrix(lsaSpace)
+#lsaMatrix <- as.textmatrix(mylsa)
 
 lsaMatrix
 
