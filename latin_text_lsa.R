@@ -88,12 +88,15 @@ dtf <- subset(x, upos %in% c("ADJ", "ADV", "PROPN", "VERB", "NOUN"))
 dtf <- document_term_frequencies(dtf, document = "doc_id", term = "lemma")
 
 
+#####
+dtf <- document_term_frequencies_statistics(dtf)
 
-######
 library(tidytext)
 dfm <- cast_dfm(dtf, doc_id, term, freq) # Convert A document_term_frequencies To A DFM
 library(quanteda)
-mylsa <- textmodel_lsa(dfm) # Construct the LSA model
+#mylsa <- textmodel_lsa(dfm) # Construct the LSA model
+dfmlsa <- convert(dfm, to = "lsa") # Convert A Dfm To An Lsa "Textmatrix"
+lsaSpace2 <- lsa::lsa(dfmlsa, dims=dimcalc_share())
 ######
 
 
