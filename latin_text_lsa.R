@@ -88,6 +88,16 @@ dtf <- subset(x, upos %in% c("ADJ", "ADV", "PROPN", "VERB", "NOUN"))
 dtf <- document_term_frequencies(dtf, document = "doc_id", term = "lemma")
 
 
+
+######
+library(tidytext)
+dfm <- cast_dfm(dtf, doc_id, term, freq) # Convert A document_term_frequencies To A DFM
+mylsa <- textmodel_lsa(dfm) # Construct the LSA model
+######
+
+
+
+
 ## Create a document-term matrix
 dtm <- document_term_matrix(x = dtf)
 ## Remove words which do not occur that much
