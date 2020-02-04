@@ -230,6 +230,9 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
 ############
 ###
 ###
+################################################
+### COSINE SIMILARITY (TF-IDF)               ###
+################################################
 
 #COSINE similarity of documets in latent semantic space
 # 
