@@ -17,10 +17,15 @@ library(lsa)
 library(ggplot2)
 library(scatterplot3d)
 library(corrplot)
+library(factoextra)
 
 #library(readr)
 #library(quanteda)
 #library(tidytext)
+
+#n = list.files("files/")
+wiki_docs = Corpus(DirSource("files/"))
+
 
 prologus<-paste(scan(file ="files/01 prologus.txt",what='character'),collapse=" ")
 historia_g<-paste(scan(file ="files/02 historia_g.txt",what='character'),collapse=" ")
@@ -96,7 +101,7 @@ dtf <- subset(x, upos %in% c("ADJ", "ADV", "PROPN", "VERB", "NOUN"))
 dtf <- document_term_frequencies(dtf, document = "doc_id", term = "lemma")
 
 
-#####
+############
 dtf <- document_term_frequencies_statistics(dtf)
 
 tdm2 <- cast_dtm(dtf, doc_id, term, freq, weighting = tm::weightTfIdf)
@@ -107,7 +112,7 @@ library(quanteda)
 #mylsa <- textmodel_lsa(dfm) # Construct the LSA model
 dfmlsa <- convert(dfm, to = "lsa") # Convert A Dfm To An Lsa "Textmatrix"
 lsaSpace2 <- lsa::lsa(dfmlsa, dims=dimcalc_share())
-######
+############
 
 
 
