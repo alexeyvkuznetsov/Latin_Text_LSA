@@ -2,6 +2,8 @@
 ##############################################################
 ##  Latent Semantic Analisis for Latin Texts                ##
 ##  Author: Alexey Kuznetsov                                ##
+##  URL: https://github.com/alexeyvkuznetsov/Latin_Text_LSA ##
+##       https://alexeyvkuznetsov.github.io                 ##
 ##############################################################
 ##############################################################
 
