@@ -24,7 +24,7 @@ library(factoextra)
 #library(tidytext)
 
 #n = list.files("files/")
-wiki_docs = Corpus(DirSource("files/"))
+#wiki_docs = Corpus(DirSource("files/"))
 
 
 prologus<-paste(scan(file ="files/01 prologus.txt",what='character'),collapse=" ")
@@ -47,7 +47,7 @@ historia_s$book<-"5 Historia Suevorum"
 
 historia<-rbind(prologus,historia_g,recapitulatio,historia_w,historia_s)
 
-#historia$texts <- stripWhitespace(historia$texts)
+historia$texts <- stripWhitespace(historia$texts)
 historia$texts <- tolower(historia$texts)
 historia$texts <- removePunctuation(historia$texts)
 historia$texts <- removeNumbers(historia$texts)
@@ -78,6 +78,9 @@ MyStopwords <- c(lat_stop_perseus, rome_number_1000, customStopWords)
 #historia$texts <- removeWords(historia$texts, c(lat_stop_perseus, rome_number_1000))
 
 historia$texts <- removeWords(historia$texts, MyStopwords)
+
+historia$texts <- stripWhitespace(historia$texts)
+
 
 
 ## UDPipe annotation
@@ -161,13 +164,15 @@ tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
 # create the latent semantic space
 
-lsaSpace <- lsa::lsa(td_matrix, dims=dimcalc_share()) # create latent semantic space
+#lsaSpace <- lsa::lsa(td_matrix, dims=dimcalc_share()) # create latent semantic space
 
 lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create latent semantic space
 
 # display it as a textmatrix again
 
 lsaMatrix <- as.textmatrix(lsaSpace)
+# =
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
 #lsaMatrix <- as.textmatrix(mylsa)
 
 lsaMatrix
@@ -245,12 +250,16 @@ rownames(lsa.cosine.mat) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitul
 round((lsa.cosine.mat), 2) # round the results to a couple of decimals
 
 
+#rownames(lsaSpace$dk) = n
+#lsaSpace$dk
+
+
 # Plot cosine similarity matrix
 # https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html
 
 library(corrplot)
 
-corrplot(lsa.cosine.mat)
+#corrplot(lsa.cosine.mat)
 
 col <- colorRampPalette(c("red", "white", "lightblue")) 
 
