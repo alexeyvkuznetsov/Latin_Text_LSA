@@ -21,8 +21,15 @@ https://www.asozykin.ru/courses/nnpython
 https://www.youtube.com/channel/UC5gufuYHPSsJA-jul-iwyXA
 
 
+
+LDA
+https://www.rtextminer.com/articles/c_topic_modeling.html
+https://anythingbutrbitrary.blogspot.com/2013/03/build-search-engine-in-20-minutes-or.html
+
+
 LSA
 https://www.codemiles.com/r-examples/latent-semantic-analysis-for-text-in-r-using-lsa-t11103.html
+https://www.rtextminer.com/articles/b_document_clustering.html
 
 
 Важно

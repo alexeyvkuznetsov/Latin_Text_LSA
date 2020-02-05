@@ -1,0 +1,419 @@
+
+clustext is a collection of optimized tools for clustering text data via various text appropriate clustering algorithms. 
+https://github.com/trinker/clustext
+https://github.com/trinker/hclustext
+
+
+
+https://habr.com/ru/company/otus/blog/461741/
+
+Hierarchical Clustering in R
+
+https://www.rdocumentation.org/packages/pvclust/versions/2.2-0/topics/pvclust
+https://github.com/shimo-lab/pvclust
+https://datascienceplus.com/hierarchical-clustering-in-r/
+https://www.datacamp.com/community/tutorials/hierarchical-clustering-R
+https://www.r-bloggers.com/how-to-perform-hierarchical-clustering-using-r/
+https://dataaspirant.com/2018/01/08/hierarchical-clustering-r/
+https://www.datanovia.com/en/courses/hierarchical-clustering-in-r-the-essentials/
+
+https://rpubs.com/gaston/dendrograms
+http://www.sthda.com/english/wiki/beautiful-dendrogram-visualizations-in-r-5-must-known-methods-unsupervised-machine-learning
+
+
+!!!
+https://en.proft.me/2017/01/29/exploring-hierarchical-clustering-r/
+Кластеризация-это многомерный анализ, используемый для группировки похожих объектов (близких по расстоянию) вместе в одной группе (кластере). В отличие от методов контролируемого обучения (например, классификации и регрессии) кластерный анализ не использует никакой информации о метках, а просто использует сходство между признаками данных, чтобы сгруппировать их в кластеры.
+
+Кластеризация не относится к конкретным алгоритмам, но это процесс для создания групп на основе меры сходства. Кластерный анализ использует алгоритм неконтролируемого обучения для создания кластеров.
+
+Алгоритмы кластеризации обычно работают на простом принципе максимизации внутрикластерных сходств и минимизации межкластерных сходств. Мера подобия определяет, как должны формироваться кластеры.
+Наиболее распространенными моделями методов кластеризации являются иерархическая кластеризация, кластеризация k-средних, кластеризация на основе моделей и кластеризация на основе плотности:
+
+Иерархическая кластеризация . Она создает иерархию кластеров и представляет её в виде дендрограммы. Этот метод не требует, чтобы число кластеров было указано в начале. Мерой является связь расстояний между наблюдениями.
+В нашем случае мерой служит косинусное иежду документами в многомерном семантическом просстранстве.
+
+В R мы используем hclust()функцию для иерархического кластерного анализа . Это является частью statsпакета. Для выполнения иерархической кластеризации входные данные должны быть представлены в виде матрицы расстояний.
+
+Другая важная функция, используемая здесь, - dist()это вычисление и возврат матрицы расстояний, вычисленной с помощью указанной меры расстояния для вычисления расстояний между строками матрицы данных. По умолчанию это Евклидово расстояние.
+!!!
+
+https://www.educba.com/hierarchical-clustering-in-r/
+
+cluster: "Finding Groups in Data": Cluster Analysis Extended Rousseeuw et al.
+https://cran.r-project.org/web/packages/cluster/index.html
+
+https://www.datacamp.com/community/tutorials/hierarchical-clustering-R
+
+
+
+https://rdrr.io/cran/lsa/man/as.textmatrix.html
+https://link.springer.com/article/10.3758%2Fs13428-014-0529-0
+
+КНИГА
+https://text-and-modeling-in-r.netlify.com/
+
+https://habr.com/ru/company/calltouch/blog/337888/
+http://nlpx.net/archives/57
+https://habr.com/ru/sandbox/18635/
+
+СРАВНИТЬ ВАРИАНТЫ
+https://github.com/alexeyvkuznetsov/Latin_Text_LSA/blob/f3708f3977a7f44c9e040654b68c8162a899aee3/Exampl/doc-sim%20(cosine%20dist).R
+
+COSINE
+УТОЧНИТЬ про t()
+https://corpling.hypotheses.org/495
+https://joparga3.github.io/Udemy_text_analysis/index.html#document-similarity-cosine-similarity-and-latent-semantic-analysis
+
+
+# reduced information for the documents
+rownames(lsa_out$dk) = n
+lsa_out$dk
+
+
+
+Corpus Linguistics and Statistics with R
+
+
+http://lindat.mff.cuni.cz/services/udpipe/
+
+https://qarchive.ru/3952937_vychislit__shodstva_kosinusov_mezhdu_dokumentami_v_semanticheskom_prostranstve__ispol_zuja_paket_r_lsa
+
+
+Latent semantic analysis (LSA) is a statistical model of word usage that permits comparisons of semantic similarity between pieces of textual information. This paper summarizes three experiments that illustrate how LSA may be used in text-based research. Two experiments describe methods for analyzing a subject's essay for determining from what text a subject learned the information and for grading the quality of information cited in the essay. The third experiment describes using LSA to measure the coherence and comprehensibility of texts.
+https://github.com/alexeyvkuznetsov/Latin_Text_LSA/blob/3b948ef97103b850ef0ce4cebb3421790e0a997e/7.3.R
+https://stackoverflow.com/questions/23580095/how-to-plot-clusters-with-a-matrix
+https://coderoad.ru/15229584/%D0%92%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B8%D1%82%D0%B5-%D0%BA%D0%BE%D1%81%D0%B8%D0%BD%D1%83%D1%81%D0%BD%D1%8B%D0%B5-%D1%81%D1%85%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%B0-%D0%BC%D0%B5%D0%B6%D0%B4%D1%83-%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D0%BC%D0%B8-%D0%B2-%D1%81%D0%B5%D0%BC%D0%B0%D0%BD%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%BC-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%81%D1%82%D0%B2%D0%B5
+
+
+
+!!!!!!!!!
+https://4gophers.ru/articles/semanticheski-analiz-webstranic-na-go/#.XicQN6AueM_
+https://netpeak.net/ru/blog/algoritm-lsa-dlya-poiska-pohozhih-dokumentov/
+https://habr.com/ru/sandbox/18635/
+https://akorsa.ru/2017/01/vektornaya-model-i-kosinusnoe-shodstvo-cosine-similarity/
+https://habr.com/ru/company/calltouch/blog/337888/
+https://nickgrattan.wordpress.com/2014/06/10/euclidean-manhattan-and-cosine-distance-measures-in-c/
+!!!!!!!!
+
+
+#############################################################
+
+Сравнение методов определения K в Тематическом моделировании
+
+Моделирование Беды
+
+
+!!!
+http://r-statistics.co/
+!!!
+UDPIPE и нетворк анализ
+https://www.cspoerlein.com/files/textanalyse.html#text_networks
+
+
+!!! LSA i Klastering
+https://github.com/Sathiyarajan/data-science-repo-r-py/blob/9a76df4b28f328e7fb43ecd66876e0d834a6d8ac/R/Mastering-R-Programming/Codes/Section%207/7.3.R
+
+https://www.datanovia.com/en/blog/cluster-analysis-in-r-simplified-and-enhanced/
+
+!!!!!!
+https://joparga3.github.io/Udemy_text_analysis/#latent-semantic-analysis
+https://joparga3.github.io/Udemy_text_analysis/index.html
+
+
+https://stackoverflow.com/questions/23580095/how-to-plot-clusters-with-a-matrix
+
+
+!!!
+https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
+#scatterplot3d
+https://github.com/rochelleterman/worlds-women/blob/6d130988252d4a0af84370f0b1197c733bdc1dac/Scraps/lsa.R
+https://github.com/jamiewan1989/LDA-topicmodel/blob/fc7d66edc3074d2a7d55123773b06145dc5a010b/word%20cloud.R
+https://github.com/ds10/Personal-Corpus/blob/5f009ac29b53a27f69855cdc4b787bf48791b524/R/blog_text_similarity.R
+https://github.com/akshaysalvi948/semantic-Analysis/blob/fc94a6c3852326eb4cf5ae9987d8d5af8ec534c8/main.r
+
+
+Про кластеринг
+[Ashish_Kumar,_Avinash_Paul]_Mastering_Text_Mining(z-lib.org)
+
+!!!!!
+
+https://github.com/Sathiyarajan/data-science-repo-r-py/blob/9a76df4b28f328e7fb43ecd66876e0d834a6d8ac/R/Mastering-R-Programming/Codes/Section%207/7.3.R
+
+https://www.datanovia.com/en/blog/cluster-analysis-in-r-simplified-and-enhanced/
+
+!!! USING WORD SIMILARITY GRAPHS TO EXPLORE THEMES IN TEXT: A TUTORIAL
+
+https://www.markhw.com/blog/word-similarity-graphs
+
+
+
+
+
+
+https://github.com/tifaniwarnita/Document-Similarity/blob/97939d7733965ff322682e98850e426858588357/Document%20Similarity/doc-sim%20(cosine%20dist).R
+
+# Creating Term Document Matrix
+tdm.tf <- TermDocumentMatrix(corpus)
+tdm.bin <- weightBin(tdm.tf)
+tdm.tfidf <- weightTfIdf(tdm.tf, normalize = TRUE)
+
+# Calculate Cosine Distance (Normal)
+cosine.dist.bin <- crossprod_simple_triplet_matrix(tdm.bin)/(sqrt(col_sums(tdm.bin^2) %*% t(col_sums(tdm.bin^2))))
+cosine.dist.tf <- crossprod_simple_triplet_matrix(tdm.tf)/(sqrt(col_sums(tdm.tf^2) %*% t(col_sums(tdm.tf^2))))
+cosine.dist.tfidf <- crossprod_simple_triplet_matrix(tdm.tfidf)/(sqrt(col_sums(tdm.tfidf^2) %*% t(col_sums(tdm.tfidf^2))))
+
+# Calculate Cosine Distance (LSA)
+#1)
+lsa.space.bin <- lsa(tdm.bin)
+lsa.space.tf <- lsa(tdm.tf)
+lsa.space.tfidf <- lsa(tdm.tfidf)
+#2)
+lsa.mat.bin <- diag(lsa.space.bin$sk) %*% t(lsa.space.bin$dk)
+lsa.mat.tf <- diag(lsa.space.tf$sk) %*% t(lsa.space.tf$dk)
+lsa.mat.tfidf <- diag(lsa.space.tfidf$sk) %*% t(lsa.space.tfidf$dk)
+#3)
+lsa.cosine.dist.bin <- lsa::cosine(lsa.mat.bin)
+lsa.cosine.dist.tf <- lsa::cosine(lsa.mat.tf)
+lsa.cosine.dist.tfidf <- lsa::cosine(lsa.mat.tfidf)
+
+
+
+
+
+
+
+https://github.com/DivyaMaharshi/rsudio_setup_trial/blob/2dc2216155ba6e4ae154cdd5c27df4949a241579/content_similarity.R
+
+# MDS with raw term-document matrix compute distance matrix
+dist.mat <- dist(t(as.matrix(td.mat)))
+#------------------------------------------------------------------------------
+# MDS with LSA
+lsaSpace <- lsa(td.mat)  # create LSA space
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) 
+# compute distance matrix
+df.dist=as.matrix(dist.mat.lsa, labels=TRUE)
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+# (subtract from 1 to get dissimilarity matrix)
+distMatrix <- cosine(lsaMatrix)
+
+
+
+
+
+
+https://github.com/joesilverstein/seedinvest/blob/ef15681f04b70744bad4e44073102d5840401023/TestLSA.R#L67
+
+# 3. MDS with LSA
+td.mat.lsa <- lw_bintf(td.mat) * gw_idf(td.mat)  # weighting
+lsaSpace <- lsa(td.mat.lsa)  # create LSA space
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace)))  # compute distance matrix
+dist.mat.lsa  # check distance mantrix
+
+# MDS
+fit <- cmdscale(dist.mat.lsa, eig = TRUE, k = 2)
+points <- data.frame(x = fit$points[, 1], y = fit$points[, 2])
+ggplot(points, aes(x = x, y = y)) + geom_point(data = points, aes(x = x, y = y,
+                                                                  color = df$view)) + geom_text(data = points, aes(x = x, y = y - 0.2, label = row.names(df)))
+
+
+
+
+
+
+
+https://github.com/TCTutorialORM/textclassification-orm2/blob/f40498f8ce85658db03dbfd5d7bbc82161953430/R/CodeListing_8.R
+
+
+
+
+
+https://github.com/tifaniwarnita/Document-Similarity/blob/97939d7733965ff322682e98850e426858588357/Document%20Similarity/doc-sim%20(lsa).R
+
+
+# Creating Term Document Matrix
+tdm <- TermDocumentMatrix(corpus)
+lsaSpace <- lsa(tdm)
+# lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+distMatrix <- cosine(lsaMatrix)
+
+
+
+
+https://github.com/DivyaMaharshi/rsudio_setup_trial/blob/2dc2216155ba6e4ae154cdd5c27df4949a241579/content_similarity.R
+
+#------------------------------------------------------------------------------
+# MDS with raw term-document matrix compute distance matrix
+dist.mat <- dist(t(as.matrix(td.mat)))
+#------------------------------------------------------------------------------
+# MDS with LSA
+lsaSpace <- lsa(td.mat)  # create LSA space
+dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) 
+# compute distance matrix
+df.dist=as.matrix(dist.mat.lsa, labels=TRUE)
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+# (subtract from 1 to get dissimilarity matrix)
+distMatrix <- cosine(lsaMatrix)
+
+
+https://github.com/adam-sampson/Job_Desc_Text_Analytics/blob/1f67c28d907197d7cf4950ed208ab1414d003272/jobs_LSA.R
+
+
+https://github.com/joesilverstein/seedinvest/blob/ef15681f04b70744bad4e44073102d5840401023/TestLSA.R
+
+# Create Bag Of Words matrix
+td.mat <- as.matrix(TermDocumentMatrix(corpus))
+# Only 31 relevant word stems are used! Might not even need to reduce the dimensionality.
+
+# create LSA space.
+# This is essentially PCA to reduce the number of features, and might be unecessary since there aren't that many
+lsaSpace <- lsa(td.mat, dims = dimcalc_share(share=0.5))
+lsaSpace$tk # The partial matrix T contains the term loadings on the factors.
+lsaSpace$dk # The partial matrix D contains the document loadings on the factors.
+# The partial matrix S contains the singular values of the factors.
+lsaSpace$sk # Diagonal entries of the diagonal matrix S
+
+# Use these as the additional features in the regression?
+X = as.textmatrix(lsaSpace)
+X = t(lsaSpace$tk %*% diag(lsaSpace$sk) %*% t(lsaSpace$dk))
+
+proximity = cosine(td.mat) # raw (unprocessed) measure of proximity
+proximityLSASpace = cosine(as.textmatrix(lsaSpace)) # this measure of proximity is much better than the former
+
+
+
+
+
+# Function to group documents in a corpus by similarity using a combination of text 
+# and graph based analytics
+
+https://github.com/vintg/Statistics-in-R/blob/2b9d9f812e835651d70160f490725b53be5749b5/sampletxt_comparison.R
+
+# Create the term document matrix
+td.mat <- as.matrix(TermDocumentMatrix(docs))
+
+# Create the LSA SPACE
+td.mat.lsa <- lw_bintf(td.mat) * gw_idf(td.mat)  # weighting
+lsaSpace <- lsa(td.mat.lsa,lsaRank)  # create LSA space
+
+sk<-lsaSpace$sk
+dk<-lsaSpace$dk
+tk<-lsaSpace$tk
+
+# Create the reduced rank LSA space version of the tdm
+#ak<-t(dk)*sk
+ak<-tk %*% diag(sk) %*% t(dk)
+
+
+# Calculate the cosine similarity in LSA space and then set the similarity to 0 for any pairs that do not make the threshold
+s<-cosine(ak)
+filterIt<-which(s<cosSimThres)
+s[filterIt]<-0
+
+# Set the diagonal entries = 0 so we do not display loops in the graph
+diag(s)<-0
+g<-graph.adjacency(s,mode="undirected",weighted=TRUE)
+pLayout<-layout_with_fr(g )
+plot(g,layout=pLayout,vertex.size=5,edge.width=E(g)$weight,vertex.label=NA)
+
+
+
+
+
+
+ Интересный пример
+
+https://github.com/katyalrajat/corpus_mining/blob/9b805cd229b2f5260bfa1007765b0aa6c992fc8d/code.R
+
+
+
+############################ LSA ##############################
+###############################################################
+tdm <- TermDocumentMatrix(docs)
+tdm.matrix <- as.matrix(tdm)
+#check class
+dim(tdm.matrix)
+
+#weight terms and docs
+tdm.matrix.lsa <- lw_tf(tdm.matrix) * gw_idf(tdm.matrix)
+dim(tdm.matrix.lsa)
+
+#compute the Latent semantic space
+lsaSpace <- lsa(tdm.matrix.lsa, dimcalc_share()) # create LSA space
+#examine output
+names(lsaSpace)
+
+LSAMat <- as.textmatrix(lsaSpace)
+
+#Calculate similarity of documents in LSA space
+cosineSim <- function(x){
+  as.dist(x%*%t(x)/(sqrt(rowSums(x^2) %*% t(rowSums(x^2)))))
+}
+
+#Similarity matrix
+cs.lsa <- as.matrix(cosineSim(t(LSAMat)))
+write.csv(cs.lsa,"cs_lsa.csv")
+
+library(corrplot)
+corrplot(cs.lsa)
+corrplot(cs.lsa, method = "square")
+
+
+
+
+
+
+
+
+https://ru.coredump.biz/questions/15229584/compute-cosine-similarities-between-documents-in-semantic-space-using-rlsa-package
+
+
+lsaSpace <- lsa(termDocMatrix)
+
+# lsaMatrix now is a k x (num doc) matrix, in k-dimensional LSA space
+lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+
+# Use the `cosine` function in `lsa` package to get cosine similarities matrix
+# (subtract from 1 to get dissimilarity matrix)
+distMatrix <- 1 - cosine(lsaMatrix)
+
+
+
+
+
+library(arules)
+dissimilarity(x=matrix(seq(1,10),ncol=2),method='cosine')
+          1         2         3         4
+2 -4.543479                              
+3 -4.811989 -5.231234                    
+4 -5.080052 -5.563952 -6.024433          
+5 -5.343350 -5.885304 -6.395740 -6.877264
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
