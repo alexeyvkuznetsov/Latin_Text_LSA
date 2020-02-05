@@ -25,6 +25,8 @@ https://www.youtube.com/channel/UC5gufuYHPSsJA-jul-iwyXA
 LDA
 https://www.rtextminer.com/articles/c_topic_modeling.html
 https://anythingbutrbitrary.blogspot.com/2013/03/build-search-engine-in-20-minutes-or.html
+!!! Dtm2Docs
+https://www.rtextminer.com/reference/Dtm2Docs.html
 
 
 LSA

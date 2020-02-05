@@ -101,6 +101,9 @@ https://nickgrattan.wordpress.com/2014/06/10/euclidean-manhattan-and-cosine-dist
 
 Сравнение методов определения K в Тематическом моделировании
 
+https://www.rtextminer.com/articles/c_topic_modeling.html
+
+
 Моделирование Беды
 
 
