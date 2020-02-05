@@ -18,7 +18,7 @@ library(ggplot2)
 library(scatterplot3d)
 library(corrplot)
 library(factoextra)
-
+library(textmineR)
 #library(readr)
 #library(quanteda)
 #library(tidytext)
@@ -54,10 +54,10 @@ historia$texts <- removeNumbers(historia$texts)
 
 # Stopwords
 
-rome_number<-paste(scan(file ="rom number 1000.txt",what='character'),collapse=" ")
-rome_number<-tolower(rome_number)
-rome_number
-write(rome_number, file="rome_number_v.txt")
+#rome_number<-paste(scan(file ="rom number 1000.txt",what='character'),collapse=" ")
+#rome_number<-tolower(rome_number)
+#rome_number
+#write(rome_number, file="rome_number_v.txt")
 
 
 
@@ -135,6 +135,15 @@ dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "
 
 ## Or keep of these nouns the top 50 based on mean term-frequency-inverse document frequency
 #dtm <- dtm_remove_tfidf(dtm, top = 50)
+
+##########
+# Вариант 1)
+# Convert a DTM to a Character Vector of documents
+library(textmineR)
+dtm.to.list <- Dtm2Docs(dtm = dtm) 
+#############
+
+
 
 ## Convert dtm to a list of text
 dtm.to.list <- apply(dtm, 1, function(x) {
@@ -461,6 +470,6 @@ corrplot(cs.lsa, method = "number")
 ## END 2
 ############################
 
-
-
+#lsa
+associate(lsaMatrix, "gens", measure = "cosine", threshold = 0.7)
 
