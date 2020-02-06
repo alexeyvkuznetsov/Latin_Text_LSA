@@ -333,8 +333,8 @@ lsa.cosine.dist.mat <- as.dist(1 - lsa.cosine.mat)
 ####
 
 
-lsa.cosine.dist.mat <- dist(lsa.cosine.mat)
-lsa.cosine.dist.mat <- dist(lsa.cosine.mat, method = "euclidean")
+#lsa.cosine.dist.mat <- dist(lsa.cosine.mat)
+#lsa.cosine.dist.mat <- dist(lsa.cosine.mat, method = "euclidean")
 
 lsa.cosine.dist.mat
 
@@ -345,8 +345,9 @@ lsa.cosine.dist.mat
 result <- hclust(lsa.cosine.dist.mat, method = "complete")
 #result <- hclust(lsa.cosine.dist.mat, method = 'average')
 
-plot(result, main = " ")
+plot(result, main = "", ylab = "", xlab = "")
 
+#plot(result, main = "Hierarchical clustering of 100 NIH grant abstracts", ylab = "", xlab = "", yaxt = "n")
 
 # https://rpkgs.datanovia.com/factoextra/index.html
 
