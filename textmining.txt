@@ -5,12 +5,14 @@ https://www.youtube.com/watch?v=0gf5iLTbiQM
 https://www.youtube.com/user/Simplilearn
 
 https://www.youtube.com/watch?v=JgrSXeVhclc
+
+Sentiment analysis русскоязычных твитов при помощи TensorFlow
 https://www.youtube.com/watch?v=CDpbJIbDhys
+
 https://www.youtube.com/watch?v=w_XiXmkCUAg
 https://www.youtube.com/watch?v=w_XiXmkCUAg
 https://www.youtube.com/watch?v=7YykViYej4E
 https://www.youtube.com/watch?v=i7TedqX2Eqo
-https://www.youtube.com/watch?v=I9RMwvyzGpM
 https://www.youtube.com/watch?v=SlsWlFmOW4Q&list=PLH--szKPas84tedzK0Ow00RPqn6_T2bIF
 
 UDPIPE
