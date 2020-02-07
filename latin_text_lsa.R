@@ -249,17 +249,17 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=17)
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
-lsa.cosine.mat <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
+lsa.cosine.sim.mat <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
 
-#mat.lsa.cosine <- lsa::cosine(as.textmatrix(lsaSpace)) #Cosine similarity matrix
+#lsa.cosine.sim.mat <- lsa::cosine(as.textmatrix(lsaSpace)) #Cosine similarity matrix
 
-lsa.cosine.mat
+lsa.cosine.sim.mat
 
-#colnames(mat.lsa.cosine) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+#colnames(lsa.cosine.sim.mat) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
-rownames(lsa.cosine.mat) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+rownames(lsa.cosine.sim.mat) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
-round((lsa.cosine.mat), 2) # round the results to a couple of decimals
+round((lsa.cosine.sim.mat), 2) # round the results to a couple of decimals
 
 
 #rownames(lsaSpace$dk) = n
@@ -271,18 +271,18 @@ round((lsa.cosine.mat), 2) # round the results to a couple of decimals
 
 library(corrplot)
 
-#corrplot(lsa.cosine.mat)
+#corrplot(lsa.cosine.sim.mat)
 
 col <- colorRampPalette(c("red", "white", "lightblue")) 
 
-#corrplot(lsa.cosine.mat, method = "number")
+#corrplot(lsa.cosine.sim.mat, method = "number")
 
-corrplot(lsa.cosine.mat, method="color", addCoef.col = "black", col = col(10), tl.srt = 30, tl.col = "black")
+corrplot(lsa.cosine.sim.mat, method="color", addCoef.col = "black", col = col(10), tl.srt = 30, tl.col = "black")
 
 
-#corrplot(lsa.cosine.mat, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
-#corrplot(lsa.cosine.mat, method = "circle", addCoef.col = "black")
-#corrplot(lsa.cosine.mat, method = "number", order = "hclust", hclust.method = "complete")
+#corrplot(lsa.cosine.sim.mat, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
+#corrplot(lsa.cosine.sim.mat, method = "circle", addCoef.col = "black")
+#corrplot(lsa.cosine.sim.mat, method = "number", order = "hclust", hclust.method = "complete")
 
 
 
@@ -290,7 +290,7 @@ corrplot(lsa.cosine.mat, method="color", addCoef.col = "black", col = col(10), t
 # http://www.sthda.com/english/wiki/ggcorrplot-visualization-of-a-correlation-matrix-using-ggplot2
 # https://github.com/kassambara/ggcorrplot
 library(ggcorrplot)
-ggcorrplot(lsa.cosine.mat, lab = TRUE)
+ggcorrplot(lsa.cosine.sim.mat, lab = TRUE)
 
 
 
@@ -329,12 +329,12 @@ ggcorrplot(lsa.cosine.mat, lab = TRUE)
 # https://www.rtextminer.com/articles/b_document_clustering.html
 # We convert cosine similarity to cosine distance by subtracting it from 1. 
 library(textmineR)
-lsa.cosine.dist.mat <- as.dist(1 - lsa.cosine.mat)
+lsa.cosine.dist.mat <- as.dist(1 - lsa.cosine.sim.mat, diag = TRUE, upper = TRUE)
 ####
 
 
-lsa.cosine.dist.mat <- dist(lsa.cosine.mat)
-#lsa.cosine.dist.mat <- dist(lsa.cosine.mat, method = "euclidean")
+lsa.cosine.dist.mat <- dist(lsa.cosine.sim.mat, diag = TRUE, upper = FALSE)
+#lsa.cosine.dist.mat <- dist(lsa.cosine.sim.mat, method = "euclidean")
 
 lsa.cosine.dist.mat
 
