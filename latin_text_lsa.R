@@ -86,14 +86,14 @@ historia$texts <- stripWhitespace(historia$texts)
 ## UDPipe annotation
 #udmodel_latin <- udpipe_download_model(language = "latin_ittb")
 #udmodel_latin <- udpipe_load_model(ud_model$file_model)
-udmodel_latin <- udpipe_load_model(file = "latin-ittb-ud-2.4-190531.udpipe")
+udmodel_latin <- udpipe_load_model(file = "latin-ittb-ud-2.5-191206.udpipe")
 
 x <- udpipe_annotate(udmodel_latin, x = historia$texts, doc_id = historia$book, tagger = "default", parser = "default", trace = TRUE)
 x <- as.data.frame(x)
 
-save(x,file="historia_annotated_dataset.Rda")
+save(x,file="historia_annotated_dataset_2_5.Rda")
 
-load("historia_annotated_dataset.Rda")
+load("historia_annotated_dataset_2_5.Rda")
 
 ## Get a data.frame with 1 row per doc_id/lemma or specific POS tag
 
@@ -140,19 +140,19 @@ dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "
 # Variant 1)
 # Convert a DTM to a Character Vector of documents
 library(textmineR)
-dtm.to.list <- Dtm2Docs(dtm = dtm) 
+dtm.to.docs <- Dtm2Docs(dtm = dtm) 
 #############
 
 
 
 ## Convert dtm to a list of text
-dtm.to.list <- apply(dtm, 1, function(x) {
+dtm.to.docs <- apply(dtm, 1, function(x) {
   paste(rep(names(x), x), collapse=" ")
 })
 
 ## convert list of text to a Corpus
 
-myCorpus <- VCorpus(VectorSource(dtm.to.list))
+myCorpus <- VCorpus(VectorSource(dtm.to.docs))
 inspect(myCorpus)
 
 # Created term-document matrix
@@ -225,13 +225,13 @@ points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 
 colors <- rep(c("blue", "green", "red", "purple", "orange" ))
 
-s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=20, angle = 65, box = FALSE,
+s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=19, angle = 65, box = FALSE,
                      main=" ", xlab="x", ylab="y", zlab="z", type="h")
 legend("top", legend = c("1 Prologus", "2 Historia Gothorum", "3 Recapitulatio", "4 Historia Wandalorum", "5 Historia Suevorum"),
-       col =  c("blue", "green", "red", "purple", "orange"), pch = 16, bty = "n", bg = "transparent",
+       col =  c("blue", "green", "red", "purple", "orange"), pch = 19, bty = "n", bg = "transparent",
        inset = 0.2, xpd = TRUE)
 
-s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=8)
+s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=17)
 
 ####
 ####
