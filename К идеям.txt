@@ -1,4 +1,6 @@
 
+Модели
+https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-3131
 
 Бондарчук Д.В. Использование латентно-семантического анализа в задачах классификации текстов по эмоциональной окраске // Бюллетень результатов научных исследований. 2012. №3 (2). URL: https://cyberleninka.ru/article/n/ispolzovanie-latentno-semanticheskogo-analiza-v-zadachah-klassifikatsii-tekstov-po-emotsionalnoy-okraske (дата обращения: 06.02.2020).
 
