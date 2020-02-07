@@ -131,7 +131,7 @@ head(dtm_colsums(dtm))
 ## Remove nouns which you really do not like (mostly too common nouns)
 #dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "suus", "filius", "multus", "num._rom.", "xnum._rom.", "xstincum", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom."))
 
-dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "aera", "num._rom.", "xnum._rom.", "xstincum", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom.", "cdlxvus", "cdxcnum._rom.", "cdxcus", "cdxix", "cdxlnum._rom.", "cdxlvium", "cdxlvus", "cdxx", "cdxxcvus", "cdxxxnum._rom.", "clxxnum._rom.", "cxiium", "cxx", "dclix", "dcxliix", "dcxlis", "dcxxnum._rom.", "dcxxxix", "dlxnum._rom.", "dlxxxnum._rom.", "dlxxxvus", "dxnum._rom.", "dxxvus"))
+dtm <- dtm_remove_terms(dtm, terms = c("ann", "annus", "aer", "aes", "aera", "num._rom.", "xnum._rom.", "xstincum", "xxnum._rom.", "xxxnum._rom.", "cdxlnum._rom.", "cdlxvus", "cdxcnum._rom.", "cdxcus", "cdxix", "cdxlnum._rom.", "cdxlvium", "cdxlvus", "cdxx", "cdxxcvus", "cdxxxnum._rom.", "clxxnum._rom.", "cxiium", "cxx", "dclix", "dcxliix", "dcxlis", "dcxxnum._rom.", "dcxxxix", "dlxnum._rom.", "dlxxxnum._rom.", "dlxxxvus", "dxnum._rom.", "dxxvus", "obnonum._rom."))
 
 ## Or keep of these nouns the top 50 based on mean term-frequency-inverse document frequency
 #dtm <- dtm_remove_tfidf(dtm, top = 50)
@@ -181,7 +181,7 @@ lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create latent semantic s
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 # =
-lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
+#lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
 #lsaMatrix <- as.textmatrix(mylsa)
 
 lsaMatrix
@@ -255,9 +255,9 @@ lsa.cosine.sim.mat <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
 
 lsa.cosine.sim.mat
 
-#colnames(lsa.cosine.sim.mat) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+#colnames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
-rownames(lsa.cosine.sim.mat) <- c("1. Prolog", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+rownames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
 round((lsa.cosine.sim.mat), 2) # round the results to a couple of decimals
 
@@ -356,7 +356,7 @@ plot(result, main = "", ylab = "", xlab = "")
 library(factoextra)
 
 fviz_dend(result, k = 4, # Cut in 4 groups
-          cex = 0.6, # label size
+          cex = 1, # label size
           main = "  ", xlab = "  ",
           k_colors = c("#2E9FDF", "green", "#E7B800", "#FC4E07"),
           color_labels_by_k = TRUE, # color labels by groups
