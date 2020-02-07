@@ -47,7 +47,7 @@ historia_s$book<-"5 Historia Suevorum"
 
 historia<-rbind(prologus,historia_g,recapitulatio,historia_w,historia_s)
 
-historia$texts <- stripWhitespace(historia$texts)
+#historia$texts <- stripWhitespace(historia$texts)
 historia$texts <- tolower(historia$texts)
 historia$texts <- removePunctuation(historia$texts)
 historia$texts <- removeNumbers(historia$texts)
@@ -137,7 +137,7 @@ dtm <- dtm_remove_terms(dtm, terms = c("ann", "adipio", "annus", "aer", "aes", "
 #dtm <- dtm_remove_tfidf(dtm, top = 50)
 
 ##########
-# Вариант 1)
+# Variant 1)
 # Convert a DTM to a Character Vector of documents
 library(textmineR)
 dtm.to.list <- Dtm2Docs(dtm = dtm) 
@@ -313,7 +313,7 @@ ggcorrplot(lsa.cosine.mat, lab = TRUE)
 # to form the clusters at the next levels. This makes it possible to decide the level at
 # which to cut the tree for generating suitable groups of a data objects.
 
-# Agglomerative clustering works in a вЂњbottom-upвЂќ manner. That is, each object is
+# Agglomerative clustering works in a РІР‚Сљbottom-upРІР‚Сњ manner. That is, each object is
 # initially considered as a single-element cluster (leaf). At each step of the algorithm,
 # the two clusters that are the most similar are combined into a new bigger cluster
 # (nodes). This procedure is iterated until all points are member of just one single big
@@ -325,8 +325,16 @@ ggcorrplot(lsa.cosine.mat, lab = TRUE)
 
 # Dissimilarity matrix
 
-lsa.cosine.dist.mat <- dist(lsa.cosine.mat)
-lsa.cosine.dist.mat <- dist(lsa.cosine.mat, method = "euclidean")
+####
+# https://www.rtextminer.com/articles/b_document_clustering.html
+# We convert cosine similarity to cosine distance by subtracting it from 1. 
+library(textmineR)
+lsa.cosine.dist.mat <- as.dist(1 - lsa.cosine.mat)
+####
+
+
+#lsa.cosine.dist.mat <- dist(lsa.cosine.mat)
+#lsa.cosine.dist.mat <- dist(lsa.cosine.mat, method = "euclidean")
 
 lsa.cosine.dist.mat
 
@@ -337,8 +345,9 @@ lsa.cosine.dist.mat
 result <- hclust(lsa.cosine.dist.mat, method = "complete")
 #result <- hclust(lsa.cosine.dist.mat, method = 'average')
 
-plot(result, main = " ")
+plot(result, main = "", ylab = "", xlab = "")
 
+#plot(result, main = "Hierarchical clustering of 100 NIH grant abstracts", ylab = "", xlab = "", yaxt = "n")
 
 # https://rpkgs.datanovia.com/factoextra/index.html
 
@@ -389,7 +398,7 @@ plot(avg_col_dend)
 
 
 
-# Сравнение методов кластеризации
+# РЎСЂР°РІРЅРµРЅРёРµ РјРµС‚РѕРґРѕРІ РєР»Р°СЃС‚РµСЂРёР·Р°С†РёРё
 
 library(dendextend)
 
@@ -422,7 +431,7 @@ dend2 <- as.dendrogram (hc2)
 # Create a list to hold dendrograms
 dend_list <- dendlist(dend1, dend2)
 
-# Визуализация
+# Р’РёР·СѓР°Р»РёР·Р°С†РёСЏ
 tanglegram(dend1, dend2)
 
 
