@@ -333,10 +333,12 @@ lsa.cosine.dist.mat <- as.dist(1 - lsa.cosine.mat)
 ####
 
 
-#lsa.cosine.dist.mat <- dist(lsa.cosine.mat)
+lsa.cosine.dist.mat <- dist(lsa.cosine.mat)
 #lsa.cosine.dist.mat <- dist(lsa.cosine.mat, method = "euclidean")
 
 lsa.cosine.dist.mat
+
+round((lsa.cosine.dist.mat), 2)
 
 #result <- hclust(lsa.cosine.dist.mat, method = 'average')
 
