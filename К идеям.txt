@@ -1,4 +1,4 @@
-
+  
 Модели
 https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-3131
 
@@ -6,7 +6,10 @@ https://www.cspoerlein.com/files/textanalyse.html#topic_models_and_pos_tagging
 
 
 
+
+
 Бондарчук Д.В. Использование латентно-семантического анализа в задачах классификации текстов по эмоциональной окраске // Бюллетень результатов научных исследований. 2012. №3 (2). URL: https://cyberleninka.ru/article/n/ispolzovanie-latentno-semanticheskogo-analiza-v-zadachah-klassifikatsii-tekstov-po-emotsionalnoy-okraske (дата обращения: 06.02.2020).
+
 
 
 Курицин Сергей Владимирович, Воронин Владимир Митрофанович Исследование оценки понимания нарративных и экспозиторных текстов с применением латентного семантического анализа // СПЖ. 2009. №33. URL: https://cyberleninka.ru/article/n/issledovanie-otsenki-ponimaniya-narrativnyh-i-ekspozitornyh-tekstov-s-primeneniem-latentnogo-semanticheskogo-analiza (дата обращения: 06.02.2020).
@@ -32,6 +35,7 @@ https://www.cspoerlein.com/files/textanalyse.html#topic_models_and_pos_tagging
 быть предложения, параграфы или небольшие тексты целиком (например, эссе
 о содержании текста). ЛСА измеряет сходство между двумя элементами текста с
 помощью косинуса угла между векторами.
+
 
 
 Модель представления текста, используемая в ЛСА, во многом схожа
