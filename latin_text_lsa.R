@@ -18,7 +18,7 @@ library(ggplot2)
 library(scatterplot3d)
 library(corrplot)
 library(factoextra)
-library(textmineR)
+#library(textmineR)
 #library(readr)
 #library(quanteda)
 #library(tidytext)
@@ -128,8 +128,10 @@ dtm <- dtm_remove_terms(dtm, terms = c("ann", "annus", "aer", "aes", "aera", "nu
 tdm <- t(as.matrix(dtm))
 
 
-###################################################
 
+#########################################################################
+### CREATE LATENT SEMANTIC SPACE (TF-IDF)                             ###
+#########################################################################
 # Calculate a weighted term-document matrix according to the chosen local and/or global weighting scheme
 # Calculate a TF-IDF weighted term-document matrix
 
@@ -208,27 +210,21 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=17)
 ### COSINE SIMILARITY IN LATENT SEMANTIC SPACE (TF-IDF)               ###
 #########################################################################
 
-#COSINE similarity of documets in latent semantic space
-# 
-# compute cosine distance matrix
+# compute cosine similarity matrix
 
 lsaMatrix <- as.textmatrix(lsaSpace)
 
 lsa.cosine.sim.mat <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
 
-#lsa.cosine.sim.mat <- lsa::cosine(as.textmatrix(lsaSpace)) #Cosine similarity matrix
-
 lsa.cosine.sim.mat
 
-#colnames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 colnames(lsa.cosine.sim.mat) <- c("1", "2", "3", "4", "5")
+#rownames(lsa.cosine.sim.mat) <- c("1", "2", "3", "4", "5")
 #rownames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
 round((lsa.cosine.sim.mat), 2) # round the results to a couple of decimals
 
 
-#rownames(lsaSpace$dk) = n
-#lsaSpace$dk
 
 
 # Plot cosine similarity matrix
@@ -259,47 +255,25 @@ ggcorrplot(lsa.cosine.sim.mat, lab = TRUE)
 
 
 
+#########################################################################
+### HIERARCHICAL CLUSTERING OF DOCUMENTS                              ###
+#########################################################################
 
-# Hierarchical Clustering in R
-# https://habr.com/ru/company/otus/blog/461741/
-# https://datascienceplus.com/hierarchical-clustering-in-r/
-# https://www.datacamp.com/community/tutorials/hierarchical-clustering-R
-# https://www.rdocumentation.org/packages/pvclust/versions/2.2-0/topics/pvclust
-# https://www.datanovia.com/en/blog/types-of-clustering-methods-overview-and-quick-start-r-code/
-# https://www.datanovia.com/en/courses/hierarchical-clustering-in-r-the-essentials/
-# https://www.datanovia.com/en/blog/cluster-analysis-in-r-practical-guide/
-# https://github.com/shimo-lab/pvclust
-
-# Hierarchical clustering. It creates a hierarchy of clusters, and presents the hierarchy 
-# in a dendrogram. This method does not require the number of clusters to be specified at 
-# the beginning. Distance connectivity between observations is the measure. 
-
-# The dendrogram is a multilevel hierarchy where clusters at one level are joined together
-# to form the clusters at the next levels. This makes it possible to decide the level at
-# which to cut the tree for generating suitable groups of a data objects.
-
-# Agglomerative clustering works in a РІР‚Сљbottom-upРІР‚Сњ manner. That is, each object is
-# initially considered as a single-element cluster (leaf). At each step of the algorithm,
-# the two clusters that are the most similar are combined into a new bigger cluster
-# (nodes). This procedure is iterated until all points are member of just one single big
-# cluster (root) (see figure below)
-# https://en.proft.me/2017/01/29/exploring-hierarchical-clustering-r/
-
-# https://rpubs.com/gaston/dendrograms
-
-
-# Dissimilarity matrix
+# Compute cosine distance matrix
 
 ####
 # https://www.rtextminer.com/articles/b_document_clustering.html
 # We convert cosine similarity to cosine distance by subtracting it from 1. 
-library(textmineR)
+#library(textmineR)
+#rownames(lsa.cosine.sim.mat) <- c("1", "2", "3", "4", "5")
+#rownames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+
 lsa.cosine.dist.mat <- as.dist(1 - lsa.cosine.sim.mat, diag = TRUE, upper = TRUE)
+
+
 ####
 
-
-lsa.cosine.dist.mat <- dist(lsa.cosine.sim.mat, diag = TRUE, upper = FALSE)
-#lsa.cosine.dist.mat <- dist(lsa.cosine.sim.mat, method = "euclidean")
+#lsa.cosine.dist.mat <- dist(lsa.cosine.sim.mat, method = "euclidean", diag = TRUE, upper = FALSE)
 
 lsa.cosine.dist.mat
 
@@ -360,92 +334,4 @@ avg_dend_obj <- as.dendrogram(result)
 avg_col_dend <- color_branches(avg_dend_obj, h = 3)
 plot(avg_col_dend)
 
-
-
-
-
-
-# РЎСЂР°РІРЅРµРЅРёРµ РјРµС‚РѕРґРѕРІ РєР»Р°СЃС‚РµСЂРёР·Р°С†РёРё
-
-library(dendextend)
-
-
-lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create LSA space
-
-lsaMatrix <- as.textmatrix(lsaSpace)
-
-lsa.cosine.mat <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
-
-lsa.cosine.mat
-
-round((lsa.cosine.mat), 2) # round the results to a couple of decimals
-
-lsa.cosine.mat
-
-# Dissimilarity matrix
-# Compute distance matrix
-d <- dist(lsa.cosine.mat, method = "euclidean")
-
-# Compute 2 hierarchical clusterings
-
-hc1 <- hclust(d, method = "average")
-hc2 <- hclust(d, method = "ward.D2")
-
-# # converting to dendogram objects as dendextend works with dendogram objects
-dend1 <- as.dendrogram (hc1)
-dend2 <- as.dendrogram (hc2)
-
-# Create a list to hold dendrograms
-dend_list <- dendlist(dend1, dend2)
-
-# Р’РёР·СѓР°Р»РёР·Р°С†РёСЏ
-tanglegram(dend1, dend2)
-
-
-
-
-
-
-library("cluster")
-set.seed(123)
-# Compute the gap statistic
-gap_stat <- clusGap(lsaMatrix, FUN = kmeans, nstart = 25, k.max = 10, B = 100) 
-# Plot the result
-library(factoextra)
-fviz_gap_stat(gap_stat)
-
-
-
-
-
-############################
-## END
-############################
-
-
-# https://github.com/katyalrajat/corpus_mining/blob/9b805cd229b2f5260bfa1007765b0aa6c992fc8d/code.R
-
-lsaMatrix <- as.textmatrix(lsaSpace)
-
-#Calculate similarity of documents in LSA space
-cosineSim <- function(x){
-  as.dist(x%*%t(x)/(sqrt(rowSums(x^2) %*% t(rowSums(x^2)))))
-}
-
-#Similarity matrix
-cs.lsa <- as.matrix(cosineSim(t(lsaMatrix)))
-write.csv(cs.lsa,"cs_lsa.csv")
-
-library(corrplot)
-corrplot(cs.lsa)
-corrplot(cs.lsa, method = "square")
-corrplot(cs.lsa, method = "number")
-
-
-############################
-## END 2
-############################
-
-#lsa
-associate(lsaMatrix, "gens", measure = "cosine", threshold = 0.7)
 
