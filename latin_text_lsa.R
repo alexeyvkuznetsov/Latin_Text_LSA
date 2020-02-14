@@ -136,6 +136,11 @@ dtm <- dtm_remove_terms(dtm, terms = c("ann", "annus", "aer", "aes", "aera", "nu
 ## Or keep of these nouns the top 50 based on mean term-frequency-inverse document frequency
 #dtm <- dtm_remove_tfidf(dtm, top = 50)
 
+# Create a term-document matrix
+dtm <- as.matrix(dtm)
+tdm <- t(dtm)
+
+
 ##########
 # Variant 1)
 # Convert a DTM to a Character Vector of documents
