@@ -181,7 +181,7 @@ ggplot(points,aes(x=x, y=y)) +
 
 
 #3D plot
-
+#Compute distance between documents and scale the multidimentional semantic space (MDS) onto three dimensions
 library(scatterplot3d)
 
 fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=3)
@@ -204,9 +204,9 @@ s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=17)
 ############
 ###
 ###
-################################################
-### COSINE SIMILARITY (TF-IDF)               ###
-################################################
+#########################################################################
+### COSINE SIMILARITY IN LATENT SEMANTIC SPACE (TF-IDF)               ###
+#########################################################################
 
 #COSINE similarity of documets in latent semantic space
 # 
