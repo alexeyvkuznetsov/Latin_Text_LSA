@@ -115,7 +115,10 @@ library(tidytext)
 
 tdm2 <- cast_dtm(dtf, doc_id, term, freq, weighting = tm::weightTfIdf)
 
+tdm_bm25 <- cast_dtm(dtf, doc_id, term, bm25)
+
 tdm2 <- as.matrix(tdm2)
+tdm2 <- as.matrix(tdm_bm25)
 
 library(tidytext)
 dfm <- cast_dfm(dtf, doc_id, term, freq) # Convert A document_term_frequencies To A DFM
