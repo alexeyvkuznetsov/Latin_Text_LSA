@@ -157,8 +157,8 @@ td_matrix <- t(as.matrix(dtm))
 
 ###################################################
 
-
 # Calculate a weighted term-document matrix according to the chosen local and/or global weighting scheme
+# Calculate a TF-IDF weighted term-document matrix
 
 tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 
@@ -222,7 +222,7 @@ s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=co
                      main=" ", xlab="x", ylab="y", zlab="z", type="h")
 legend("top", legend = c("1 Prologus", "2 Historia Gothorum", "3 Recapitulatio", "4 Historia Wandalorum", "5 Historia Suevorum"),
        col =  c("blue", "green", "red", "purple", "orange"), pch = 19, bty = "n", bg = "transparent",
-       inset = 0.2, xpd = TRUE)
+       inset = 0.1, xpd = TRUE)
 
 s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=17)
 
