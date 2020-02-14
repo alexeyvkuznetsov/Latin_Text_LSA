@@ -104,6 +104,9 @@ dtf <- subset(x, upos %in% c("ADJ", "ADV", "PROPN", "VERB", "NOUN"))
 dtf <- document_term_frequencies(dtf, document = "doc_id", term = "lemma")
 
 
+
+
+
 ############
 dtf <- document_term_frequencies_statistics(dtf)
 
@@ -261,8 +264,8 @@ lsa.cosine.sim.mat <- lsa::cosine(lsaMatrix) #Cosine similarity matrix
 lsa.cosine.sim.mat
 
 #colnames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
-
-rownames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+colnames(lsa.cosine.sim.mat) <- c("1", "2", "3", "4", "5")
+#rownames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
 round((lsa.cosine.sim.mat), 2) # round the results to a couple of decimals
 
