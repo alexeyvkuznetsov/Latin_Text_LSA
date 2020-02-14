@@ -265,7 +265,8 @@ ggcorrplot(lsa.cosine.sim.mat, lab = TRUE)
 # https://www.rtextminer.com/articles/b_document_clustering.html
 # We convert cosine similarity to cosine distance by subtracting it from 1. 
 #library(textmineR)
-#rownames(lsa.cosine.sim.mat) <- c("1", "2", "3", "4", "5")
+
+rownames(lsa.cosine.sim.mat) <- c("1", "2", "3", "4", "5")
 #rownames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
 lsa.cosine.dist.mat <- as.dist(1 - lsa.cosine.sim.mat, diag = TRUE, upper = TRUE)
