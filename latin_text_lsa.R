@@ -148,34 +148,11 @@ dtm <- dtm_remove_terms(dtm, terms = c("ann", "annus", "aer", "aes", "aera", "nu
 #dtm <- dtm_remove_tfidf(dtm, top = 50)
 
 # Create a term-document matrix
-dtm <- as.matrix(dtm)
-tdm <- t(dtm)
+#dtm <- as.matrix(dtm)
+#tdm <- t(dtm)
+#tdm <- t(as.matrix(dtm))
 
-
-##########
-# Variant 1)
-# Convert a DTM to a Character Vector of documents
-library(textmineR)
-dtm.to.docs <- Dtm2Docs(dtm = dtm) 
-#############
-
-
-
-## Convert dtm to a list of text
-dtm.to.docs <- apply(dtm, 1, function(x) {
-  paste(rep(names(x), x), collapse=" ")
-})
-
-## convert list of text to a Corpus
-
-myCorpus <- VCorpus(VectorSource(dtm.to.docs))
-inspect(myCorpus)
-
-# Created term-document matrix
-
-tdm <- TermDocumentMatrix(myCorpus)
-
-td_matrix <- as.matrix(tdm)
+td_matrix <- t(as.matrix(dtm))
 
 
 ###################################################
