@@ -138,9 +138,9 @@ tdm.tfidf <- lw_tf(tdm) * gw_idf(tdm) # weighting
 
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
 # create the latent semantic space
-
-#lsaSpace <- lsa::lsa(tdm, dims=dimcalc_share()) # create latent semantic space
-
+# Non weighted
+lsaSpace <- lsa::lsa(tdm, dims=dimcalc_share()) # create latent semantic space
+#Weighted
 lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create latent semantic space
 
 # display it as a textmatrix again
@@ -148,7 +148,6 @@ lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create latent semantic s
 lsaMatrix <- as.textmatrix(lsaSpace)
 # =
 #lsaMatrix <- diag(lsaSpace$sk) %*% t(lsaSpace$dk)
-#lsaMatrix <- as.textmatrix(mylsa)
 
 lsaMatrix
 
