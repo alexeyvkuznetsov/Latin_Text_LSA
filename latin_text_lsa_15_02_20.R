@@ -104,6 +104,33 @@ dtf <- subset(x, upos %in% c("ADJ", "ADV", "PROPN", "VERB", "NOUN"))
 dtf <- document_term_frequencies(dtf, document = "doc_id", term = "lemma")
 
 
+
+
+
+############
+#Работает
+
+dtf2 <- document_term_frequencies_statistics(dtf)
+library(tidytext)
+
+tdm2 <- cast_dtm(dtf, doc_id, term, freq, weighting = tm::weightTfIdf)
+
+tdm_bm25 <- cast_dtm(dtf, doc_id, term, bm25)
+
+tdm2 <- as.matrix(tdm2)
+tdm2 <- as.matrix(tdm_bm25)
+
+library(tidytext)
+dfm <- cast_dfm(dtf, doc_id, term, freq) # Convert A document_term_frequencies To A DFM
+library(quanteda)
+#mylsa <- textmodel_lsa(dfm) # Construct the LSA model
+dfmlsa <- convert(dfm, to = "lsa") # Convert A Dfm To An Lsa "Textmatrix"
+lsaSpace2 <- lsa::lsa(dfmlsa, dims=dimcalc_share())
+############
+
+
+
+
 ## Create a document-term matrix
 dtm <- document_term_matrix(x = dtf)
 ## Remove words which do not occur that much
@@ -125,7 +152,7 @@ dtm <- dtm_remove_terms(dtm, terms = c("ann", "annus", "aer", "aes", "aera", "nu
 #tdm <- t(dtm)
 #tdm <- t(as.matrix(dtm))
 
-tdm <- t(as.matrix(dtm))
+td_matrix <- t(as.matrix(dtm))
 
 
 ###################################################
@@ -133,13 +160,13 @@ tdm <- t(as.matrix(dtm))
 # Calculate a weighted term-document matrix according to the chosen local and/or global weighting scheme
 # Calculate a TF-IDF weighted term-document matrix
 
-tdm.tfidf <- lw_tf(tdm) * gw_idf(tdm) # weighting
+tdm.tfidf <- lw_tf(td_matrix) * gw_idf(td_matrix) # weighting
 
 
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
 # create the latent semantic space
 
-#lsaSpace <- lsa::lsa(tdm, dims=dimcalc_share()) # create latent semantic space
+#lsaSpace <- lsa::lsa(td_matrix, dims=dimcalc_share()) # create latent semantic space
 
 lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create latent semantic space
 
