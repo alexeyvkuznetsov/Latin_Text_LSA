@@ -25,9 +25,6 @@ library(factoextra)
 #library(quanteda)
 #library(tidytext)
 
-#n = list.files("files/")
-#wiki_docs = Corpus(DirSource("files/"))
-
 
 prologus<-paste(scan(file ="files/01 prologus.txt",what='character'),collapse=" ")
 historia_g<-paste(scan(file ="files/02 historia_g.txt",what='character'),collapse=" ")
