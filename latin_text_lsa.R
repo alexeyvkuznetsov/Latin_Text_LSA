@@ -46,10 +46,11 @@ historia_s$book<-"5 Historia Suevorum"
 
 historia<-rbind(prologus,historia_g,recapitulatio,historia_w,historia_s)
 
-#historia$texts <- stripWhitespace(historia$texts)
+
 historia$texts <- tolower(historia$texts)
 historia$texts <- removePunctuation(historia$texts)
 historia$texts <- removeNumbers(historia$texts)
+historia$texts <- stripWhitespace(historia$texts)
 
 # Stopwords
 
