@@ -159,9 +159,7 @@ lsaMatrix
 ############
 # Begining
 ############
-############
-####
-####
+
 
 # Example from: Mastering Text Mining with R 
 # https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
@@ -203,12 +201,7 @@ legend("top", legend = c("1 Prologus", "2 Historia Gothorum", "3 Recapitulatio",
 
 s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=17)
 
-####
-####
-############
-############
-###
-###
+
 #########################################################################
 ### COSINE SIMILARITY IN LATENT SEMANTIC SPACE (TF-IDF)               ###
 #########################################################################
