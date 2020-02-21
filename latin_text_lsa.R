@@ -160,9 +160,9 @@ lsaMatrix <- as.textmatrix(lsaSpace)
 
 lsaMatrix
 
-############
-# Begining
-############
+#########################################################################
+### LATENT SEMANTIC ANALYSIS                                          ###
+#########################################################################
 
 
 # Example from: Mastering Text Mining with R 
