@@ -2,7 +2,7 @@
 ##################################################################
 ##  The computer analysis of Latin texts:                       ##
 ##  Latent Semantic Analysis of “Historia de regibus Gothorum,  ##
-##  Wandalorum et Suevorum” by Isidore of Seville               ##
+##  Wandalorum et Suevorum” by Isidore of Seville.              ##
 ##  Author: Alexey Kuznetsov                                    ##
 ##  URL: https://github.com/alexeyvkuznetsov/Latin_Text_LSA     ##
 ##       https://alexeyvkuznetsov.github.io                     ##
@@ -52,7 +52,9 @@ historia$texts <- removePunctuation(historia$texts)
 historia$texts <- removeNumbers(historia$texts)
 historia$texts <- stripWhitespace(historia$texts)
 
-# Stopwords
+#########################################################################
+### STOPWORDS                                                         ###
+#########################################################################
 
 #rome_number<-paste(scan(file ="rom number 1000.txt",what='character'),collapse=" ")
 #rome_number<-tolower(rome_number)
@@ -82,8 +84,10 @@ historia$texts <- removeWords(historia$texts, MyStopwords)
 historia$texts <- stripWhitespace(historia$texts)
 
 
+#########################################################################
+### UDPipe ANNOTATION                                                 ###
+#########################################################################
 
-## UDPipe annotation
 #udmodel_latin <- udpipe_download_model(language = "latin_ittb")
 #udmodel_latin <- udpipe_load_model(ud_model$file_model)
 udmodel_latin <- udpipe_load_model(file = "latin-ittb-ud-2.5-191206.udpipe")
