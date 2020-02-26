@@ -267,7 +267,7 @@ ggcorrplot(lsa.cosine.sim.mat, lab = TRUE)
 #library(textmineR)
 
 rownames(lsa.cosine.sim.mat) <- c("1", "2", "3", "4", "5")
-#rownames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
+rownames(lsa.cosine.sim.mat) <- c("1. Prologus", "2. Historia Gothorum", "3. Recapitulatio", "4. Historia Wandalorum", "5. Historia Suevorum")
 
 lsa.cosine.dist.mat <- as.dist(1 - lsa.cosine.sim.mat, diag = TRUE, upper = TRUE)
 
@@ -280,6 +280,7 @@ lsa.cosine.dist.mat
 
 round((lsa.cosine.dist.mat), 2)
 
+lsa.cosine.dist.mat.round <- as.matrix(round((lsa.cosine.dist.mat), 2))
 #result <- hclust(lsa.cosine.dist.mat, method = 'average')
 
 # Hierarchical clustering using Complete Linkage
