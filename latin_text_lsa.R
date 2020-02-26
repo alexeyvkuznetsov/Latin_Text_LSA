@@ -224,7 +224,7 @@ colnames(lsa.cosine.sim.mat) <- c("1", "2", "3", "4", "5")
 
 round((lsa.cosine.sim.mat), 2) # round the results to a couple of decimals
 
-
+lsa.cosine.sim.mat.round <- as.matrix(round((lsa.cosine.sim.mat), 2))
 
 
 # Plot cosine similarity matrix
