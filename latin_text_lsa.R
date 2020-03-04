@@ -281,7 +281,6 @@ lsa.cosine.dist.mat
 round((lsa.cosine.dist.mat), 2)
 
 lsa.cosine.dist.mat.round <- as.matrix(round((lsa.cosine.dist.mat), 2))
-#result <- hclust(lsa.cosine.dist.mat, method = 'average')
 
 # Hierarchical clustering using Complete Linkage
 
