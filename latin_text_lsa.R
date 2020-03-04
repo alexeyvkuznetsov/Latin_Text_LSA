@@ -225,6 +225,7 @@ round((lsa.cosine.sim.mat), 2) # round the results to a couple of decimals
 
 lsa.cosine.sim.mat.round <- as.matrix(round((lsa.cosine.sim.mat), 2))
 
+lsa.cosine.sim.mat.round 
 
 # Plot cosine similarity matrix
 # https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html
