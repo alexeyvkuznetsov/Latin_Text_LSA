@@ -53,7 +53,7 @@ historia$texts <- removeNumbers(historia$texts)
 historia$texts <- stripWhitespace(historia$texts)
 
 #########################################################################
-### STOPWORDS                                                         ###
+### REMOVE STOPWORDS                                                  ###
 #########################################################################
 
 #rome_number<-paste(scan(file ="rom number 1000.txt",what='character'),collapse=" ")
