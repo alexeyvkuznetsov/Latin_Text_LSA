@@ -151,6 +151,8 @@ tdm.tfidf <- lw_tf(tdm) * gw_idf(tdm) # tf-idf weighting
 lsaSpace <- lsa::lsa(tdm, dims=dimcalc_share()) # create latent semantic space
 #Weighted
 lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create latent semantic space
+lsaSpace <- lsa::lsa(tdm.tfidf, dims=3) # create latent semantic space
+
 
 # display it as a textmatrix again
 
@@ -160,9 +162,36 @@ lsaMatrix <- as.textmatrix(lsaSpace)
 
 lsaMatrix
 
+
+
 lsaSpace$dk
 docmatrix <- as.matrix(lsaSpace$dk)
 
+#########################
+# This command will show the value-weighted matrix of Terms
+tk2 = t(lsaSpace$sk * t(lsaSpace$tk))
+tk2
+
+
+#########################
+# This command will show the value-weighted matrix of Documents
+dk2 = t(lsaSpace$sk * t(lsaSpace$dk))
+dk2
+
+
+#########################
+miniLSAspace3 <- lsa(TDM2, dims=3) 
+tk3 = t(lsaSpace3$sk * t(lsaSpace3$tk)) 
+tk3 
+
+#########################
+# The two lines of code must be run together. The first line of code creates a plot of the first two 
+# dimensions of $tk, marking the dots as red dots. The second line superimposes term names. 
+plot(tk2[,1], y= tk2[,2], col="red", cex=.50, main="TK Plot")
+text(tk2[,1], y= tk2[,2], labels=rownames(tk2) , cex=.70)
+# This can be done with the documents too. The added parameter cex determines text size. 
+plot(dk2[,1], y= dk2[,2], col="blue", pch="+", main="DK Plot")
+text(dk2[,1], y= dk2[,2], labels=rownames(dk2), cex=.70)
 
 #########################################################################
 ### LATENT SEMANTIC ANALYSIS                                          ###
