@@ -161,7 +161,7 @@ lsaMatrix <- as.textmatrix(lsaSpace)
 lsaMatrix
 
 lsaSpace$dk
-
+docmatrix <- as.matrix(lsaSpace$dk)
 
 
 #########################################################################
