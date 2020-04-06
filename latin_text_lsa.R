@@ -163,9 +163,12 @@ lsaMatrix <- as.textmatrix(lsaSpace)
 lsaMatrix
 
 
+# https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
+
 
 lsaSpace$dk
 docmatrix <- as.matrix(lsaSpace$dk)
+dk <- as.matrix(lsaSpace$dk)
 
 #########################
 # This command will show the value-weighted matrix of Terms
@@ -180,7 +183,7 @@ dk2
 
 
 #########################
-miniLSAspace3 <- lsa(TDM2, dims=3) 
+lsaSpace3 <- lsa(tdm, dims=3) 
 tk3 = t(lsaSpace3$sk * t(lsaSpace3$tk)) 
 tk3 
 
@@ -193,6 +196,9 @@ text(tk2[,1], y= tk2[,2], labels=rownames(tk2) , cex=.70)
 plot(dk2[,1], y= dk2[,2], col="blue", pch="+", main="DK Plot")
 text(dk2[,1], y= dk2[,2], labels=rownames(dk2), cex=.70)
 
+plot(dk[,1], y= dk[,2], col="blue", pch="+", main="DK Plot")
+text(dk[,1], y= dk[,2], labels=rownames(dk), cex=.70)
+
 #########################################################################
 ### LATENT SEMANTIC ANALYSIS                                          ###
 #########################################################################
@@ -200,7 +206,7 @@ text(dk2[,1], y= dk2[,2], labels=rownames(dk2), cex=.70)
 
 # Example from: Mastering Text Mining with R 
 # https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
-#Compute distance between documents and scale the multidimentional semantic space (MDS) onto two dimensions
+# Compute distance between documents and scale the multidimentional semantic space (MDS) onto two dimensions
 
 #dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
 
