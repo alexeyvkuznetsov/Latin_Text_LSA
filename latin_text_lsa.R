@@ -141,7 +141,7 @@ tdm <- t(as.matrix(dtm))
 # Calculate a weighted term-document matrix according to the chosen local and/or global weighting scheme
 # Calculate a TF-IDF weighted term-document matrix
 
-tdm.tfidf <- lw_tf(tdm) * gw_idf(tdm) # weighting
+tdm.tfidf <- lw_tf(tdm) * gw_idf(tdm) # tf-idf weighting
 
 
 # Calculate the latent semantic space for the give document-term matrix and create lsaSpace:
