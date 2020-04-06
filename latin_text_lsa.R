@@ -86,6 +86,7 @@ historia$texts <- stripWhitespace(historia$texts)
 
 #########################################################################
 ### UDPipe ANNOTATION                                                 ###
+### http://ufal.mff.cuni.cz/udpipe/models/                            ###
 #########################################################################
 
 #udmodel_latin <- udpipe_download_model(language = "latin_ittb")
