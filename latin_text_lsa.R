@@ -151,7 +151,7 @@ tdm.tfidf <- lw_tf(tdm) * gw_idf(tdm) # tf-idf weighting
 lsaSpace <- lsa::lsa(tdm, dims=dimcalc_share()) # create latent semantic space
 #Weighted
 lsaSpace <- lsa::lsa(tdm.tfidf, dims=dimcalc_share()) # create latent semantic space
-lsaSpace <- lsa::lsa(tdm.tfidf, dims=3) # create latent semantic space
+lsaSpace <- lsa::lsa(tdm.tfidf, dims=5) # create latent semantic space
 
 
 # display it as a textmatrix again
