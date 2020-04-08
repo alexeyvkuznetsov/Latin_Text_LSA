@@ -231,7 +231,7 @@ ggplot(points,aes(x=x, y=y)) +
 #p <- ggplot(points,aes(x=x, y=y)) + 
 #  geom_point(data=points,aes(x=x, y=y, col=Documents), size = 3) + 
 #  geom_text(data=points,aes(x=x, y=y-3, label=row.names(historia)))
-
+#ggplot_build(p)$data
 
 #geom_point(colour = c("blue", "green", "red", "purple", "orange"), size = 3)
 
