@@ -220,10 +220,8 @@ fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=2) # Classical (Metric) Multidimension
 
 points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 
-Documents = c("1 Prologus", "2 Historia Gothorum", "3 Recapitulatio", "4 Historia Wandalorum", "5 Historia Suevorum")
-
 ggplot(points,aes(x=x, y=y)) + 
-  geom_point(data=points,aes(x=x, y=y, color=Documents)) + 
+  geom_point(data=points,aes(x=x, y=y, color=historia$book)) + 
   geom_text(data=points,aes(x=x, y=y-2, label=row.names(historia)))
 
 
