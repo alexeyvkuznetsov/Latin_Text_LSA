@@ -223,10 +223,17 @@ points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 Documents = c("1 Prologus", "2 Historia Gothorum", "3 Recapitulatio", "4 Historia Wandalorum", "5 Historia Suevorum")
 
 ggplot(points,aes(x=x, y=y)) + 
-  geom_point(data=points,aes(x=x, y=y, color=Documents), size = 3) + 
+  geom_point(data=points,aes(x=x, y=y, col=Documents), size = 3) + 
   geom_text(data=points,aes(x=x, y=y-3, label=row.names(historia)))
 
-geom_point(colour = c("blue", "green", "red", "purple", "orange"), size = 3)
+
+
+p <- ggplot(points,aes(x=x, y=y)) + 
+  geom_point(data=points,aes(x=x, y=y, col=Documents), size = 3) + 
+  geom_text(data=points,aes(x=x, y=y-3, label=row.names(historia)))
+
+
+#geom_point(colour = c("blue", "green", "red", "purple", "orange"), size = 3)
 
 #3D plot
 #Compute distance between documents and scale the multidimentional semantic space (MDS) onto three dimensions
@@ -236,13 +243,13 @@ fit <- cmdscale(dist.mat.lsa, eig=TRUE, k=3)
 
 points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 
-colors <- rep(c("blue", "green", "red", "purple", "orange" ))
+colors <- rep(c("#F8766D", "#A3A500", "#00BF7D", "#00B0F6", "#E76BF3"))
 
 s3d <- scatterplot3d(fit$points[, 1], fit$points[, 2], fit$points[, 3], color=colors, pch=19, angle = 65, box = FALSE,
                      main=" ", xlab="x", ylab="y", zlab="z", type="h")
 legend("top", legend = c("1 Prologus", "2 Historia Gothorum", "3 Recapitulatio", "4 Historia Wandalorum", "5 Historia Suevorum"),
-       col =  c("blue", "green", "red", "purple", "orange"), pch = 19, bty = "n", bg = "transparent",
-       inset = 0.1, xpd = TRUE)
+       col =  c("#F8766D", "#A3A500", "#00BF7D", "#00B0F6", "#E76BF3"), pch = 19, bty = "n", bg = "transparent",
+       inset = 0.05, xpd = TRUE)
 
 s3d$points3d(seq(0,0,0), seq(0,0,0), seq(0,0,0), col="red", type="h", pch=17)
 
