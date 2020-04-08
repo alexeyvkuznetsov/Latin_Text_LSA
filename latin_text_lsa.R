@@ -223,10 +223,10 @@ points <- data.frame(x=fit$points[, 1], y=fit$points[, 2])
 Documents = c("1 Prologus", "2 Historia Gothorum", "3 Recapitulatio", "4 Historia Wandalorum", "5 Historia Suevorum")
 
 ggplot(points,aes(x=x, y=y)) + 
-  geom_point(data=points,aes(x=x, y=y, color=Documents)) + 
-  geom_text(data=points,aes(x=x, y=y-2, label=row.names(historia)))
+  geom_point(data=points,aes(x=x, y=y, color=Documents), size = 3) + 
+  geom_text(data=points,aes(x=x, y=y-3, label=row.names(historia)))
 
-
+geom_point(colour = c("blue", "green", "red", "purple", "orange"), size = 3)
 
 #3D plot
 #Compute distance between documents and scale the multidimentional semantic space (MDS) onto three dimensions
