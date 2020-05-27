@@ -228,13 +228,6 @@ ggplot(points,aes(x=x, y=y)) +
 
 
 
-#p <- ggplot(points,aes(x=x, y=y)) + 
-#  geom_point(data=points,aes(x=x, y=y, col=Documents), size = 3) + 
-#  geom_text(data=points,aes(x=x, y=y-3, label=row.names(historia)))
-#ggplot_build(p)$data
-
-#geom_point(colour = c("blue", "green", "red", "purple", "orange"), size = 3)
-
 #3D plot
 #Compute distance between documents and scale the multidimentional semantic space (MDS) onto three dimensions
 library(scatterplot3d)
@@ -289,10 +282,6 @@ col <- colorRampPalette(c("red", "white", "lightblue"))
 
 corrplot(lsa.cosine.sim.mat, method="color", addCoef.col = "black", col = col(10), tl.srt = 30, tl.col = "black")
 
-
-#corrplot(lsa.cosine.sim.mat, method="color", addCoef.col = "black", col = col(10), cl.pos = "b", tl.srt = 30, tl.col = "black")
-#corrplot(lsa.cosine.sim.mat, method = "circle", addCoef.col = "black")
-#corrplot(lsa.cosine.sim.mat, method = "number", order = "hclust", hclust.method = "complete")
 
 
 
@@ -361,27 +350,5 @@ fviz_dend(result, rect = TRUE) # dendrogam
 
 fviz_silhouette(result) # silhouette plot
 
-require("igraph")
-fviz_dend(result, k = 4, k_colors = "jco",
-          type = "phylogenic", repel = TRUE)
-
-
-
-require("igraph")
-fviz_dend(result, k = 4, # Cut in four groups
-          cex = 1, # label size
-          #k_colors = "jco",
-          k_colors = c("#2E9FDF", "#00AFBB", "#E7B800", "#FC4E07"),
-          type = "phylogenic", repel = TRUE,
-          phylo_layout = "layout.gem")
-
-
-
-
-
-library(dendextend)
-avg_dend_obj <- as.dendrogram(result)
-avg_col_dend <- color_branches(avg_dend_obj, h = 3)
-plot(avg_col_dend)
 
 
