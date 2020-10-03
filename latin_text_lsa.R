@@ -1,8 +1,8 @@
 #########################################################################
 #########################################################################
 ##  The computer analysis of Latin texts:                              ##
-##  Latent Semantic Analysis of “Historia de regibus Gothorum,         ##
-##  Wandalorum et Suevorum” by Isidore of Seville.                     ##
+##  Latent Semantic Analysis of 'Historia de regibus Gothorum,         ##
+##  Wandalorum et Suevorum' by Isidore of Seville.                     ##
 ##  Author: Alexey Kuznetsov                                           ##
 ##  URL: https://github.com/alexeyvkuznetsov/Latin_Text_LSA            ##
 ##       https://alexeyvkuznetsov.github.io                            ##
