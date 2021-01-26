@@ -103,3 +103,8 @@ lat_stop_cltk_borda <- c("et", "in", "est", "non", "ad", "ut", "quod", "cum", "q
 ## https://github.com/stopwords-iso/stopwords-la
 
 lat_stop_iso <- c("a","ab","ac","ad","at","atque","aut","autem","cum","de","dum","e","erant","erat","est","et","etiam","ex","haec","hic","hoc","in","ita","me","nec","neque","non","per","qua","quae","quam","qui","quibus","quidem","quo","quod","re","rebus","rem","res","sed","si","sic","sunt","tamen","tandem","te","ut","vel")
+
+
+# https://www.r-bloggers.com/2020/12/playing-with-roman-numerals/
+# Playing with Roman numerals
+

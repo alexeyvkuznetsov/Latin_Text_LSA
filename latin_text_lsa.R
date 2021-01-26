@@ -134,7 +134,6 @@ dtm <- dtm_remove_terms(dtm, terms = c("ann", "annus", "aer", "aes", "aera", "nu
 tdm <- t(as.matrix(dtm))
 
 
-
 #########################################################################
 ### CREATE LATENT SEMANTIC SPACE (TF-IDF)                             ###
 #########################################################################
