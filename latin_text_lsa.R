@@ -203,7 +203,7 @@ text(dk[,1], y= dk[,2], labels=rownames(dk), cex=.70)
 
 
 # Example from: Mastering Text Mining with R 
-# https://github.com/pmtempone/tec_semantica/blob/627f79c01389a39ba07621c90e695336268e424c/tec_semantica_R/ls.R
+# https://github.com/pmtempone/tec_semantica/blob/master/tec_semantica_R/ls.R
 # Compute distance between documents and scale the multidimentional semantic space (MDS) onto two dimensions
 
 #dist.mat.lsa <- dist(t(as.textmatrix(lsaSpace))) # compute distance matrix
