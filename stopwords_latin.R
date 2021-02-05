@@ -118,14 +118,17 @@ library(quanteda)
 russianStopwords <- quanteda::stopwords("ru", source = "snowball")
 # 145 слов
 #russianStopwords <- quanteda::stopwords("ru", source = "nltk")
+# 556 слов
+#russianStopwords <- quanteda::stopwords("ru", source = "stopwords-iso")
 
 russianStopwords
 # здесь дополнительные стоп-слова из источника в виде вектора
 customStopWords <- c("хахаха", "ггг", "ддд")
 
+# объединяем два набора
 MyStopwords <- c(russianStopwords, customStopWords)
 
-require(tm)
+library(tm)
 
 text1 <- "К стоп - словам (или шумовым словам), как правило, относят предлоги, союзы, междометия, частицы и другие части речи, которые часто встречаются в тексте, являются служебными и не несут смысловой нагрузки - являются избыточными. "
 
