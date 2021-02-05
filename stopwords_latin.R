@@ -126,7 +126,9 @@ MyStopwords <- c(russianStopwords, customStopWords)
 
 require(tm)
 
-texts <- removeWords(texts, MyStopwords)
+text <- 
+
+text <- removeWords(texts, MyStopwords)
 
 
 
