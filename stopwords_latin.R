@@ -116,10 +116,11 @@ library(quanteda)
 
 # 154 слова
 russianStopwords <- quanteda::stopwords("ru", source = "snowball")
+# 145 слов
 #russianStopwords <- quanteda::stopwords("ru", source = "nltk")
 
 russianStopwords
-# здесь дополнительные стоп-слова
+# здесь дополнительные стоп-слова из источника в виде вектора
 customStopWords <- c("хахаха", "ггг", "ддд")
 
 MyStopwords <- c(russianStopwords, customStopWords)
@@ -132,12 +133,10 @@ text2 <- tolower(text1)
 text2 <- removePunctuation(text2)
 text2 <- removeNumbers(text2)
 
-
 text2 <- removeWords(text2, MyStopwords)
 
 text2 <- stripWhitespace(text2)
 
-text2
 
 
 
