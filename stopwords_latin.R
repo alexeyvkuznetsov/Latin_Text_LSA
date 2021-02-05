@@ -126,12 +126,18 @@ MyStopwords <- c(russianStopwords, customStopWords)
 
 require(tm)
 
-text <- 
+text1 <- "К стоп - словам (или шумовым словам), как правило, относят предлоги, союзы, междометия, частицы и другие части речи, которые часто встречаются в тексте, являются служебными и не несут смысловой нагрузки - являются избыточными. "
 
-text <- removeWords(texts, MyStopwords)
+text2 <- tolower(text1)
+text2 <- removePunctuation(text2)
+text2 <- removeNumbers(text2)
 
 
+text2 <- removeWords(text2, MyStopwords)
 
+text2 <- stripWhitespace(text2)
+
+text2
 
 
 
