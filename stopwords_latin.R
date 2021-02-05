@@ -109,7 +109,18 @@ lat_stop_iso <- c("a","ab","ac","ad","at","atque","aut","autem","cum","de","dum"
 # Playing with Roman numerals
 
 
+library(quanteda)
+
+russianStopwords <- quanteda::stopwords("ru", source = "snowball")
+#russianStopwords <- quanteda::stopwords("ru", source = "nltk")
+russianStopwords
+
+require(tm)
 
 
+stopwords::stopwords_getsources()
 
+latinStopwords <- quanteda::stopwords("la", source = "perseus")
+latinStopwords
+latinStopwords <- quanteda::stopwords("la", source = "ancient")
 
