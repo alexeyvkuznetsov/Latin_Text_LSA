@@ -109,13 +109,32 @@ lat_stop_iso <- c("a","ab","ac","ad","at","atque","aut","autem","cum","de","dum"
 # Playing with Roman numerals
 
 
+
+
+
 library(quanteda)
 
+# 154 слова
 russianStopwords <- quanteda::stopwords("ru", source = "snowball")
 #russianStopwords <- quanteda::stopwords("ru", source = "nltk")
+
 russianStopwords
+# здесь дополнительные стоп-слова
+customStopWords <- c("хахаха", "ггг", "ддд")
+
+MyStopwords <- c(russianStopwords, customStopWords)
 
 require(tm)
+
+texts <- removeWords(texts, MyStopwords)
+
+
+
+
+
+
+
+
 
 
 stopwords::stopwords_getsources()
